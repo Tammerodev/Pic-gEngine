@@ -2,4 +2,5 @@
 
 struct picg_vertex3F {
     float x, y, z;
+    float r, g, b, a;
 };
