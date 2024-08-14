@@ -8,4 +8,3 @@
 #endif
 
 void picg_window_create(int windowSizeX, int windowSizeY, const char* windowTitle);
-void picg_event_handle();

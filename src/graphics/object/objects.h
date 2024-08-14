@@ -2,5 +2,5 @@
 #include "mesh.h"
 
 // Simple cube
-struct picg_mesh* picg_cube_create();
-struct picg_mesh* picg_cube_destroy();
+picg_mesh* picg_cube_create();
+void picg_cube_destroy(picg_mesh* mesh);

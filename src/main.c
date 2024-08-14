@@ -12,14 +12,14 @@ int main(int argc, char** argv)
     picg_gl_init3D();
     picg_gl_setClearColor(0.2, 0.1, 0.3, 1.0);
 
-    struct picg_mesh* cube = picg_cube_create();  
+    picg_mesh* cube = picg_cube_create();  
+    //cube->position.z = -1.f;
 
     for(;;) {
-        glClear(GL_COLOR_BUFFER_BIT);  // Clear the color buffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear the color buffer
 
         picg_mesh_render(cube);
 
-        picg_event_handle();
 
         glFlush();  // Render now
     }

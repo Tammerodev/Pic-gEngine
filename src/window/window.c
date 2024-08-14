@@ -40,15 +40,10 @@ void picg_window_create(int windowSizeX, int windowSizeY, const char* windowTitl
     // Create an OpenGL context
     glxContext = glXCreateContext(display, visualInfo, NULL, GL_TRUE);
     glXMakeCurrent(display, window, glxContext);
+
+    XNextEvent(display, &event);
 }
 
-void picg_event_handle() 
-{
-    XNextEvent(display, &event);
-    if (event.type == Expose) {
-        
-    }
-}
 
 int picg_window_created() 
 {
