@@ -7,21 +7,46 @@
 
 Display* display = NULL;
 Window* window = NULL;
+GLXContext glxContext;
+XVisualInfo *visualInfo;
+Colormap colormap;
+XSetWindowAttributes winAttr;
 XEvent event;
 
-void picg_create_window(int windowSizeX, int windowSizeY) 
+
+void picg_window_create(int windowSizeX, int windowSizeY, const char* windowTitle) 
 {
     display = XOpenDisplay(NULL);
-    window = XCreateSimpleWindow(display, DefaultRootWindow(display), 100, 100, windowSizeX, windowSizeY, 1, BlackPixel(display, 0), WhitePixel(display, 0));
+
+    // Choose a visual that supports OpenGL
+    static int visualAttribs[] = {
+        GLX_RGBA, GLX_DEPTH_SIZE, 24, None
+    };
+    visualInfo = glXChooseVisual(display, DefaultScreen(display), visualAttribs);
+
+    // Create a colormap
+    colormap = XCreateColormap(display, RootWindow(display, visualInfo->screen), visualInfo->visual, AllocNone);
+    winAttr.colormap = colormap;
+    winAttr.event_mask = ExposureMask | KeyPressMask;
+
+    // Create an X11 window
+    window = XCreateWindow(display, RootWindow(display, visualInfo->screen),
+                           0, 0, windowSizeX, windowSizeY, 0, visualInfo->depth, InputOutput,
+                           visualInfo->visual, CWColormap | CWEventMask, &winAttr);
+
     XMapWindow(display, window);
-    XSelectInput(display, window, ExposureMask);
+    XStoreName(display, window, windowTitle);
 
+    // Create an OpenGL context
+    glxContext = glXCreateContext(display, visualInfo, NULL, GL_TRUE);
+    glXMakeCurrent(display, window, glxContext);
+}
 
-    for (int t = 0;;t++) {
-        XNextEvent(display, &event);
-        if (event.type == Expose) {
-            XDrawString(display, window, DefaultGC(display, 0), 100, 100, "Test.", 5);
-        }
+void picg_event_handle() 
+{
+    XNextEvent(display, &event);
+    if (event.type == Expose) {
+        
     }
 }
 

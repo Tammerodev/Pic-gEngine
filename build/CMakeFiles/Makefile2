@@ -81,12 +81,12 @@ clean: CMakeFiles/Pic-g.dir/clean
 CMakeFiles/Pic-g.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=1,2,3 "Built target Pic-g"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target Pic-g"
 .PHONY : CMakeFiles/Pic-g.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Pic-g.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lauri/Documents/Pic-gEngine/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lauri/Documents/Pic-gEngine/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Pic-g.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/lauri/Documents/Pic-gEngine/build/CMakeFiles 0
 .PHONY : CMakeFiles/Pic-g.dir/rule

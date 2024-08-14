@@ -3,6 +3,11 @@
         "os.h": "c",
         "xlib.h": "c",
         "vector2d.h": "c",
-        "window.h": "c"
+        "window.h": "c",
+        "vector3d.h": "c",
+        "glu.h": "c",
+        "vertex3d.h": "c",
+        "graphicsgl.h": "c",
+        "stdio.h": "c"
     }
 }

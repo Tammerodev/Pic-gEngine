@@ -7,4 +7,6 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 # Link libraries to the executable
 target_link_libraries(${PROJECT_NAME} PRIVATE
     X11
+    GL
+    GLU
 )

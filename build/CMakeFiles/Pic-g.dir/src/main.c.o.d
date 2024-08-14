@@ -22,16 +22,21 @@ CMakeFiles/Pic-g.dir/src/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
- /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/GL/gl.h \
+ /usr/include/GL/glext.h /usr/include/KHR/khrplatform.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /home/lauri/Documents/Pic-gEngine/src/window/window.h \
  /home/lauri/Documents/Pic-gEngine/src/window/../PREPROCESSOR/OS.h \
  /home/lauri/Documents/Pic-gEngine/src/window/../math/vector2D.h \
- /usr/include/X11/Xlib.h /usr/include/x86_64-linux-gnu/sys/types.h \
+ /usr/include/GL/glx.h /usr/include/X11/Xlib.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-intn.h /usr/include/endian.h \
+ /usr/include/x86_64-linux-gnu/bits/types/timer_t.h /usr/include/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endianness.h \
  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
@@ -48,4 +53,12 @@ CMakeFiles/Pic-g.dir/src/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/X11/X.h \
- /usr/include/X11/Xfuncproto.h /usr/include/X11/Xosdefs.h
+ /usr/include/X11/Xfuncproto.h /usr/include/X11/Xosdefs.h \
+ /usr/include/X11/Xutil.h /usr/include/X11/keysym.h \
+ /usr/include/X11/keysymdef.h /usr/include/GL/glxext.h \
+ /usr/include/inttypes.h \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/graphicsGL.h \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/object/objects.h \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/object/mesh.h \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/object/../../math/vertex3D.h \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/object/../../math/vector3D.h

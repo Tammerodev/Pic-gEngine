@@ -1,10 +1,11 @@
 #pragma once
 #include "../PREPROCESSOR/OS.h"
 #include "../math/vector2D.h"
+#include "GL/glx.h"
 
 #if LINUX
 #include <X11/Xlib.h>
 #endif
 
-void picg_create_window(int windowSizeX, int windowSizeY);
-int picg_window_created();
+void picg_window_create(int windowSizeX, int windowSizeY, const char* windowTitle);
+void picg_event_handle();

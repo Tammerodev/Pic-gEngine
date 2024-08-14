@@ -129,6 +129,78 @@ Pic-g/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/build
 .PHONY : Pic-g/fast
 
+src/graphics/initGL.o: src/graphics/initGL.c.o
+.PHONY : src/graphics/initGL.o
+
+# target to build an object file
+src/graphics/initGL.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o
+.PHONY : src/graphics/initGL.c.o
+
+src/graphics/initGL.i: src/graphics/initGL.c.i
+.PHONY : src/graphics/initGL.i
+
+# target to preprocess a source file
+src/graphics/initGL.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/initGL.c.i
+.PHONY : src/graphics/initGL.c.i
+
+src/graphics/initGL.s: src/graphics/initGL.c.s
+.PHONY : src/graphics/initGL.s
+
+# target to generate assembly for a file
+src/graphics/initGL.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/initGL.c.s
+.PHONY : src/graphics/initGL.c.s
+
+src/graphics/object/cube.o: src/graphics/object/cube.c.o
+.PHONY : src/graphics/object/cube.o
+
+# target to build an object file
+src/graphics/object/cube.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o
+.PHONY : src/graphics/object/cube.c.o
+
+src/graphics/object/cube.i: src/graphics/object/cube.c.i
+.PHONY : src/graphics/object/cube.i
+
+# target to preprocess a source file
+src/graphics/object/cube.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.i
+.PHONY : src/graphics/object/cube.c.i
+
+src/graphics/object/cube.s: src/graphics/object/cube.c.s
+.PHONY : src/graphics/object/cube.s
+
+# target to generate assembly for a file
+src/graphics/object/cube.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.s
+.PHONY : src/graphics/object/cube.c.s
+
+src/graphics/object/mesh.o: src/graphics/object/mesh.c.o
+.PHONY : src/graphics/object/mesh.o
+
+# target to build an object file
+src/graphics/object/mesh.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o
+.PHONY : src/graphics/object/mesh.c.o
+
+src/graphics/object/mesh.i: src/graphics/object/mesh.c.i
+.PHONY : src/graphics/object/mesh.i
+
+# target to preprocess a source file
+src/graphics/object/mesh.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.i
+.PHONY : src/graphics/object/mesh.c.i
+
+src/graphics/object/mesh.s: src/graphics/object/mesh.c.s
+.PHONY : src/graphics/object/mesh.s
+
+# target to generate assembly for a file
+src/graphics/object/mesh.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.s
+.PHONY : src/graphics/object/mesh.c.s
+
 src/main.o: src/main.c.o
 .PHONY : src/main.o
 
@@ -186,6 +258,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Pic-g"
+	@echo "... src/graphics/initGL.o"
+	@echo "... src/graphics/initGL.i"
+	@echo "... src/graphics/initGL.s"
+	@echo "... src/graphics/object/cube.o"
+	@echo "... src/graphics/object/cube.i"
+	@echo "... src/graphics/object/cube.s"
+	@echo "... src/graphics/object/mesh.o"
+	@echo "... src/graphics/object/mesh.i"
+	@echo "... src/graphics/object/mesh.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

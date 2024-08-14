@@ -4,8 +4,9 @@ CMakeFiles/Pic-g.dir/src/window/window.c.o: \
  /home/lauri/Documents/Pic-gEngine/src/window/window.h \
  /home/lauri/Documents/Pic-gEngine/src/window/../PREPROCESSOR/OS.h \
  /home/lauri/Documents/Pic-gEngine/src/window/../math/vector2D.h \
- /usr/include/X11/Xlib.h /usr/include/x86_64-linux-gnu/sys/types.h \
- /usr/include/features.h /usr/include/features-time64.h \
+ /usr/include/GL/glx.h /usr/include/X11/Xlib.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/features.h \
+ /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -37,4 +38,12 @@ CMakeFiles/Pic-g.dir/src/window/window.c.o: \
  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/X11/X.h \
- /usr/include/X11/Xfuncproto.h /usr/include/X11/Xosdefs.h
+ /usr/include/X11/Xfuncproto.h /usr/include/X11/Xosdefs.h \
+ /usr/include/X11/Xutil.h /usr/include/X11/keysym.h \
+ /usr/include/X11/keysymdef.h /usr/include/GL/gl.h \
+ /usr/include/GL/glext.h /usr/include/KHR/khrplatform.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/GL/glxext.h /usr/include/inttypes.h
