@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/lauri/Documents/Pic-gEngine/build",
+  "command": "/usr/bin/gcc-12   -g -o CMakeFiles/Pic-g.dir/src/main.c.o -c /home/lauri/Documents/Pic-gEngine/src/main.c",
+  "file": "/home/lauri/Documents/Pic-gEngine/src/main.c"
+},
+{
+  "directory": "/home/lauri/Documents/Pic-gEngine/build",
+  "command": "/usr/bin/gcc-12   -g -o CMakeFiles/Pic-g.dir/src/window/window.c.o -c /home/lauri/Documents/Pic-gEngine/src/window/window.c",
+  "file": "/home/lauri/Documents/Pic-gEngine/src/window/window.c"
+}
+]

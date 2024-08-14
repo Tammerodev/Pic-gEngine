@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "os.h": "c",
+        "xlib.h": "c",
+        "vector2d.h": "c",
+        "window.h": "c"
+    }
+}
