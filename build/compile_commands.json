@@ -16,6 +16,11 @@
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine/build",
+  "command": "/usr/bin/gcc-12   -g -o CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/object/modelObj.c",
+  "file": "/home/lauri/Documents/Pic-gEngine/src/graphics/object/modelObj.c"
+},
+{
+  "directory": "/home/lauri/Documents/Pic-gEngine/build",
   "command": "/usr/bin/gcc-12   -g -o CMakeFiles/Pic-g.dir/src/main.c.o -c /home/lauri/Documents/Pic-gEngine/src/main.c",
   "file": "/home/lauri/Documents/Pic-gEngine/src/main.c"
 },

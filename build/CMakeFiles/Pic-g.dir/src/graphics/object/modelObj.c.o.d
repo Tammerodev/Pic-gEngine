@@ -1,6 +1,13 @@
-CMakeFiles/Pic-g.dir/src/main.c.o: \
- /home/lauri/Documents/Pic-gEngine/src/main.c /usr/include/stdc-predef.h \
- /usr/include/stdio.h \
+CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o: \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/object/modelObj.c \
+ /usr/include/stdc-predef.h \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/object/objects.h \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/object/mesh.h \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/object/../../math/vertex3D.h \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/object/../../math/vector3D.h \
+ /usr/include/GL/gl.h /usr/include/GL/glext.h \
+ /usr/include/KHR/khrplatform.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -9,11 +16,14 @@ CMakeFiles/Pic-g.dir/src/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types.h \
  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
  /usr/include/x86_64-linux-gnu/bits/time64.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
@@ -22,16 +32,12 @@ CMakeFiles/Pic-g.dir/src/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
- /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/GL/gl.h \
- /usr/include/GL/glext.h /usr/include/KHR/khrplatform.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/wchar.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
- /home/lauri/Documents/Pic-gEngine/src/window/window.h \
- /home/lauri/Documents/Pic-gEngine/src/window/../PREPROCESSOR/OS.h \
- /home/lauri/Documents/Pic-gEngine/src/window/../math/vector2D.h \
- /usr/include/GL/glx.h /usr/include/X11/Xlib.h \
+ /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/string.h \
+ /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+ /usr/include/strings.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/sys/types.h \
  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
@@ -52,17 +58,5 @@ CMakeFiles/Pic-g.dir/src/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
  /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
- /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/X11/X.h \
- /usr/include/X11/Xfuncproto.h /usr/include/X11/Xosdefs.h \
- /usr/include/X11/Xutil.h /usr/include/X11/keysym.h \
- /usr/include/X11/keysymdef.h /usr/include/GL/glxext.h \
- /usr/include/inttypes.h \
- /home/lauri/Documents/Pic-gEngine/src/graphics/graphicsGL.h \
- /home/lauri/Documents/Pic-gEngine/src/graphics/object/objects.h \
- /home/lauri/Documents/Pic-gEngine/src/graphics/object/mesh.h \
- /home/lauri/Documents/Pic-gEngine/src/graphics/object/../../math/vertex3D.h \
- /home/lauri/Documents/Pic-gEngine/src/graphics/object/../../math/vector3D.h \
- /usr/include/string.h \
- /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/strings.h
+ /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-float.h

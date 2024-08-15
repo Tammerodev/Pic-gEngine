@@ -8,6 +8,8 @@
         "glu.h": "c",
         "vertex3d.h": "c",
         "graphicsgl.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "mesh.h": "c",
+        "objects.h": "c"
     }
 }

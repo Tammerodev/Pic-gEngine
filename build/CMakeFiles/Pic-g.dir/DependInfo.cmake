@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/lauri/Documents/Pic-gEngine/src/graphics/initGL.c" "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/graphics/object/cube.c" "CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/graphics/object/mesh.c" "CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o.d"
+  "/home/lauri/Documents/Pic-gEngine/src/graphics/object/modelObj.c" "CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/main.c" "CMakeFiles/Pic-g.dir/src/main.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/main.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/window/window.c" "CMakeFiles/Pic-g.dir/src/window/window.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/window/window.c.o.d"
   )

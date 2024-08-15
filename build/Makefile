@@ -201,6 +201,30 @@ src/graphics/object/mesh.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.s
 .PHONY : src/graphics/object/mesh.c.s
 
+src/graphics/object/modelObj.o: src/graphics/object/modelObj.c.o
+.PHONY : src/graphics/object/modelObj.o
+
+# target to build an object file
+src/graphics/object/modelObj.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o
+.PHONY : src/graphics/object/modelObj.c.o
+
+src/graphics/object/modelObj.i: src/graphics/object/modelObj.c.i
+.PHONY : src/graphics/object/modelObj.i
+
+# target to preprocess a source file
+src/graphics/object/modelObj.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.i
+.PHONY : src/graphics/object/modelObj.c.i
+
+src/graphics/object/modelObj.s: src/graphics/object/modelObj.c.s
+.PHONY : src/graphics/object/modelObj.s
+
+# target to generate assembly for a file
+src/graphics/object/modelObj.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.s
+.PHONY : src/graphics/object/modelObj.c.s
+
 src/main.o: src/main.c.o
 .PHONY : src/main.o
 
@@ -267,6 +291,9 @@ help:
 	@echo "... src/graphics/object/mesh.o"
 	@echo "... src/graphics/object/mesh.i"
 	@echo "... src/graphics/object/mesh.s"
+	@echo "... src/graphics/object/modelObj.o"
+	@echo "... src/graphics/object/modelObj.i"
+	@echo "... src/graphics/object/modelObj.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
