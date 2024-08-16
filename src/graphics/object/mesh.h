@@ -5,6 +5,7 @@
 #include "GL/gl.h"
 
 typedef struct {
+    unsigned char verticesPerFace;
     unsigned int verticeIndexes[4];
     unsigned char verticeCount;
 } picg_face;

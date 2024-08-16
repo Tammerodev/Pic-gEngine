@@ -8,6 +8,39 @@ int modelVertexCount = 0;
 picg_face* faces = NULL;
 int modelFaceCount = 0;
 
+void picg_modelObj_readFace_0(const char buffer[], const int faceIndex) {
+    // Store values we dont want
+    int N = 0;
+
+    // Get formatted output of face data
+    //             vertex/texture/normal x4
+    sscanf(buffer, "f %d %d %d",
+        &faces[faceIndex].verticeIndexes[0],
+        &faces[faceIndex].verticeIndexes[1],
+        &faces[faceIndex].verticeIndexes[2]
+    );
+
+    // Todo: We cant really assume this
+    faces[faceIndex].verticesPerFace = 3;
+}
+
+void picg_modelObj_readFace_8(const char buffer[], const int faceIndex) {
+    // Store values we dont want
+    int N = 0;
+
+    // Get formatted output of face data
+    //             vertex/texture/normal x4
+    sscanf(buffer, "f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
+        &faces[faceIndex].verticeIndexes[0], &N, &N,
+        &faces[faceIndex].verticeIndexes[1], &N, &N,
+        &faces[faceIndex].verticeIndexes[2], &N, &N,
+        &faces[faceIndex].verticeIndexes[3], &N, &N
+    );
+
+    faces[faceIndex].verticesPerFace = 4;
+}
+
+
 int loadObj(const char* filepath) 
 {
     FILE* objFile;
@@ -37,7 +70,7 @@ int loadObj(const char* filepath)
                 ++vertexCount;
             } 
 
-            if(buffer[0] == 'v') 
+            if(buffer[0] == 'f') 
             {   // Vertex
                 faceCount++;
             } 
@@ -47,7 +80,9 @@ int loadObj(const char* filepath)
     rewind(objFile);
 
     const int originalVertexCount = vertexCount;
-    printf("Vertex count: %d", (int)vertexCount);
+    printf("Vertex count: %d\n", (int)vertexCount);
+    printf("Face count: %d\n", (int)faceCount);
+
     modelVertices = malloc(100 + (sizeof(picg_vertex3F) * originalVertexCount));
 
     vertexCount = 0;
@@ -59,22 +94,15 @@ int loadObj(const char* filepath)
     {
         if(buffer[0] == 'v' && buffer[1] == ' ') 
         {
-            printf(buffer);
-
             // Read vertex data into the array
             sscanf(buffer, "v %f %f %f \n", 
                 &modelVertices[vertexCount].x,
                 &modelVertices[vertexCount].y,
                 &modelVertices[vertexCount].z);
 
-            printf("read %f,%f,%f\n", 
-                modelVertices[vertexCount].x,
-                modelVertices[vertexCount].y,
-                modelVertices[vertexCount].z);
-
-            modelVertices[vertexCount].r = 1.0f;
-            modelVertices[vertexCount].g = 1.0f;
-            modelVertices[vertexCount].b = 1.0f;
+            modelVertices[vertexCount].r = vertexCount / (float)originalVertexCount;
+            modelVertices[vertexCount].g = 0.0f;
+            modelVertices[vertexCount].b = 1.0f - 0.5f *vertexCount / (float)originalVertexCount;
             modelVertices[vertexCount].a = 1.0f;
 
             ++vertexCount;
@@ -86,9 +114,10 @@ int loadObj(const char* filepath)
     */
     rewind(objFile);
 
-    // Allocate memory for faceCount x faces with 4x unsigned integers 
+    // TODO: This is so funny terrible! Fix this, QUICK!
+    // Allocate memory for faceCount x faces with 6x unsigned integers 
     faces = (picg_face*)malloc(
-        faceCount * 4 * sizeof(unsigned int));
+        faceCount * 6 * sizeof(unsigned int));
 
     int faceIndex = 0;
 
@@ -96,43 +125,31 @@ int loadObj(const char* filepath)
     {
         if(buffer[0] == 'f' && buffer[1] == ' ') 
         {
-            // Store values we dont want
-            int N = 0;
-
-            // Get formatted output of face data
-            //             vertex/texture/normal x4
-            sscanf(buffer, "f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
-            &faces[faceIndex].verticeIndexes[0], &N, &N,
-            &faces[faceIndex].verticeIndexes[1], &N, &N,
-            &faces[faceIndex].verticeIndexes[2], &N, &N,
-            &faces[faceIndex].verticeIndexes[3], &N, &N
-            );
-
-            printf("FACE READ\n");
+            int slashesFound = picg_string_countContainsCharacter(buffer, '/');
+            
+                 if(slashesFound == 0) picg_modelObj_readFace_0(buffer, faceIndex);
+            else if(slashesFound == 8) picg_modelObj_readFace_8(buffer, faceIndex);
 
             ++faceIndex;
         }
     }
 
-    for(int f = 0; f < faceIndex; f++) {
-        printf("Face data: %d, %d, %d, %d \n", 
-            (int)(faces[f].verticeIndexes[0]),
-            (int)(faces[f].verticeIndexes[1]),
-            (int)(faces[f].verticeIndexes[2]),
-            (int)(faces[f].verticeIndexes[3]));
-    }
-
+    printf("Done now saving counts\n");
 
     modelVertexCount = vertexCount;
     modelFaceCount = faceIndex;
     fclose(objFile);
+
+    printf("Done reading .obj data!\n");
+
+    return 0;
 }
 
 picg_mesh* picg_modelObj_create() 
 {
-    picg_mesh* mesh = malloc(sizeof(picg_mesh));
+    picg_mesh* mesh = malloc(sizeof(modelVertices) + sizeof(faces) + sizeof(picg_mesh));
 
-    int result = loadObj("../dev/Models/cube.obj");
+    int result = loadObj("../dev/Models/teapot.obj");
  
     if(modelVertices == NULL) {
         printf("Error: Model vertices pointer is null returning a cube!\n");
@@ -144,7 +161,7 @@ picg_mesh* picg_modelObj_create()
         return picg_cube_create();
     }
 
-    mesh->renderType = GL_QUAD_STRIP;
+    mesh->renderType = GL_TRIANGLES;
     mesh->vertices = modelVertices;
     mesh->vertexCount = modelVertexCount;   
 

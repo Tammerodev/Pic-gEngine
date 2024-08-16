@@ -19,15 +19,19 @@ void picg_mesh_render(picg_mesh *mesh)
     }*/
 
 
-    glBegin(GL_QUADS);
+    glBegin(mesh->renderType);
 
     for(int vIndex = 0; vIndex < mesh->faceCount; ++vIndex)
     {
-        glColor4f(
-            1.0, 0.5, 0.2, 1.0
-        );
 
-        for(int i = 0; i < 4; ++i) {
+        for(int i = 0; i < mesh->faces[vIndex].verticesPerFace; ++i) {
+            glColor4f(
+                mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].r,
+                mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].g,
+                mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].b,
+                mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].a
+            );
+
             glVertex3f(
                 mesh->position.x + mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,
                 mesh->position.y + mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y,

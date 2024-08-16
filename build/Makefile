@@ -249,6 +249,30 @@ src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/main.c.s
 .PHONY : src/main.c.s
 
+src/math/stringFunctions.o: src/math/stringFunctions.c.o
+.PHONY : src/math/stringFunctions.o
+
+# target to build an object file
+src/math/stringFunctions.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o
+.PHONY : src/math/stringFunctions.c.o
+
+src/math/stringFunctions.i: src/math/stringFunctions.c.i
+.PHONY : src/math/stringFunctions.i
+
+# target to preprocess a source file
+src/math/stringFunctions.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.i
+.PHONY : src/math/stringFunctions.c.i
+
+src/math/stringFunctions.s: src/math/stringFunctions.c.s
+.PHONY : src/math/stringFunctions.s
+
+# target to generate assembly for a file
+src/math/stringFunctions.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.s
+.PHONY : src/math/stringFunctions.c.s
+
 src/window/window.o: src/window/window.c.o
 .PHONY : src/window/window.o
 
@@ -297,6 +321,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/math/stringFunctions.o"
+	@echo "... src/math/stringFunctions.i"
+	@echo "... src/math/stringFunctions.s"
 	@echo "... src/window/window.o"
 	@echo "... src/window/window.i"
 	@echo "... src/window/window.s"

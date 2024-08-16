@@ -70,6 +70,7 @@ CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h
  /usr/include/strings.h
+ /home/lauri/Documents/Pic-gEngine/src/math/stringFunctions.h
  /usr/include/stdlib.h
  /usr/include/x86_64-linux-gnu/bits/waitflags.h
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h
@@ -168,6 +169,7 @@ CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h
  /usr/include/strings.h
+ /home/lauri/Documents/Pic-gEngine/src/math/stringFunctions.h
  /usr/include/stdlib.h
  /usr/include/x86_64-linux-gnu/bits/waitflags.h
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h
@@ -272,6 +274,26 @@ CMakeFiles/Pic-g.dir/src/main.c.o
  /home/lauri/Documents/Pic-gEngine/src/math/vertex3D.h
  /home/lauri/Documents/Pic-gEngine/src/math/vector3D.h
  /usr/include/string.h
+ /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
+ /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h
+ /usr/include/strings.h
+ /home/lauri/Documents/Pic-gEngine/src/math/stringFunctions.h
+
+CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o
+ /home/lauri/Documents/Pic-gEngine/src/math/stringFunctions.c
+ /usr/include/stdc-predef.h
+ /home/lauri/Documents/Pic-gEngine/src/math/stringFunctions.h
+ /usr/include/string.h
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+ /usr/include/features.h
+ /usr/include/features-time64.h
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h
+ /usr/include/x86_64-linux-gnu/bits/timesize.h
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h
+ /usr/include/x86_64-linux-gnu/bits/long-double.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h
  /usr/include/strings.h

@@ -68,6 +68,7 @@ CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o: ../src/graphics/object/cube.c
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/include/strings.h \
+  ../src/math/stringFunctions.h \
   /usr/include/stdlib.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
@@ -164,6 +165,7 @@ CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o: ../src/graphics/object/mo
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/include/strings.h \
+  ../src/math/stringFunctions.h \
   /usr/include/stdlib.h \
   /usr/include/x86_64-linux-gnu/bits/waitflags.h \
   /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
@@ -269,6 +271,25 @@ CMakeFiles/Pic-g.dir/src/main.c.o: ../src/main.c \
   /usr/include/string.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+  /usr/include/strings.h \
+  ../src/math/stringFunctions.h
+
+CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o: ../src/math/stringFunctions.c \
+  /usr/include/stdc-predef.h \
+  ../src/math/stringFunctions.h \
+  /usr/include/string.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/include/features.h \
+  /usr/include/features-time64.h \
+  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+  /usr/include/x86_64-linux-gnu/bits/timesize.h \
+  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+  /usr/include/x86_64-linux-gnu/bits/long-double.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+  /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
+  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/include/strings.h
 
 CMakeFiles/Pic-g.dir/src/window/window.c.o: ../src/window/window.c \
@@ -331,6 +352,8 @@ CMakeFiles/Pic-g.dir/src/window/window.c.o: ../src/window/window.c \
   /usr/include/inttypes.h
 
 
+../src/math/stringFunctions.c:
+
 /usr/include/X11/keysymdef.h:
 
 /usr/include/X11/keysym.h:
@@ -354,6 +377,10 @@ CMakeFiles/Pic-g.dir/src/window/window.c.o: ../src/window/window.c \
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
+
+/usr/include/x86_64-linux-gnu/sys/select.h:
+
+../src/math/vector3D.h:
 
 ../src/PREPROCESSOR/OS.h:
 
@@ -487,6 +514,12 @@ CMakeFiles/Pic-g.dir/src/window/window.c.o: ../src/window/window.c \
 
 /usr/include/strings.h:
 
+../src/math/stringFunctions.h:
+
+/usr/include/endian.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
 /usr/include/X11/X.h:
@@ -495,16 +528,8 @@ CMakeFiles/Pic-g.dir/src/window/window.c.o: ../src/window/window.c \
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
-/usr/include/endian.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
-
-../src/math/vector3D.h:
-
-/usr/include/x86_64-linux-gnu/sys/select.h:

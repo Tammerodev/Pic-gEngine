@@ -2,6 +2,7 @@
 #include "mesh.h"
 #include <stdio.h>
 #include <string.h>
+#include "../../math/stringFunctions.h"
 
 // Simple cube
 picg_mesh* picg_cube_create();

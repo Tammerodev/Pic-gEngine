@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o.d"
   "CMakeFiles/Pic-g.dir/src/main.c.o"
   "CMakeFiles/Pic-g.dir/src/main.c.o.d"
+  "CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o"
+  "CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o.d"
   "CMakeFiles/Pic-g.dir/src/window/window.c.o"
   "CMakeFiles/Pic-g.dir/src/window/window.c.o.d"
   "Pic-g"
