@@ -108,6 +108,13 @@ int loadObj(const char* filepath)
             modelVertices[meshVerticeStep].y = y;
             modelVertices[meshVerticeStep].z = z;
 
+
+            // TODO: color something else than this
+            modelVertices[meshVerticeStep].r = (float)meshFloatStep / (float)originalVertexCount;
+            modelVertices[meshVerticeStep].g = ind / (float)originalVertexCount;
+            modelVertices[meshVerticeStep].b = ind / (float)originalVertexCount;
+            modelVertices[meshVerticeStep].a = 1.0f;
+
             meshVerticeStep++;
             meshFloatStep = 0;
 
@@ -125,15 +132,15 @@ picg_mesh* picg_modelObj_create()
 {
     picg_mesh* mesh = malloc(sizeof(picg_mesh));
 
-    int result = loadObj("../dev/Models/cube.obj");
+    int result = loadObj("../dev/Models/teapot.obj");
  
-    mesh->renderType = GL_QUADS;
+    mesh->renderType = GL_QUAD_STRIP;
     mesh->vertices = modelVertices;
     mesh->meshSize = modelVertexCount;   
 
     mesh->position.x = 0;
     mesh->position.y = 0;
-    mesh->position.z = 0;
+    mesh->position.z = -10;
 
     mesh->rotation.x = 0;
     mesh->rotation.y = 10;

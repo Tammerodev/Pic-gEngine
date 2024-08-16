@@ -21,6 +21,8 @@ void picg_mesh_render(picg_mesh *mesh)
     }
     glEnd();
 
-
+    glTranslatef(mesh->position.x, mesh->position.y, mesh->position.z);
     glRotatef(0.01, 1, 1, 1);
+    glTranslatef(-mesh->position.x, -mesh->position.y, -mesh->position.z);
+
 }

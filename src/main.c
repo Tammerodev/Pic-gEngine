@@ -8,9 +8,6 @@
 
 int main(int argc, char** argv) 
 {   
-
-    printf("Hello world! \n");
-
     picg_window_create(800, 800, "Test");
     picg_gl_init3D();
     picg_gl_setClearColor(0.2, 0.1, 0.3, 1.0);
