@@ -1,7 +1,7 @@
 #include "objects.h"
 #include <stdlib.h>
 
-struct picg_vertex3F vertices[8] = {
+picg_vertex3F vertices[8] = {
         { -0.5f, -0.5f, -0.5f,       0.2, 0.4, 0.0, 1.0}, 
         {  0.5f, -0.5f, -0.5f,       0.6, 0.8, 0.8, 1.0 }, 
         {  0.5f,  0.5f, -0.5f,       0.3, 0.2, 0.3, 1.0 },  
@@ -16,7 +16,7 @@ struct picg_vertex3F vertices[8] = {
 picg_mesh* picg_cube_create() {
     picg_mesh* mesh = malloc(sizeof(picg_mesh));
 
-    mesh->meshSize = 8;    
+    mesh->vertexCount = 8;    
     mesh->renderType = GL_QUADS;
     mesh->vertices = vertices;
 

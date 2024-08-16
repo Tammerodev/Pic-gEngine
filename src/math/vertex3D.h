@@ -1,6 +1,6 @@
 #pragma once
 
-struct picg_vertex3F {
+typedef struct {
     float x, y, z;
     float r, g, b, a;
-};
+} picg_vertex3F;

@@ -5,8 +5,16 @@
 #include "GL/gl.h"
 
 typedef struct {
-    struct picg_vertex3F* vertices;
-    unsigned long meshSize;
+    unsigned int verticeIndexes[4];
+    unsigned char verticeCount;
+} picg_face;
+
+typedef struct {
+    picg_vertex3F* vertices;
+    picg_face* faces;
+
+    unsigned long vertexCount;
+    unsigned long faceCount;
 
     GLenum renderType;
 

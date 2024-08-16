@@ -2,8 +2,11 @@
 #include <stdlib.h>
 
 // TODO: Make it smarter
-struct picg_vertex3F *modelVertices;
+picg_vertex3F *modelVertices = NULL;
 int modelVertexCount = 0;
+
+picg_face* faces = NULL;
+int modelFaceCount = 0;
 
 int loadObj(const char* filepath) 
 {
@@ -45,86 +48,83 @@ int loadObj(const char* filepath)
 
     const int originalVertexCount = vertexCount;
     printf("Vertex count: %d", (int)vertexCount);
-
-    float vertexData[vertexCount * 3 + 3];
-
-    int vertexIndex = 0;
+    modelVertices = malloc(100 + (sizeof(picg_vertex3F) * originalVertexCount));
 
     vertexCount = 0;
 
+    /*
+        Reads the vertice data into modelVertices[]
+    */
     while(fgets(buffer, bufferLength, objFile)) 
     {
         if(buffer[0] == 'v' && buffer[1] == ' ') 
         {
+            printf(buffer);
+
             // Read vertex data into the array
-            sscanf(buffer, "v %f %f %f", 
-                &vertexData[vertexIndex + 0],
-                &vertexData[vertexIndex + 1],
-                &vertexData[vertexIndex + 2]);
+            sscanf(buffer, "v %f %f %f \n", 
+                &modelVertices[vertexCount].x,
+                &modelVertices[vertexCount].y,
+                &modelVertices[vertexCount].z);
 
             printf("read %f,%f,%f\n", 
-                vertexData[vertexIndex + 0],
-                vertexData[vertexIndex + 1],
-                vertexData[vertexIndex + 2]);
+                modelVertices[vertexCount].x,
+                modelVertices[vertexCount].y,
+                modelVertices[vertexCount].z);
 
-            vertexIndex += 3;  // Move to the next set of x, y, z
+            modelVertices[vertexCount].r = 1.0f;
+            modelVertices[vertexCount].g = 1.0f;
+            modelVertices[vertexCount].b = 1.0f;
+            modelVertices[vertexCount].a = 1.0f;
+
             ++vertexCount;
         }
     }
 
-    for(int ind = 0; ind < originalVertexCount * 3; ind++) {
-        printf("%f\n", vertexData[ind]);
-    }
+    /*
+        Rewinds the file and reads the face data 
+    */
+    rewind(objFile);
 
-    float x = 0.f;
-    float y = 0.f;
-    float z = 0.f;
+    // Allocate memory for faceCount x faces with 4x unsigned integers 
+    faces = (picg_face*)malloc(
+        faceCount * 4 * sizeof(unsigned int));
 
-    int meshFloatStep = 0;
-    int meshVerticeStep = 0;
+    int faceIndex = 0;
 
-    modelVertices = malloc(100 + (sizeof(struct picg_vertex3F) * originalVertexCount));
-
-    for(int ind = 0; ind < originalVertexCount * 3; ind++) {
-        float data = vertexData[ind];
-
-        switch (meshFloatStep)
+    while(fgets(buffer, bufferLength, objFile)) 
+    {
+        if(buffer[0] == 'f' && buffer[1] == ' ') 
         {
-        case 0:
-            x = data;
-            break;
-        case 1:
-            y = data;
-            break;
-        case 2:
-            z = data;
-            break;
-        }
+            // Store values we dont want
+            int N = 0;
 
-        ++meshFloatStep;
+            // Get formatted output of face data
+            //             vertex/texture/normal x4
+            sscanf(buffer, "f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
+            &faces[faceIndex].verticeIndexes[0], &N, &N,
+            &faces[faceIndex].verticeIndexes[1], &N, &N,
+            &faces[faceIndex].verticeIndexes[2], &N, &N,
+            &faces[faceIndex].verticeIndexes[3], &N, &N
+            );
 
-        if(meshFloatStep == 3) {
-            modelVertices[meshVerticeStep].x = x;
-            modelVertices[meshVerticeStep].y = y;
-            modelVertices[meshVerticeStep].z = z;
+            printf("FACE READ\n");
 
-
-            // TODO: color something else than this
-            modelVertices[meshVerticeStep].r = (float)meshFloatStep / (float)originalVertexCount;
-            modelVertices[meshVerticeStep].g = ind / (float)originalVertexCount;
-            modelVertices[meshVerticeStep].b = ind / (float)originalVertexCount;
-            modelVertices[meshVerticeStep].a = 1.0f;
-
-            meshVerticeStep++;
-            meshFloatStep = 0;
-
-            printf("Vertex data: x(%f) y(%f) z(%f) \n", x, y, z);
+            ++faceIndex;
         }
     }
 
+    for(int f = 0; f < faceIndex; f++) {
+        printf("Face data: %d, %d, %d, %d \n", 
+            (int)(faces[f].verticeIndexes[0]),
+            (int)(faces[f].verticeIndexes[1]),
+            (int)(faces[f].verticeIndexes[2]),
+            (int)(faces[f].verticeIndexes[3]));
+    }
 
-    modelVertexCount = meshVerticeStep;
 
+    modelVertexCount = vertexCount;
+    modelFaceCount = faceIndex;
     fclose(objFile);
 }
 
@@ -132,15 +132,28 @@ picg_mesh* picg_modelObj_create()
 {
     picg_mesh* mesh = malloc(sizeof(picg_mesh));
 
-    int result = loadObj("../dev/Models/teapot.obj");
+    int result = loadObj("../dev/Models/cube.obj");
  
+    if(modelVertices == NULL) {
+        printf("Error: Model vertices pointer is null returning a cube!\n");
+        return picg_cube_create();
+    }
+
+    if(faces == NULL) {
+        printf("Error: Model faces pointer is null returning a cube!\n");
+        return picg_cube_create();
+    }
+
     mesh->renderType = GL_QUAD_STRIP;
     mesh->vertices = modelVertices;
-    mesh->meshSize = modelVertexCount;   
+    mesh->vertexCount = modelVertexCount;   
+
+    mesh->faces = faces;
+    mesh->faceCount = modelFaceCount;
 
     mesh->position.x = 0;
     mesh->position.y = 0;
-    mesh->position.z = -10;
+    mesh->position.z = -5;
 
     mesh->rotation.x = 0;
     mesh->rotation.y = 10;
