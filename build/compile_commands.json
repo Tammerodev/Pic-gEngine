@@ -1,8 +1,18 @@
 [
 {
   "directory": "/home/lauri/Documents/Pic-gEngine/build",
+  "command": "/usr/bin/gcc-12   -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/graphicsGL.c",
+  "file": "/home/lauri/Documents/Pic-gEngine/src/graphics/graphicsGL.c"
+},
+{
+  "directory": "/home/lauri/Documents/Pic-gEngine/build",
   "command": "/usr/bin/gcc-12   -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/initGL.c",
   "file": "/home/lauri/Documents/Pic-gEngine/src/graphics/initGL.c"
+},
+{
+  "directory": "/home/lauri/Documents/Pic-gEngine/build",
+  "command": "/usr/bin/gcc-12   -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/lighting/lightSource.c",
+  "file": "/home/lauri/Documents/Pic-gEngine/src/graphics/lighting/lightSource.c"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine/build",

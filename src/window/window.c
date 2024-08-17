@@ -44,6 +44,20 @@ void picg_window_create(int windowSizeX, int windowSizeY, const char* windowTitl
     XNextEvent(display, &event);
 }
 
+int picg_keyboard_keydown(char *targetString)
+{
+    char keys_return[32] = {0};
+    KeySym targetSym = XStringToKeysym(targetString);
+    KeyCode targetCode = XKeysymToKeycode(display, targetSym);
+
+    int targetByte = targetCode / 8;
+    int targetBit = targetCode % 8;
+    int targetMask = 0x01 << targetBit;
+    
+    XQueryKeymap(display, keys_return);
+    return keys_return[targetByte] & targetMask;
+}
+
 
 int picg_window_created() 
 {

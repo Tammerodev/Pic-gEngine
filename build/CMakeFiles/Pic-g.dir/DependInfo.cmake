@@ -8,7 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/lauri/Documents/Pic-gEngine/src/graphics/graphicsGL.c" "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/graphics/initGL.c" "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o.d"
+  "/home/lauri/Documents/Pic-gEngine/src/graphics/lighting/lightSource.c" "CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/graphics/object/cube.c" "CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/graphics/object/mesh.c" "CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/graphics/object/modelObj.c" "CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o.d"

@@ -10,6 +10,7 @@
         "graphicsgl.h": "c",
         "stdio.h": "c",
         "mesh.h": "c",
-        "objects.h": "c"
+        "objects.h": "c",
+        "lightsource.h": "c"
     }
 }

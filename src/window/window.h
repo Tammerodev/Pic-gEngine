@@ -8,3 +8,4 @@
 #endif
 
 void picg_window_create(int windowSizeX, int windowSizeY, const char* windowTitle);
+int picg_keyboard_keydown(char *targetString);

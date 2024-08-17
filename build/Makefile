@@ -129,6 +129,30 @@ Pic-g/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/build
 .PHONY : Pic-g/fast
 
+src/graphics/graphicsGL.o: src/graphics/graphicsGL.c.o
+.PHONY : src/graphics/graphicsGL.o
+
+# target to build an object file
+src/graphics/graphicsGL.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o
+.PHONY : src/graphics/graphicsGL.c.o
+
+src/graphics/graphicsGL.i: src/graphics/graphicsGL.c.i
+.PHONY : src/graphics/graphicsGL.i
+
+# target to preprocess a source file
+src/graphics/graphicsGL.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.i
+.PHONY : src/graphics/graphicsGL.c.i
+
+src/graphics/graphicsGL.s: src/graphics/graphicsGL.c.s
+.PHONY : src/graphics/graphicsGL.s
+
+# target to generate assembly for a file
+src/graphics/graphicsGL.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.s
+.PHONY : src/graphics/graphicsGL.c.s
+
 src/graphics/initGL.o: src/graphics/initGL.c.o
 .PHONY : src/graphics/initGL.o
 
@@ -152,6 +176,30 @@ src/graphics/initGL.s: src/graphics/initGL.c.s
 src/graphics/initGL.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/initGL.c.s
 .PHONY : src/graphics/initGL.c.s
+
+src/graphics/lighting/lightSource.o: src/graphics/lighting/lightSource.c.o
+.PHONY : src/graphics/lighting/lightSource.o
+
+# target to build an object file
+src/graphics/lighting/lightSource.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o
+.PHONY : src/graphics/lighting/lightSource.c.o
+
+src/graphics/lighting/lightSource.i: src/graphics/lighting/lightSource.c.i
+.PHONY : src/graphics/lighting/lightSource.i
+
+# target to preprocess a source file
+src/graphics/lighting/lightSource.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.i
+.PHONY : src/graphics/lighting/lightSource.c.i
+
+src/graphics/lighting/lightSource.s: src/graphics/lighting/lightSource.c.s
+.PHONY : src/graphics/lighting/lightSource.s
+
+# target to generate assembly for a file
+src/graphics/lighting/lightSource.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.s
+.PHONY : src/graphics/lighting/lightSource.c.s
 
 src/graphics/object/cube.o: src/graphics/object/cube.c.o
 .PHONY : src/graphics/object/cube.o
@@ -306,9 +354,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Pic-g"
+	@echo "... src/graphics/graphicsGL.o"
+	@echo "... src/graphics/graphicsGL.i"
+	@echo "... src/graphics/graphicsGL.s"
 	@echo "... src/graphics/initGL.o"
 	@echo "... src/graphics/initGL.i"
 	@echo "... src/graphics/initGL.s"
+	@echo "... src/graphics/lighting/lightSource.o"
+	@echo "... src/graphics/lighting/lightSource.i"
+	@echo "... src/graphics/lighting/lightSource.s"
 	@echo "... src/graphics/object/cube.o"
 	@echo "... src/graphics/object/cube.i"
 	@echo "... src/graphics/object/cube.s"

@@ -1,6 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o"
+  "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o.d"
   "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o"
   "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o.d"
+  "CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o"
+  "CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o.d"
   "CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o"
   "CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o.d"
   "CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o"

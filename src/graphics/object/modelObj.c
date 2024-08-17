@@ -100,9 +100,9 @@ int loadObj(const char* filepath)
                 &modelVertices[vertexCount].y,
                 &modelVertices[vertexCount].z);
 
-            modelVertices[vertexCount].r = vertexCount / (float)originalVertexCount;
-            modelVertices[vertexCount].g = 0.0f;
-            modelVertices[vertexCount].b = 1.0f - 0.5f *vertexCount / (float)originalVertexCount;
+            modelVertices[vertexCount].r = 0.1f;
+            modelVertices[vertexCount].g = 0.1f;
+            modelVertices[vertexCount].b = 0.1f;
             modelVertices[vertexCount].a = 1.0f;
 
             ++vertexCount;
@@ -173,7 +173,7 @@ picg_mesh* picg_modelObj_create()
     mesh->position.z = -5;
 
     mesh->rotation.x = 0;
-    mesh->rotation.y = 10;
+    mesh->rotation.y = 0;
     mesh->rotation.z = 0;
 
     return mesh;

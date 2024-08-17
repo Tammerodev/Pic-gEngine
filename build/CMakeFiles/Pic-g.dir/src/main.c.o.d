@@ -66,4 +66,5 @@ CMakeFiles/Pic-g.dir/src/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
  /usr/include/strings.h \
- /home/lauri/Documents/Pic-gEngine/src/graphics/object/../../math/stringFunctions.h
+ /home/lauri/Documents/Pic-gEngine/src/graphics/object/../../math/stringFunctions.h \
+ /home/lauri/Documents/Pic-gEngine/src/graphics/lighting/lightSource.h
