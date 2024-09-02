@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/lauri/Documents/Pic-gEngine/src/graphics/camera/camera.c" "CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/graphics/graphicsGL.c" "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/graphics/initGL.c" "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o.d"
   "/home/lauri/Documents/Pic-gEngine/src/graphics/lighting/lightSource.c" "CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o" "gcc" "CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o.d"

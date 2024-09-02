@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o"
+  "CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o.d"
   "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o"
   "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o.d"
   "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o"

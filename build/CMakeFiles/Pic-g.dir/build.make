@@ -69,10 +69,24 @@ include CMakeFiles/Pic-g.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Pic-g.dir/flags.make
 
+CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o: CMakeFiles/Pic-g.dir/flags.make
+CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o: ../src/graphics/camera/camera.c
+CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o: CMakeFiles/Pic-g.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o"
+	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o -MF CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o.d -o CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/camera/camera.c
+
+CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.i"
+	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/lauri/Documents/Pic-gEngine/src/graphics/camera/camera.c > CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.i
+
+CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.s"
+	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/lauri/Documents/Pic-gEngine/src/graphics/camera/camera.c -o CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.s
+
 CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o: CMakeFiles/Pic-g.dir/flags.make
 CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o: ../src/graphics/graphicsGL.c
 CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o: CMakeFiles/Pic-g.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o"
 	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o -MF CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o.d -o CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/graphicsGL.c
 
 CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.i: cmake_force
@@ -86,7 +100,7 @@ CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.s: cmake_force
 CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o: CMakeFiles/Pic-g.dir/flags.make
 CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o: ../src/graphics/initGL.c
 CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o: CMakeFiles/Pic-g.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o"
 	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o -MF CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o.d -o CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/initGL.c
 
 CMakeFiles/Pic-g.dir/src/graphics/initGL.c.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/Pic-g.dir/src/graphics/initGL.c.s: cmake_force
 CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o: CMakeFiles/Pic-g.dir/flags.make
 CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o: ../src/graphics/lighting/lightSource.c
 CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o: CMakeFiles/Pic-g.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o"
 	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o -MF CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o.d -o CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/lighting/lightSource.c
 
 CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.s: cmake_force
 CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o: CMakeFiles/Pic-g.dir/flags.make
 CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o: ../src/graphics/object/cube.c
 CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o: CMakeFiles/Pic-g.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o"
 	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o -MF CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o.d -o CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/object/cube.c
 
 CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.s: cmake_force
 CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o: CMakeFiles/Pic-g.dir/flags.make
 CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o: ../src/graphics/object/mesh.c
 CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o: CMakeFiles/Pic-g.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o"
 	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o -MF CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o.d -o CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/object/mesh.c
 
 CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.s: cmake_force
 CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o: CMakeFiles/Pic-g.dir/flags.make
 CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o: ../src/graphics/object/modelObj.c
 CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o: CMakeFiles/Pic-g.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o"
 	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o -MF CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o.d -o CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o -c /home/lauri/Documents/Pic-gEngine/src/graphics/object/modelObj.c
 
 CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.i: cmake_force
@@ -156,7 +170,7 @@ CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.s: cmake_force
 CMakeFiles/Pic-g.dir/src/main.c.o: CMakeFiles/Pic-g.dir/flags.make
 CMakeFiles/Pic-g.dir/src/main.c.o: ../src/main.c
 CMakeFiles/Pic-g.dir/src/main.c.o: CMakeFiles/Pic-g.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Pic-g.dir/src/main.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Pic-g.dir/src/main.c.o"
 	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Pic-g.dir/src/main.c.o -MF CMakeFiles/Pic-g.dir/src/main.c.o.d -o CMakeFiles/Pic-g.dir/src/main.c.o -c /home/lauri/Documents/Pic-gEngine/src/main.c
 
 CMakeFiles/Pic-g.dir/src/main.c.i: cmake_force
@@ -170,7 +184,7 @@ CMakeFiles/Pic-g.dir/src/main.c.s: cmake_force
 CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o: CMakeFiles/Pic-g.dir/flags.make
 CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o: ../src/math/stringFunctions.c
 CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o: CMakeFiles/Pic-g.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o"
 	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o -MF CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o.d -o CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o -c /home/lauri/Documents/Pic-gEngine/src/math/stringFunctions.c
 
 CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.i: cmake_force
@@ -184,7 +198,7 @@ CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.s: cmake_force
 CMakeFiles/Pic-g.dir/src/window/window.c.o: CMakeFiles/Pic-g.dir/flags.make
 CMakeFiles/Pic-g.dir/src/window/window.c.o: ../src/window/window.c
 CMakeFiles/Pic-g.dir/src/window/window.c.o: CMakeFiles/Pic-g.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/Pic-g.dir/src/window/window.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/Pic-g.dir/src/window/window.c.o"
 	/usr/bin/gcc-12 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Pic-g.dir/src/window/window.c.o -MF CMakeFiles/Pic-g.dir/src/window/window.c.o.d -o CMakeFiles/Pic-g.dir/src/window/window.c.o -c /home/lauri/Documents/Pic-gEngine/src/window/window.c
 
 CMakeFiles/Pic-g.dir/src/window/window.c.i: cmake_force
@@ -197,6 +211,7 @@ CMakeFiles/Pic-g.dir/src/window/window.c.s: cmake_force
 
 # Object files for target Pic-g
 Pic__g_OBJECTS = \
+"CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o" \
 "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o" \
 "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o" \
 "CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o" \
@@ -210,6 +225,7 @@ Pic__g_OBJECTS = \
 # External object files for target Pic-g
 Pic__g_EXTERNAL_OBJECTS =
 
+Pic-g: CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o
 Pic-g: CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o
 Pic-g: CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o
 Pic-g: CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o
@@ -221,7 +237,7 @@ Pic-g: CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o
 Pic-g: CMakeFiles/Pic-g.dir/src/window/window.c.o
 Pic-g: CMakeFiles/Pic-g.dir/build.make
 Pic-g: CMakeFiles/Pic-g.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable Pic-g"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lauri/Documents/Pic-gEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking C executable Pic-g"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Pic-g.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

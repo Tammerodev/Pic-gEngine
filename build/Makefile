@@ -129,6 +129,30 @@ Pic-g/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/build
 .PHONY : Pic-g/fast
 
+src/graphics/camera/camera.o: src/graphics/camera/camera.c.o
+.PHONY : src/graphics/camera/camera.o
+
+# target to build an object file
+src/graphics/camera/camera.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o
+.PHONY : src/graphics/camera/camera.c.o
+
+src/graphics/camera/camera.i: src/graphics/camera/camera.c.i
+.PHONY : src/graphics/camera/camera.i
+
+# target to preprocess a source file
+src/graphics/camera/camera.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.i
+.PHONY : src/graphics/camera/camera.c.i
+
+src/graphics/camera/camera.s: src/graphics/camera/camera.c.s
+.PHONY : src/graphics/camera/camera.s
+
+# target to generate assembly for a file
+src/graphics/camera/camera.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Pic-g.dir/build.make CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.s
+.PHONY : src/graphics/camera/camera.c.s
+
 src/graphics/graphicsGL.o: src/graphics/graphicsGL.c.o
 .PHONY : src/graphics/graphicsGL.o
 
@@ -354,6 +378,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Pic-g"
+	@echo "... src/graphics/camera/camera.o"
+	@echo "... src/graphics/camera/camera.i"
+	@echo "... src/graphics/camera/camera.s"
 	@echo "... src/graphics/graphicsGL.o"
 	@echo "... src/graphics/graphicsGL.i"
 	@echo "... src/graphics/graphicsGL.s"
