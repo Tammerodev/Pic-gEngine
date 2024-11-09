@@ -117,7 +117,7 @@ int loadObj(const char* filepath)
     // TODO: This is so funny terrible! Fix this, QUICK!
     // Allocate memory for faceCount x faces with 6x unsigned integers 
     faces = (picg_face*)malloc(
-        faceCount * 6 * sizeof(unsigned int));
+        faceCount * sizeof(picg_face) + sizeof(int));
 
     int faceIndex = 0;
 
@@ -145,11 +145,11 @@ int loadObj(const char* filepath)
     return 0;
 }
 
-picg_mesh* picg_modelObj_create() 
+picg_mesh* picg_modelObj_create(const char* path) 
 {
     picg_mesh* mesh = malloc(sizeof(modelVertices) + sizeof(faces) + sizeof(picg_mesh));
 
-    int result = loadObj("../dev/Models/teapot.obj");
+    int result = loadObj(path);
  
     if(modelVertices == NULL) {
         printf("Error: Model vertices pointer is null returning a cube!\n");

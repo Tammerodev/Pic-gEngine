@@ -27,8 +27,8 @@ int main(int argc, char** argv)
 
     picg_addlight(0, col, pos, GL_LIGHT_MODEL_AMBIENT);
 
-    picg_mesh* cube = picg_cube_create();  
-    picg_mesh* obj = picg_modelObj_create();
+    //picg_mesh* cube = picg_cube_create("../dev/Models/cube.obj");  
+    picg_mesh* obj = picg_modelObj_create("../dev/Models/teapot.obj");
     
 
     //cube->position.z = -1.f;
@@ -37,13 +37,14 @@ int main(int argc, char** argv)
         picg_gl_clear();
         //picg_mesh_render(cube);
         picg_mesh_render(obj);
+        obj->rotation.x += 0.1;
 
         if(picg_keyboard_keydown("w")) obj->position.z += 0.005f;
         if(picg_keyboard_keydown("a")) obj->position.x += 0.005f;
         if(picg_keyboard_keydown("s")) obj->position.z -= 0.005f;
         if(picg_keyboard_keydown("d")) obj->position.x -= 0.005f;
-        if(picg_keyboard_keydown("space")) obj->position.y += 0.005f;
-        if(picg_keyboard_keydown("x")) obj->position.y -= 0.005f;
+        if(picg_keyboard_keydown("space")) obj->position.y -= 0.005f;
+        if(picg_keyboard_keydown("x")) obj->position.y += 0.005f;
         
 
 
