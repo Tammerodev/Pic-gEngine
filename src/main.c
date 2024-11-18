@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     picg_gl_setClearColor(0.5, 0.5, 1.0, 1.0);
 
     picg_mesh* teapot = picg_modelObj_create("dev/Models/teapot.obj");
-    picg_mesh* rects = picg_modelObj_create("dev/Models/cow.obj");
+    picg_mesh* rects = picg_modelObj_create("dev/Models/cube.obj");
     
 
     GLfloat pos[4];

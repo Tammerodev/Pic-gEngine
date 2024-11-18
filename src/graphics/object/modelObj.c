@@ -8,6 +8,8 @@ int modelVertexCount = 0;
 picg_face* faces = NULL;
 int modelFaceCount = 0;
 
+int obj_renderType = GL_TRIANGLES;
+
 void picg_modelObj_readFace_0(const char buffer[], const int faceIndex) {
     // Store values we dont want
     int N = 0;
@@ -22,6 +24,8 @@ void picg_modelObj_readFace_0(const char buffer[], const int faceIndex) {
 
     // Todo: We cant really assume this
     faces[faceIndex].verticesPerFace = 3;
+
+    obj_renderType = GL_TRIANGLES;
 }
 
 void picg_modelObj_readFace_8(const char buffer[], const int faceIndex) {
@@ -38,6 +42,8 @@ void picg_modelObj_readFace_8(const char buffer[], const int faceIndex) {
     );
 
     faces[faceIndex].verticesPerFace = 4;
+
+    obj_renderType = GL_QUADS;
 }
 
 
@@ -150,6 +156,11 @@ picg_mesh* picg_modelObj_create(const char* model_path)
     picg_mesh* mesh = malloc(sizeof(modelVertices) + sizeof(faces) + sizeof(picg_mesh));
 
     int result = loadObj(model_path);
+
+    if(result == -1) {
+        printf("Error: Could not open model file!\n");
+        return picg_cube_create();
+    }
  
     if(modelVertices == NULL) {
         printf("Error: Model vertices pointer is null returning a cube!\n");
@@ -161,7 +172,7 @@ picg_mesh* picg_modelObj_create(const char* model_path)
         return picg_cube_create();
     }
 
-    mesh->renderType = GL_TRIANGLES;
+    mesh->renderType = obj_renderType;
     mesh->vertices = modelVertices;
     mesh->vertexCount = modelVertexCount;   
 
