@@ -49,6 +49,12 @@ cmake_ninja_workdir = /home/lauri/Documents/Pic-gEngine-main/build/
 
 build cmake_object_order_depends_target_Pic-g: phony || .
 
+build CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/graphics/camera/camera.c || cmake_object_order_depends_target_Pic-g
+  DEP_FILE = CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o.d
+  FLAGS = -ggdb
+  OBJECT_DIR = CMakeFiles/Pic-g.dir
+  OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/graphics/camera
+
 build CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/graphics/graphicsGL.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o.d
   FLAGS = -ggdb
@@ -111,7 +117,7 @@ build CMakeFiles/Pic-g.dir/src/window/window.c.o: C_COMPILER__Pic-g_unscanned_De
 #############################################
 # Link the executable Pic-g
 
-build Pic-g: C_EXECUTABLE_LINKER__Pic-g_Debug CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o CMakeFiles/Pic-g.dir/src/main.c.o CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o CMakeFiles/Pic-g.dir/src/window/window.c.o
+build Pic-g: C_EXECUTABLE_LINKER__Pic-g_Debug CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o CMakeFiles/Pic-g.dir/src/main.c.o CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o CMakeFiles/Pic-g.dir/src/window/window.c.o
   FLAGS = -ggdb
   LINK_LIBRARIES = -lX11  -lGL  -lGLU
   OBJECT_DIR = CMakeFiles/Pic-g.dir
