@@ -12,12 +12,11 @@ void picg_gl_init3D()
 {
     // View projection
     glMatrixMode(GL_PROJECTION);
-    gluPerspective(90.f, 1.f, 0.1f, 1000.f);
+    gluPerspective(90.f, 1.f, 0.1f, 10000.f);
 
     // Positions
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glTranslatef(0.0F, 0.0F, -2.0F);
 
     // Enable GL propeties
     glEnable(GL_DEPTH_TEST);

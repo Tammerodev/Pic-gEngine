@@ -9,6 +9,8 @@ const int picg_string_containsCharacter(const char string[], char character)
             return 1;
         }
     }
+
+    return 0;
 }
 
 const int picg_string_countContainsCharacter(const char string[], char character) 

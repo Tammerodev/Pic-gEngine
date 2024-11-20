@@ -14,6 +14,7 @@
         "lightsource.h": "c",
         "gl.h": "c",
         "camera.h": "c",
-        "glx.h": "c"
+        "glx.h": "c",
+        "timer.h": "c"
     }
 }

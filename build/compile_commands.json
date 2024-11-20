@@ -1,61 +1,67 @@
 [
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
-  "command": "/usr/bin/gcc -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/camera/camera.c",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/camera/camera.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/graphics/camera/camera.c",
   "output": "CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
-  "command": "/usr/bin/gcc -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/graphicsGL.c",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/graphicsGL.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/graphics/graphicsGL.c",
   "output": "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
-  "command": "/usr/bin/gcc -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/initGL.c",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/initGL.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/graphics/initGL.c",
   "output": "CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
-  "command": "/usr/bin/gcc -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/lighting/lightSource.c",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/lighting/lightSource.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/graphics/lighting/lightSource.c",
   "output": "CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
-  "command": "/usr/bin/gcc -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/object/cube.c",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/object/cube.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/graphics/object/cube.c",
   "output": "CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
-  "command": "/usr/bin/gcc -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/object/mesh.c",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/object/mesh.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/graphics/object/mesh.c",
   "output": "CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
-  "command": "/usr/bin/gcc -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/object/modelObj.c",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/object/modelObj.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/graphics/object/modelObj.c",
   "output": "CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
-  "command": "/usr/bin/gcc -ggdb -o CMakeFiles/Pic-g.dir/src/main.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/main.c",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/main.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/main.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/main.c",
   "output": "CMakeFiles/Pic-g.dir/src/main.c.o"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
-  "command": "/usr/bin/gcc -ggdb -o CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/math/stringFunctions.c",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/math/stringFunctions.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/math/stringFunctions.c",
   "output": "CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
-  "command": "/usr/bin/gcc -ggdb -o CMakeFiles/Pic-g.dir/src/window/window.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/window/window.c",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/math/timer.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/math/timer.c",
+  "file": "/home/lauri/Documents/Pic-gEngine-main/src/math/timer.c",
+  "output": "CMakeFiles/Pic-g.dir/src/math/timer.c.o"
+},
+{
+  "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/window/window.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/window/window.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/window/window.c",
   "output": "CMakeFiles/Pic-g.dir/src/window/window.c.o"
 }

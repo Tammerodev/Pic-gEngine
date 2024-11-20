@@ -51,61 +51,67 @@ build cmake_object_order_depends_target_Pic-g: phony || .
 
 build CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/graphics/camera/camera.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o.d
-  FLAGS = -ggdb
+  FLAGS = -O3 -ggdb
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/graphics/camera
 
 build CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/graphics/graphicsGL.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o.d
-  FLAGS = -ggdb
+  FLAGS = -O3 -ggdb
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/graphics
 
 build CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/graphics/initGL.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o.d
-  FLAGS = -ggdb
+  FLAGS = -O3 -ggdb
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/graphics
 
 build CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/graphics/lighting/lightSource.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o.d
-  FLAGS = -ggdb
+  FLAGS = -O3 -ggdb
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/graphics/lighting
 
 build CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/graphics/object/cube.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o.d
-  FLAGS = -ggdb
+  FLAGS = -O3 -ggdb
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/graphics/object
 
 build CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/graphics/object/mesh.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o.d
-  FLAGS = -ggdb
+  FLAGS = -O3 -ggdb
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/graphics/object
 
 build CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/graphics/object/modelObj.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o.d
-  FLAGS = -ggdb
+  FLAGS = -O3 -ggdb
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/graphics/object
 
 build CMakeFiles/Pic-g.dir/src/main.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/main.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/main.c.o.d
-  FLAGS = -ggdb
+  FLAGS = -O3 -ggdb
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src
 
 build CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/math/stringFunctions.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o.d
-  FLAGS = -ggdb
+  FLAGS = -O3 -ggdb
+  OBJECT_DIR = CMakeFiles/Pic-g.dir
+  OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/math
+
+build CMakeFiles/Pic-g.dir/src/math/timer.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/math/timer.c || cmake_object_order_depends_target_Pic-g
+  DEP_FILE = CMakeFiles/Pic-g.dir/src/math/timer.c.o.d
+  FLAGS = -O3 -ggdb
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/math
 
 build CMakeFiles/Pic-g.dir/src/window/window.c.o: C_COMPILER__Pic-g_unscanned_Debug /home/lauri/Documents/Pic-gEngine-main/src/window/window.c || cmake_object_order_depends_target_Pic-g
   DEP_FILE = CMakeFiles/Pic-g.dir/src/window/window.c.o.d
-  FLAGS = -ggdb
+  FLAGS = -O3 -ggdb
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   OBJECT_FILE_DIR = CMakeFiles/Pic-g.dir/src/window
 
@@ -117,9 +123,9 @@ build CMakeFiles/Pic-g.dir/src/window/window.c.o: C_COMPILER__Pic-g_unscanned_De
 #############################################
 # Link the executable Pic-g
 
-build Pic-g: C_EXECUTABLE_LINKER__Pic-g_Debug CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o CMakeFiles/Pic-g.dir/src/main.c.o CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o CMakeFiles/Pic-g.dir/src/window/window.c.o
-  FLAGS = -ggdb
-  LINK_LIBRARIES = -lX11  -lGL  -lGLU
+build Pic-g: C_EXECUTABLE_LINKER__Pic-g_Debug CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o CMakeFiles/Pic-g.dir/src/graphics/initGL.c.o CMakeFiles/Pic-g.dir/src/graphics/lighting/lightSource.c.o CMakeFiles/Pic-g.dir/src/graphics/object/cube.c.o CMakeFiles/Pic-g.dir/src/graphics/object/mesh.c.o CMakeFiles/Pic-g.dir/src/graphics/object/modelObj.c.o CMakeFiles/Pic-g.dir/src/main.c.o CMakeFiles/Pic-g.dir/src/math/stringFunctions.c.o CMakeFiles/Pic-g.dir/src/math/timer.c.o CMakeFiles/Pic-g.dir/src/window/window.c.o
+  FLAGS = -O3 -ggdb
+  LINK_LIBRARIES = -lX11  -lGL  -lGLU  -lm
   OBJECT_DIR = CMakeFiles/Pic-g.dir
   POST_BUILD = :
   PRE_LINK = :
