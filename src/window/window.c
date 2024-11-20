@@ -60,6 +60,7 @@ void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitl
     }
 
     glXMakeCurrent(display, window, glxContext);
+    glViewport(0.f, 0.f, windowSizeX, windowSizeY);
 
     XNextEvent(display, &xevent);
 }  

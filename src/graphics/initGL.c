@@ -8,11 +8,11 @@ void picg_gl_setClearColor(float r, float g, float b, float a)
     glClearColor(r, g, b, a);
 }
 
-void picg_gl_init3D()
+void picg_gl_init3D(int winX, int winY)
 {
     // View projection
     glMatrixMode(GL_PROJECTION);
-    gluPerspective(90.f, 1.f, 0.1f, 10000.f);
+    gluPerspective(90.f, (float) winX / (float)winY, 0.1f, 10000.f);
 
     // Positions
     glMatrixMode(GL_MODELVIEW);

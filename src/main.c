@@ -14,10 +14,13 @@
 
 int main(int argc, char** argv) 
 {   
-    picg_window_create(800, 800, "Test");
-    picg_gl_init3D();
-    picg_gl_setClearColor(0.5, 0.5, 1.0, 1.0);
+    const int sizeX = 1500;
+    const int sizeY = 900;
 
+
+    picg_window_create(sizeX, sizeY, "Pic-g 3D engine");
+    picg_gl_init3D(sizeX, sizeY);
+    picg_gl_setClearColor(0.5, 0.5, 1.0, 1.0);
 
     const int N = 25000;
     picg_mesh* meshes[N];
@@ -55,7 +58,7 @@ int main(int argc, char** argv)
         picg_gl_clear();
         picg_camera_push(camera);
 
-        double speed = 500.0 * dt;
+        double speed = 100.0 * dt;
 
         if(picg_keyboard_keydown("W"))
             camera->position.z += speed;
