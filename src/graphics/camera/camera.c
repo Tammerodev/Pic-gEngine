@@ -16,7 +16,9 @@ picg_camera* picg_camera_create()
 
 void picg_camera_push(picg_camera *cam)
 {
+    glLoadIdentity();
     glTranslatef(cam->position.x, cam->position.y, cam->position.z);
+
 }
 
 void picg_camera_pop(picg_camera* cam)

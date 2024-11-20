@@ -15,17 +15,14 @@ static XSetWindowAttributes winAttr;
 static XEvent xevent;
 
 void picg_test_support()
-{
-
-}
-
-void picg_window_swapbuffers() 
-{
-    glXSwapBuffers(display, window);
+{   
+    printf("TODO: Implement compability test!");
 }
 
 void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitle)
 {
+    picg_test_support();
+
     display = XOpenDisplay(NULL);
 
     // Choose a visual that supports OpenGL
@@ -44,7 +41,10 @@ void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitl
     // Create a colormap
     colormap = XCreateColormap(display, RootWindow(display, visualInfo->screen), visualInfo->visual, AllocNone);
     winAttr.colormap = colormap;
+
+    // Event mask
     winAttr.event_mask = ExposureMask | KeyPressMask;
+
     window = XCreateWindow(display, RootWindow(display, visualInfo->screen), 0, 0, windowSizeX, windowSizeY, 0, visualInfo->depth,
                                 InputOutput, visualInfo->visual, CWColormap | CWEventMask, &winAttr);
 
@@ -64,7 +64,6 @@ void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitl
     XNextEvent(display, &xevent);
 }  
 
-
 int picg_keyboard_keydown(char *targetString)
 {
     char keys_return[32] = {0};
@@ -79,6 +78,16 @@ int picg_keyboard_keydown(char *targetString)
     return keys_return[targetByte] & targetMask;
 }
 
+int picg_input_keyboard_ispressed(unsigned int)
+{
+    return 0;
+}
+
+void picg_window_display()
+{
+    picg_gl_flush();
+    glXSwapBuffers(display, window);
+}
 
 int picg_window_created() 
 {

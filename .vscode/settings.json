@@ -13,6 +13,7 @@
         "objects.h": "c",
         "lightsource.h": "c",
         "gl.h": "c",
-        "camera.h": "c"
+        "camera.h": "c",
+        "glx.h": "c"
     }
 }

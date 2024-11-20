@@ -2,7 +2,7 @@
 
 void picg_mesh_render(picg_mesh *mesh)
 {  
-    glLoadIdentity();
+    glPushMatrix();
 
     glTranslatef(mesh->position.x, mesh->position.y, mesh->position.z);
     glRotatef(mesh->rotation.x, 1.f, 0.f, 0.f);
@@ -57,4 +57,6 @@ glBegin(mesh->renderType);
     }
 glEnd();
     
+    glPopMatrix();
+
 }

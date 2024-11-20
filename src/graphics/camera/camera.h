@@ -2,6 +2,7 @@
 #include <GL/glu.h>
 #include <stdlib.h>
 #include "../../math/vector3D.h"
+#include <stdio.h>
 
 typedef struct {
     picg_vec3F position;

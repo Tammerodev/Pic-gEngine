@@ -21,33 +21,40 @@ int main(int argc, char** argv)
 
     picg_camera* camera = picg_camera_create();
 
-    float x=  0.f;
+    cow->position.z = -15.0f;
+    cube->position.x = 30.f;
+
+    camera->position.z = -30.f;
 
     for(;;) {
         picg_gl_clear();
         picg_camera_push(camera);
-        
-        if(picg_keyboard_keydown("w")) 
-        {
+
+        if(picg_keyboard_keydown("W"))
+            camera->position.z += 0.1;
+
+        if(picg_keyboard_keydown("A"))
+            camera->position.x += 0.1;
+
+        if(picg_keyboard_keydown("S"))
             camera->position.z -= 0.1;
-        }
+
+        if(picg_keyboard_keydown("D"))
+            camera->position.x -= 0.1;
 
         teapot->rotation.y += 1.5;
-        teapot->position.z -= 0.5;
 
         cube->rotation.z -= 0.5;
         cube->rotation.y -= 0.5;
         cube->rotation.x -= 0.5;
 
-        cow->rotation.y -= 1.0;
-
         picg_mesh_render(teapot);
-        //picg_mesh_render(cube);
-        //picg_mesh_render(cow);
+        picg_mesh_render(cube);
+        picg_mesh_render(cow);
+        picg_camera_push(camera);
 
-        picg_window_swapbuffers();
-        picg_gl_flush();
 
+        picg_window_display();
         picg_camera_pop(camera);
     }
     return 0;
