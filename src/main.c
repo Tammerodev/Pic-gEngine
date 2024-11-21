@@ -50,13 +50,23 @@ int main(int argc, char** argv)
 
     double dt = 0.0;
 
-
+    char title[48];
     for(;;) {
         picg_ha_timer_reset(&timer);
         picg_ha_timer_start(&timer);
 
         picg_gl_clear();
         picg_camera_push(camera);
+
+
+        if(picg_keyboard_keydown("h")) 
+            camera->rotation.y -= 0.5;
+        if(picg_keyboard_keydown("k")) 
+            camera->rotation.y += 0.5;
+        if(picg_keyboard_keydown("j")) 
+            camera->rotation.x += 0.5;
+        if(picg_keyboard_keydown("u")) 
+            camera->rotation.x -= 0.5;
 
         double speed = 100.0 * dt;
 
@@ -90,7 +100,8 @@ int main(int argc, char** argv)
 
         dt = picg_ha_timer_gettime(&timer);
 
-        printf("FPS %f \n", 1.f / (float)picg_ha_timer_gettime(&timer));
+        sprintf(title, "Pic-g 3d engine, FPS: %f", 1.f / (float)picg_ha_timer_gettime(&timer));
+        picg_window_setTitle(title);
     }
     return 0;
 }

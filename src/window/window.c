@@ -63,7 +63,12 @@ void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitl
     glViewport(0.f, 0.f, windowSizeX, windowSizeY);
 
     XNextEvent(display, &xevent);
-}  
+}
+
+void picg_window_setTitle(const char *windowTitle)
+{
+    XStoreName(display, window, windowTitle);
+}
 
 int picg_keyboard_keydown(char *targetString)
 {
