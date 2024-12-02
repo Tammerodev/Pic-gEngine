@@ -58,6 +58,8 @@ int main(int argc, char** argv)
         picg_gl_clear();
         picg_camera_push(camera);
 
+        picg_window_mouse_getPosition();
+
 
         if(picg_keyboard_keydown("h")) 
             camera->rotation.y -= 0.5;

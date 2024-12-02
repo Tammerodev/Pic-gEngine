@@ -4,6 +4,6 @@ struct picg_vec2F {
     float x, y;
 };
 
-struct picg_vec2I {
+typedef struct {
     int x, y;
-};
+} picg_vec2I;

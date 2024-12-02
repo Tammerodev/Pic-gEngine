@@ -70,6 +70,13 @@ void picg_window_setTitle(const char *windowTitle)
     XStoreName(display, window, windowTitle);
 }
 
+picg_vec2I picg_window_mouse_getPosition()
+{
+    picg_vec2I result = {};
+
+    printf("Read position: x=%f, y=%f\n", result.x, result.y);
+}
+
 int picg_keyboard_keydown(char *targetString)
 {
     char keys_return[32] = {0};
