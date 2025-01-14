@@ -11,6 +11,4 @@ typedef struct {
 
 picg_camera* picg_camera_create();
 
-void picg_camera_push(picg_camera*);
-
-void picg_camera_pop(picg_camera*);
+void picg_camera_apply(picg_camera*);

@@ -1,4 +1,6 @@
 #include "mesh.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void picg_mesh_render(picg_mesh *mesh)
 {  
@@ -38,7 +40,6 @@ glBegin(mesh->renderType);
         // Otherwise, render by faces
         for(int vIndex = 0; vIndex < mesh->faceCount; ++vIndex)
         {
-
             for(int i = 0; i < mesh->faces[vIndex].verticesPerFace; ++i) {
                 glColor4f(
                     mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].r,

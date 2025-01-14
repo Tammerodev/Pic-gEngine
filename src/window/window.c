@@ -5,6 +5,7 @@
 
 #if LINUX
 #include "X11/Xlib.h"
+#include "X11/Xatom.h"
 
 static Window window;
 static Display *display = NULL;
@@ -19,7 +20,7 @@ void picg_test_support()
     printf("TODO: Implement compability test!");
 }
 
-void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitle)
+void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitle, int fullscreen)
 {
     picg_test_support();
 
@@ -48,6 +49,16 @@ void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitl
     window = XCreateWindow(display, RootWindow(display, visualInfo->screen), 0, 0, windowSizeX, windowSizeY, 0, visualInfo->depth,
                                 InputOutput, visualInfo->visual, CWColormap | CWEventMask, &winAttr);
 
+
+    if(fullscreen) {
+        Atom wm_state   = XInternAtom (display, "_NET_WM_STATE", 1 );
+        Atom wm_fullscreen = XInternAtom (display, "_NET_WM_STATE_FULLSCREEN", 1 );
+
+        XChangeProperty(display, window, wm_state, XA_ATOM, 32,
+                        PropModeReplace, (unsigned char *)&wm_fullscreen, 1);
+    }
+
+
     XMapWindow(display, window);
     XStoreName(display, window, windowTitle);
 
@@ -72,9 +83,41 @@ void picg_window_setTitle(const char *windowTitle)
 
 picg_vec2I picg_window_mouse_getPosition()
 {
-    picg_vec2I result = {};
+    picg_vec2I result = {0, 0};
+    int win_x, win_y;
 
-    printf("Read position: x=%f, y=%f\n", result.x, result.y);
+    Window window_returned;
+    unsigned int mask_return;
+
+    XQueryPointer(display, window, &window_returned,
+                &window_returned, &result.x, &result.y, &win_x, &win_y,
+                &mask_return);
+
+    return result;
+}
+
+picg_vec2I picg_window_getPosition()
+{
+    picg_vec2I position = {0, 0};
+    Window childWindow;
+
+    XTranslateCoordinates(display, window, RootWindow(display, 0), 0, 0, &position.x, &position.y, &childWindow);
+
+    return position;
+}
+
+picg_vec2I picg_window_getSize()
+{
+    XWindowAttributes windowAttributes;
+    XGetWindowAttributes(display, window, &windowAttributes);
+
+    picg_vec2I size = {windowAttributes.width, windowAttributes.height};
+    return size;
+}
+
+void picg_window_mouse_setPosition(const picg_vec2I position)
+{
+    XWarpPointer(display, None, window, 0, 0, 0, 50, position.x, position.y);
 }
 
 int picg_keyboard_keydown(char *targetString)

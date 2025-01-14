@@ -18,12 +18,13 @@ int main(int argc, char** argv)
     const int sizeY = 900;
 
 
-    picg_window_create(sizeX, sizeY, "Pic-g 3D engine");
+    picg_window_create(sizeX, sizeY, "Pic-g 3D engine", 0);
     picg_gl_init3D(sizeX, sizeY);
     picg_gl_setClearColor(0.5, 0.5, 1.0, 1.0);
 
     const int N = 25000;
     picg_mesh* meshes[N];
+    picg_mesh* obj = picg_modelObj_create("dev/Models/teapot.obj"); 
 
     float x = 0.f;
     float z = 0.f;
@@ -51,15 +52,39 @@ int main(int argc, char** argv)
     double dt = 0.0;
 
     char title[48];
+
+    int persist_pos_x = 0;
+    int persist_pos_y = 0;
+
+
     for(;;) {
         picg_ha_timer_reset(&timer);
         picg_ha_timer_start(&timer);
 
         picg_gl_clear();
-        picg_camera_push(camera);
+        //picg_camera_push(camera);
 
         picg_window_mouse_getPosition();
 
+        picg_camera_apply(camera);
+
+        picg_vec2I mouse = picg_window_mouse_getPosition();
+        picg_vec2I windowPos = picg_window_getPosition(); 
+        picg_vec2I windowSize = picg_window_getSize();
+        mouse.x -= (windowPos.x + windowSize.x / 2);
+        mouse.y -= (windowPos.y + windowSize.y / 2);
+
+        /*if(mouse.x < -windowSize.x / 2) {
+            picg_vec2I setPos = {windowPos.x + picg_window_mouse_getPosition().x + windowSize.x, picg_window_mouse_getPosition().y};
+            picg_window_mouse_setPosition(setPos);
+        }*/
+        printf("mouse x %i y %i\n", mouse.x, mouse.y);
+
+        if(picg_keyboard_keydown("o")) {
+
+        camera->rotation.y = persist_pos_x + mouse.x / 5.f;
+        camera->rotation.x = persist_pos_y + mouse.y / 5.f;
+        }
 
         if(picg_keyboard_keydown("h")) 
             camera->rotation.y -= 0.5;
@@ -95,10 +120,10 @@ int main(int argc, char** argv)
                 picg_mesh_render(meshes[i]);
         }
 
-        picg_camera_push(camera);
+        obj->rotation.x += 0.1;
+        picg_mesh_render(obj);
 
         picg_window_display();
-        picg_camera_pop(camera);
 
         dt = picg_ha_timer_gettime(&timer);
 
