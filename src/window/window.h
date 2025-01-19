@@ -1,13 +1,13 @@
 #pragma once
 #include "../PREPROCESSOR/OS.h"
 #include "../math/vector2D.h"
-#include "GL/glx.h"
 #include "../globals/input.h"
 #include "../graphics/graphicsGL.h"
 
 
 #if LINUX
 #include <X11/Xlib.h>
+#include "GL/glx.h"
 #endif
 
 void picg_test_support();
