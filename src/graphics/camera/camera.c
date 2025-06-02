@@ -24,5 +24,11 @@ void picg_camera_apply(picg_camera *cam)
     glRotatef(cam->rotation.y, 0.f, 1.f, 0.f);
     glRotatef(cam->rotation.z, 0.f, 0.f, 1.f);
 
-    glTranslatef(cam->position.x, cam->position.y, cam->position.z);
+    picg_vec3F position_transform_apply_rotation = cam->position;
+
+    // Rotate the vector by cam->rotation
+
+    glTranslatef(position_transform_apply_rotation.x, 
+                 position_transform_apply_rotation.y, 
+                 position_transform_apply_rotation.z);
 }

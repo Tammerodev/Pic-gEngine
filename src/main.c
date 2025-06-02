@@ -10,6 +10,8 @@
 #include "graphics/camera/camera.h"
 
 #include "math/timer.h"
+#include "math/transforms.h"
+
 #include <math.h>
 
 int main(int argc, char** argv) 
@@ -96,23 +98,31 @@ int main(int argc, char** argv)
 
         double speed = 1.0 * (dt + .1f);
 
+        picg_vec3F movement = {0.f, 0.f, 0.f};
+
         if(picg_keyboard_keydown("W"))
-            camera->position.z += speed;
+            movement.z += speed;
 
         if(picg_keyboard_keydown("A"))
-            camera->position.x += speed;
+            movement.x += speed;
 
         if(picg_keyboard_keydown("S"))
-            camera->position.z -= speed;
+            movement.z -= speed;
 
         if(picg_keyboard_keydown("D"))
-            camera->position.x -= speed;
+            movement.x -= speed;
 
         if(picg_keyboard_keydown("space"))
-            camera->position.y -= speed;
+            movement.y -= speed;
 
         if(picg_keyboard_keydown("x"))
-            camera->position.y += speed;
+            movement.y += speed;
+
+        picg_vec3F rotated = picg_transform_rotate(movement, camera->rotation);
+
+        camera->position.x += rotated.x;
+        camera->position.y += rotated.y;
+        camera->position.z += rotated.z;
 
         for(int i = 0; i < N; ++i) {
             if(meshes[i])

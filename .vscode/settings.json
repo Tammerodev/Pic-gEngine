@@ -15,6 +15,7 @@
         "gl.h": "c",
         "camera.h": "c",
         "glx.h": "c",
-        "timer.h": "c"
+        "timer.h": "c",
+        "cmath": "cpp"
     }
 }
