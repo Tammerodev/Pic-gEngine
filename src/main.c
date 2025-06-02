@@ -22,7 +22,7 @@ int main(int argc, char** argv)
     picg_gl_init3D(sizeX, sizeY);
     picg_gl_setClearColor(0.5, 0.5, 1.0, 1.0);
 
-    const int N = 25000;
+    const int N = 2050;
     picg_mesh* meshes[N];
     picg_mesh* obj = picg_modelObj_create("dev/Models/teapot.obj"); 
 
@@ -62,7 +62,6 @@ int main(int argc, char** argv)
         picg_ha_timer_start(&timer);
 
         picg_gl_clear();
-        //picg_camera_push(camera);
 
         picg_window_mouse_getPosition();
 
@@ -74,10 +73,10 @@ int main(int argc, char** argv)
         mouse.x -= (windowPos.x + windowSize.x / 2);
         mouse.y -= (windowPos.y + windowSize.y / 2);
 
-        /*if(mouse.x < -windowSize.x / 2) {
+        if(mouse.x < -windowSize.x / 2) {
             picg_vec2I setPos = {windowPos.x + picg_window_mouse_getPosition().x + windowSize.x, picg_window_mouse_getPosition().y};
             picg_window_mouse_setPosition(setPos);
-        }*/
+        }
         printf("mouse x %i y %i\n", mouse.x, mouse.y);
 
         if(picg_keyboard_keydown("o")) {
@@ -95,7 +94,7 @@ int main(int argc, char** argv)
         if(picg_keyboard_keydown("u")) 
             camera->rotation.x -= 0.5;
 
-        double speed = 100.0 * dt;
+        double speed = 1.0 * (dt + .1f);
 
         if(picg_keyboard_keydown("W"))
             camera->position.z += speed;
@@ -119,6 +118,8 @@ int main(int argc, char** argv)
             if(meshes[i])
                 picg_mesh_render(meshes[i]);
         }
+
+        printf("Rotation X=%f  Y=%f   Z=%f", camera->rotation.x, camera->rotation.y, camera->rotation.z);
 
         obj->rotation.x += 0.1;
         picg_mesh_render(obj);

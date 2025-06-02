@@ -15,7 +15,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -30,7 +31,8 @@
 					"name" : "Pic-g",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -39,8 +41,15 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Pic-g::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Pic-g-Debug-3c9600c6a223c0bd529e.json",
+					"jsonFile" : "target-Pic-g-Debug-0746506e1610594703b8.json",
 					"name" : "Pic-g",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "clean_build_dir::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-clean_build_dir-Debug-1024131954642ce51ef0.json",
+					"name" : "clean_build_dir",
 					"projectIndex" : 0
 				}
 			]

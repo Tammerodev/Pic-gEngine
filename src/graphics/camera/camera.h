@@ -6,7 +6,9 @@
 
 typedef struct {
     picg_vec3F position;
-    picg_vec3F rotation;
+
+    // Rotation expressed in degrees
+    picg_vec3F rotation;       
 } picg_camera;
 
 picg_camera* picg_camera_create();

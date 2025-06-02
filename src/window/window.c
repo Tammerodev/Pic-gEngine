@@ -144,7 +144,7 @@ void picg_window_display()
     picg_gl_flush();
     glXSwapBuffers(display, window);
 }
-
+  
 int picg_window_created() 
 {
     return display != NULL;
@@ -152,15 +152,126 @@ int picg_window_created()
 
 #elif WINDOWS
 
-void picg_create_window() 
-{
+HDC hdc;
+HWND hwnd;
+
+void Win32Opengl_init() {
+    hdc = GetDC(hwnd);
+
+    // Set pixel format descriptor
+    PIXELFORMATDESCRIPTOR pfd = {
+        sizeof(PIXELFORMATDESCRIPTOR),
+        1,                          // Version number
+        PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER | PFD_DRAW_TO_WINDOW, // Flags
+        PFD_TYPE_RGBA,              // Color format
+        24,                         // Color depth
+        0, 0, 0, 0, 0, 0,          // Ignore color bits
+        0,                          // No alpha buffer
+        0,                          // No accumulation buffer
+        0, 0, 0,                    // No depth, stencil, and auxiliary buffers
+        32,                         // 32-bit depth buffer
+        0,                          // No stencil buffer
+        0,                          // No auxiliary buffers
+        PFD_MAIN_PLANE,             // Main drawing plane
+        0,                          // Reserved
+        0, 0, 0                     // Layer, visible, and reserved fields
+    };
+
+    // Choose pixel format
+    int pixelformat = ChoosePixelFormat(hdc, &pfd);
+    SetPixelFormat(hdc, pixelformat, &pfd);
+
+    HGLRC hglrc;
+    hglrc = wglCreateContext(hdc);
+    wglMakeCurrent(hdc, hglrc);
+}
+
+void picg_test_support() {
 
 }
 
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+    switch (uMsg) {
+        case WM_CLOSE:
+            PostQuitMessage(0);
+            return 0;
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            return 0;
+    }
+    return DefWindowProc(hwnd, uMsg, wParam, lParam);
+}
 
-int picg_window_created() 
-{
+void picg_window_create(int windowSizeX, int windowSizeY, const char* windowTitle, int fullscreen) {
+    const char* CLASS_NAME  = "Sample Window Class";
+    
+    // Get the instance handle
+    HINSTANCE hInstance = GetModuleHandle(NULL); // Current application instance
 
+    // Set up the window class
+    WNDCLASS wc = { };
+    wc.lpfnWndProc   = WindowProc;  
+    wc.hInstance     = hInstance;         
+    wc.lpszClassName = CLASS_NAME;       
+
+    RegisterClass(&wc);
+
+    DWORD style = WS_OVERLAPPEDWINDOW;
+    if (fullscreen) {
+        style = WS_POPUP; // Fullscreen mode (no borders, no title bar)
+    }
+
+    // Create the window
+    hwnd = CreateWindowEx(
+        0,                              // Optional window styles.
+        CLASS_NAME,                     // Window class
+        windowTitle,                    // Window title
+        style,                          // Window style (fullscreen or windowed)
+
+        // Size and position
+        CW_USEDEFAULT, CW_USEDEFAULT, windowSizeX, windowSizeY,
+
+        NULL,                           // Parent window    
+        NULL,                           // Menu
+        hInstance,                      // Instance handle
+        NULL                            // Additional application data
+    );
+
+    Win32Opengl_init();
+
+    UpdateWindow(hwnd);
+    ShowWindow(hwnd, SW_SHOWNORMAL);
+}
+
+void picg_window_setTitle(const char* windowTitle) {
+    // TODO 
+}
+
+picg_vec2I picg_window_mouse_getPosition() {
+    picg_vec2I pos;
+    return pos;
+}
+
+picg_vec2I picg_window_getPosition() {
+    picg_vec2I pos;
+    return pos;
+}
+
+picg_vec2I picg_window_getSize() {
+    picg_vec2I pos;
+    return pos;
+}
+
+void picg_window_mouse_setPosition(const picg_vec2I) {
+
+}
+
+int picg_keyboard_keydown(char *targetString) {
+    return 0;
+}
+
+void picg_window_display() {
+    SwapBuffers(hdc);
 }
 
 #endif

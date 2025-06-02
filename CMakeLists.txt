@@ -12,6 +12,13 @@ set(CMAKE_C_FLAGS "-O3")
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_DEBUG "-ggdb")
 
+
+add_custom_target(clean_build_dir
+    COMMAND ${CMAKE_COMMAND} -E rm -rf ${CMAKE_BINARY_DIR}/build
+    COMMENT "Removing build files"
+)
+
+
 # Link libraries to the executable
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE

@@ -8,6 +8,8 @@
 #if LINUX
 #include <X11/Xlib.h>
 #include "GL/glx.h"
+#elif WINDOWS
+#include <windows.h>
 #endif
 
 void picg_test_support();
