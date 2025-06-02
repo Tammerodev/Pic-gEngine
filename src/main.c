@@ -14,6 +14,8 @@
 
 #include <math.h>
 
+
+
 int main(int argc, char** argv) 
 {   
     const int sizeX = 1500;
@@ -24,9 +26,11 @@ int main(int argc, char** argv)
     picg_gl_init3D(sizeX, sizeY);
     picg_gl_setClearColor(0.5, 0.5, 1.0, 1.0);
 
-    const int N = 2050;
+    const int N = 6200;
     picg_mesh* meshes[N];
     picg_mesh* obj = picg_modelObj_create("dev/Models/teapot.obj"); 
+
+    picg_vec3F rotation = {0.f, 0.f, 0.f};
 
     float x = 0.f;
     float z = 0.f;
@@ -42,6 +46,9 @@ int main(int argc, char** argv)
         }
 
         meshes[i]->position.z = z;
+        meshes[i]->position.y += sin(i / (float)1000.f * 1.f) * 10.f;
+        meshes[i]->position.y += sin(x / 1.f) * 2.f;
+
     } 
 
     picg_camera* camera = picg_camera_create();
@@ -75,11 +82,12 @@ int main(int argc, char** argv)
         mouse.x -= (windowPos.x + windowSize.x / 2);
         mouse.y -= (windowPos.y + windowSize.y / 2);
 
-        if(mouse.x < -windowSize.x / 2) {
+        // TODO: uncomment
+        /*if(mouse.x < -windowSize.x / 2) {
             picg_vec2I setPos = {windowPos.x + picg_window_mouse_getPosition().x + windowSize.x, picg_window_mouse_getPosition().y};
             picg_window_mouse_setPosition(setPos);
         }
-        printf("mouse x %i y %i\n", mouse.x, mouse.y);
+        printf("mouse x %i y %i\n", mouse.x, mouse.y);*/
 
         if(picg_keyboard_keydown("o")) {
 
@@ -87,16 +95,29 @@ int main(int argc, char** argv)
         camera->rotation.x = persist_pos_y + mouse.y / 5.f;
         }
 
-        if(picg_keyboard_keydown("h")) 
-            camera->rotation.y -= 0.5;
-        if(picg_keyboard_keydown("k")) 
-            camera->rotation.y += 0.5;
-        if(picg_keyboard_keydown("j")) 
-            camera->rotation.x += 0.5;
-        if(picg_keyboard_keydown("u")) 
-            camera->rotation.x -= 0.5;
+        double rotation_speed = 1.7f * (dt + .1f);
+        float dampening = 1.1f;
 
-        double speed = 1.0 * (dt + .1f);
+        if(picg_keyboard_keydown("h")) 
+            rotation.y -= rotation_speed;
+        if(picg_keyboard_keydown("k")) 
+            rotation.y += rotation_speed;
+        if(picg_keyboard_keydown("j")) 
+            rotation.x += rotation_speed;
+        if(picg_keyboard_keydown("u")) 
+            rotation.x -= rotation_speed;
+
+        rotation.x /= dampening;
+        rotation.y /= dampening;
+        rotation.z /= dampening;
+
+
+        camera->rotation.x += rotation.x;
+        camera->rotation.y += rotation.y;
+        camera->rotation.z += rotation.z;
+
+
+        double speed = 7.0 * (dt + .1f);
 
         picg_vec3F movement = {0.f, 0.f, 0.f};
 
@@ -125,8 +146,13 @@ int main(int argc, char** argv)
         camera->position.z += rotated.z;
 
         for(int i = 0; i < N; ++i) {
-            if(meshes[i])
+            if(meshes[i]) {
+                meshes[i]->rotation.x += (i/1000.f)+0.8f;
+                meshes[i]->rotation.y += (i/1000.f)+0.6f;
+                meshes[i]->rotation.z += (i/1000.f)+0.4f;
+
                 picg_mesh_render(meshes[i]);
+            }
         }
 
         printf("Rotation X=%f  Y=%f   Z=%f", camera->rotation.x, camera->rotation.y, camera->rotation.z);
