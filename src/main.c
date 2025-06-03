@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     float z = 0.f;
     // Make a grid of cubes (size=N)
 
-    const int N = 6200;
+    const int N = 2;
     picg_mesh* meshes[N];
     picg_physics_physicsComponent* physic[N];
 
@@ -156,6 +156,17 @@ int main(int argc, char** argv)
         if(picg_keyboard_keydown("x"))
             movement.y += speed;
 
+        // TODO: remove/////////////////////
+        if(picg_keyboard_keydown("y")) {
+            meshes[0]->position.x += 0.1f;
+            meshes[0]->position.z += 0.1f;
+        }
+
+
+
+        ///////////////////////////////
+
+
         picg_vec3F rotated = picg_transform_rotate(movement, camera->rotation);
 
         camera->position.x += rotated.x;
@@ -169,6 +180,15 @@ int main(int argc, char** argv)
 
             if(physic[i]) {
                 picg_physics_physicsComponent_debug_render(physic[i]);
+
+                for(int j = 0; j < N; ++j) {
+                    if(j != i) {
+                        picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
+                        picg_physics_physicsComponent_calculateAABB(&physic[j]->aabb, meshes[j]);
+
+                        picg_physics_physicsComponent_solve(physic[i], physic[j]);
+                    }
+                }
             }
         }
 
