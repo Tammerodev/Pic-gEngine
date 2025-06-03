@@ -30,6 +30,10 @@ glBegin(mesh->renderType);
                 mesh->vertices[vIndex].a
             );
 
+            glNormal3f(mesh->vertices[vIndex].xn,
+                        mesh->vertices[vIndex].yn,
+                        mesh->vertices[vIndex].zn);
+
             glVertex3f(
                 mesh->vertices[vIndex].x + mesh->position.x,
                 mesh->vertices[vIndex].y + mesh->position.y,
@@ -47,6 +51,10 @@ glBegin(mesh->renderType);
                     mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].b,
                     mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].a
                 );
+
+                glNormal3f(mesh->vertices[vIndex].xn,
+                        mesh->vertices[vIndex].yn,
+                        mesh->vertices[vIndex].zn);
 
                 glVertex3f(
                     mesh->position.x + mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,

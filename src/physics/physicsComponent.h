@@ -109,9 +109,7 @@ void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, p
         } else {
             comp1->position->x += overlapX;
         }
-
-        printf("x\n");
-
+        
         comp1->velocity.x = 0.f;
     } else if (overlapY < overlapZ) {
         // Resolve along Y
@@ -128,8 +126,6 @@ void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, p
         } else {
             comp1->position->z += overlapZ;
         }
-
-        printf("z\n");
 
         comp1->velocity.z = 0.f;
     }

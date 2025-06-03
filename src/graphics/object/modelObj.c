@@ -112,6 +112,17 @@ int loadObj(const char* filepath)
             modelVertices[vertexCount].a = 1.0f;
 
             ++vertexCount;
+        } else if(buffer[0] == 'v' && buffer[1] == 'n'){
+            sscanf(buffer, "vn %f %f %f \n", 
+                &modelVertices[vertexCount].xn,
+                &modelVertices[vertexCount].yn,
+                &modelVertices[vertexCount].zn);
+
+
+            printf("Read normal: XN=%f,  YN=%f,  ZN=%f \n",
+                modelVertices[vertexCount].xn,
+                modelVertices[vertexCount].yn,
+                modelVertices[vertexCount].zn );
         }
     }
 
