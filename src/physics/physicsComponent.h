@@ -10,7 +10,7 @@ typedef struct {
     picg_vec3F velocity;
     picg_vertex3F acceleration;
 
-    // This should be a referebce to the visual things position, i know TODO: the memory safety is absolutely terrible
+    // This should be a referebce to the visual things position, TODO: the memory safety is absolutely terrible
     picg_vec3F *position;
 
     /*
@@ -100,11 +100,39 @@ void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, p
     float overlapY = fminf(comp1->aabb.maxY, comp2->aabb.maxY) - fmaxf(comp1->aabb.minY, comp2->aabb.minY);
     float overlapZ = fminf(comp1->aabb.maxZ, comp2->aabb.maxZ) - fmaxf(comp1->aabb.minZ, comp2->aabb.minZ);
 
-    //if(overlapX > 0.f) comp1->velocity.x = 0.f;
-    if(overlapY > 0.f) comp1->velocity.y = 0.f;
-    //if(overlapZ > 0.f) comp1->velocity.z = 0.f;
+    
+    // Find the axis of least penetration
+    if (overlapX < overlapY && overlapX < overlapZ) {
+        // Resolve along X
+        if (comp1->aabb.minX < comp2->aabb.minX) {
+            comp1->position->x -= overlapX;
+        } else {
+            comp1->position->x += overlapX;
+        }
 
-    comp1->position->y += overlapY;
+        printf("x\n");
+
+        comp1->velocity.x = 0.f;
+    } else if (overlapY < overlapZ) {
+        // Resolve along Y
+        if (comp1->aabb.minY < comp2->aabb.minY) {
+            comp1->position->y -= overlapY;
+        } else {
+           comp1->position->y += overlapY;
+        }
+        comp1->velocity.y = 0.f;
+    } else {
+        // Resolve along Z
+        if (comp1->aabb.minZ < comp2->aabb.minZ) {
+            comp1->position->z -= overlapZ;
+        } else {
+            comp1->position->z += overlapZ;
+        }
+
+        printf("z\n");
+
+        comp1->velocity.z = 0.f;
+    }
 }
 
 

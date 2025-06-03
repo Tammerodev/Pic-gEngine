@@ -27,7 +27,7 @@ int main(int argc, char** argv)
     // Create & init graphics 
     picg_window_create(sizeX, sizeY, "Pic-g 3D engine", 0);
     picg_gl_init3D(sizeX, sizeY);
-    picg_gl_setClearColor(0.01, 0.01, 0.02, 1.0);
+    picg_gl_setClearColor(0.01, 0.01, 0.2, 1.0);
 
     // Teapot
     picg_mesh* obj = picg_modelObj_create("dev/Models/teapot.obj"); 
@@ -35,6 +35,10 @@ int main(int argc, char** argv)
         picg_mesh* plane = picg_modelObj_create("dev/Models/plane.obj"); 
         picg_physics_physicsComponent* plane_physics = picg_physics_physicsComponent_create();
         picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
+
+        picg_mesh* sideways = picg_modelObj_create("dev/Models/sideways.obj"); 
+        picg_physics_physicsComponent* sideways_physics = picg_physics_physicsComponent_create();
+        picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
 
     picg_vec3F rotation = {0.f, 0.f, 0.f};
 
@@ -56,8 +60,11 @@ int main(int argc, char** argv)
             z += 5.f;
         }
 
-        meshes[i]->position.z = z;
+        float x = (float)rand()/(float)(RAND_MAX/4.5f);
+
+        meshes[i]->position.z = z + x;
         meshes[i]->position.y += 100.f + sin(x / 12.f) * 22.5f;
+
 
         // physics
         physic[i] = picg_physics_physicsComponent_create();
@@ -137,7 +144,7 @@ int main(int argc, char** argv)
         camera->rotation.z += rotation.z;
 
 
-        double speed = 7.0 * (dt + .1f);
+        double speed = 17.0 * (dt + .1f);
 
         picg_vec3F movement = {0.f, 0.f, 0.f};
 
@@ -186,10 +193,11 @@ int main(int argc, char** argv)
                     }
                 }
 
-                // Ground collisions
+                         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
+                picg_physics_physicsComponent_solve(physic[i], sideways_physics);
 
+                // custom collisions
                 picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
-
                 picg_physics_physicsComponent_solve(physic[i], plane_physics);
             }
         }
@@ -199,11 +207,19 @@ int main(int argc, char** argv)
 
         picg_mesh_render(obj);
         picg_mesh_render(plane);
+        picg_mesh_render(sideways);
+
+        picg_physics_physicsComponent_debug_render(sideways_physics);
+        picg_physics_physicsComponent_debug_render(plane_physics);
+
 
         // Plane demo
-        plane->position.z -= 0.2f;
+        plane->position.z -= 0.1f;
+        sideways->position.z -= 0.1f;
+        sideways->position.x -= 0.1f;
 
         picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
+        picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
 
         picg_window_display();
 
