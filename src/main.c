@@ -32,13 +32,17 @@ int main(int argc, char** argv)
     // Teapot
     picg_mesh* obj = picg_modelObj_create("dev/Models/teapot.obj"); 
 
+        picg_mesh* plane = picg_modelObj_create("dev/Models/plane.obj"); 
+        picg_physics_physicsComponent* plane_physics = picg_physics_physicsComponent_create();
+        picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
+
     picg_vec3F rotation = {0.f, 0.f, 0.f};
 
     float x = 0.f;
     float z = 0.f;
     // Make a grid of cubes (size=N)
 
-    const int N = 2;
+    const int N = 222;
     picg_mesh* meshes[N];
     picg_physics_physicsComponent* physic[N];
 
@@ -54,7 +58,7 @@ int main(int argc, char** argv)
 
         meshes[i]->position.z = z;
         meshes[i]->position.y += sin(i / (float)1000.f * 1.f) * 1.f;
-        meshes[i]->position.y += sin(x / 1.f) * 0.5f;
+        meshes[i]->position.y += 100.f + sin(x / 1.f) * 0.5f;
 
         // physics
         physic[i] = picg_physics_physicsComponent_create();
@@ -156,17 +160,6 @@ int main(int argc, char** argv)
         if(picg_keyboard_keydown("x"))
             movement.y += speed;
 
-        // TODO: remove/////////////////////
-        if(picg_keyboard_keydown("y")) {
-            meshes[0]->position.x += 0.1f;
-            meshes[0]->position.z += 0.1f;
-        }
-
-
-
-        ///////////////////////////////
-
-
         picg_vec3F rotated = picg_transform_rotate(movement, camera->rotation);
 
         camera->position.x += rotated.x;
@@ -176,11 +169,20 @@ int main(int argc, char** argv)
         for(int i = 0; i < N; ++i) {
             if(meshes[i]) {
                 picg_mesh_render(meshes[i]);
+
+                if(picg_keyboard_keydown("y")) {
+                    meshes[i]->position.y -= 0.5f;
+                }
+
+
             }
+
+            
 
             if(physic[i]) {
                 picg_physics_physicsComponent_debug_render(physic[i]);
 
+                // Collisions with other cubes
                 for(int j = 0; j < N; ++j) {
                     if(j != i) {
                         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
@@ -189,11 +191,18 @@ int main(int argc, char** argv)
                         picg_physics_physicsComponent_solve(physic[i], physic[j]);
                     }
                 }
+
+                // Ground collisions
+
+                picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
+
+                picg_physics_physicsComponent_solve(physic[i], plane_physics);
             }
         }
 
         obj->rotation.x += 0.1;
         picg_mesh_render(obj);
+        picg_mesh_render(plane);
 
         picg_window_display();
 
