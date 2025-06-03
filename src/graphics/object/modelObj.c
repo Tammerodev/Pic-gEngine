@@ -35,11 +35,17 @@ void picg_modelObj_readFace_8(const char buffer[], const int faceIndex) {
     // Get formatted output of face data
     //             vertex/texture/normal x4
     sscanf(buffer, "f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
-        &faces[faceIndex].verticeIndexes[0], &N, &N,
-        &faces[faceIndex].verticeIndexes[1], &N, &N,
-        &faces[faceIndex].verticeIndexes[2], &N, &N,
-        &faces[faceIndex].verticeIndexes[3], &N, &N
+        &faces[faceIndex].verticeIndexes[0], &N, &faces[faceIndex].normalIndexes[0],
+        &faces[faceIndex].verticeIndexes[1], &N, &faces[faceIndex].normalIndexes[1],
+        &faces[faceIndex].verticeIndexes[2], &N, &faces[faceIndex].normalIndexes[2],
+        &faces[faceIndex].verticeIndexes[3], &N, &faces[faceIndex].normalIndexes[3]
     );
+
+    /*printf("LN44-.-.-.-normal index: XN=%i,  YN=%i,  ZN=%i \n",
+                    faces[faceIndex].normalIndexes[0],
+                    faces[faceIndex].normalIndexes[1],
+                    faces[faceIndex].normalIndexes[2],
+                    faces[faceIndex].normalIndexes[3]);*/
 
     faces[faceIndex].verticesPerFace = 4;
 
@@ -106,13 +112,23 @@ int loadObj(const char* filepath)
                 &modelVertices[vertexCount].y,
                 &modelVertices[vertexCount].z);
 
-            modelVertices[vertexCount].r = modelVertices[vertexCount].x / 33.f;
-            modelVertices[vertexCount].g = cos(modelVertices[vertexCount].y * 2.f) * 4.f;
-            modelVertices[vertexCount].b = sin(modelVertices[vertexCount].z) / 2.f;
+            modelVertices[vertexCount].r = 0.5f;
+            modelVertices[vertexCount].g = 0.5f;
+            modelVertices[vertexCount].b = 0.5f;
+
             modelVertices[vertexCount].a = 1.0f;
 
             ++vertexCount;
-        } else if(buffer[0] == 'v' && buffer[1] == 'n'){
+        }
+    }
+
+    // Rewind, read normal data
+    rewind(objFile);
+
+    vertexCount = 0;
+
+    while(fgets(buffer, bufferLength, objFile)) {
+        if(buffer[0] == 'v' && buffer[1] == 'n'){
             sscanf(buffer, "vn %f %f %f \n", 
                 &modelVertices[vertexCount].xn,
                 &modelVertices[vertexCount].yn,
@@ -123,6 +139,8 @@ int loadObj(const char* filepath)
                 modelVertices[vertexCount].xn,
                 modelVertices[vertexCount].yn,
                 modelVertices[vertexCount].zn );
+
+            ++vertexCount;
         }
     }
 
@@ -134,7 +152,7 @@ int loadObj(const char* filepath)
     // TODO: This is so funny terrible! Fix this, QUICK!
     // Allocate memory for faceCount x faces with 6x unsigned integers 
     faces = (picg_face*)malloc(
-        faceCount * 6 * sizeof(unsigned int));
+        faceCount * 10 * sizeof(unsigned int));
 
     int faceIndex = 0;
 
@@ -199,6 +217,16 @@ picg_mesh* picg_modelObj_create(const char* model_path)
     mesh->rotation.z = 0;
 
     printf("Successfully loaded model with %d", mesh->vertexCount);
+
+
+    /* Vertice normals reset for some reason!! */
+
+    for(int vIndex = 0; vIndex < mesh->vertexCount; ++vIndex) {
+        printf("Loaded normal: XN=%f,  YN=%f,  ZN=%f \n",
+                mesh->vertices[vIndex].xn,
+                mesh->vertices[vIndex].yn,
+                mesh->vertices[vIndex].zn );
+    }
 
     return mesh;
 }

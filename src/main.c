@@ -87,12 +87,6 @@ int main(int argc, char** argv)
     int persist_pos_x = 0;
     int persist_pos_y = 0;
 
-    GLfloat color[] = {441.f, 0.0f, 0.1f, 20.6f};
-    GLfloat pos[] = {0.f, 0.f, 0.f};
-
-        // Basic lightting
-        // picg_addlight(0, color, pos, GL_DIFFUSE);
-
     for(;;) {
         picg_ha_timer_reset(&timer);
         picg_ha_timer_start(&timer);
@@ -101,13 +95,20 @@ int main(int argc, char** argv)
 
         picg_window_mouse_getPosition();
 
+        glMatrixMode(GL_MODELVIEW);
         picg_camera_apply(camera);
+
+            GLfloat color[] = {0.4f, 0.6f, 0.7f, 1.f};
+    GLfloat pos[] = {0.f, 0.f, 0.f};
+    picg_addlight(0, color, pos, GL_DIFFUSE);
 
         picg_vec2I mouse = picg_window_mouse_getPosition();
         picg_vec2I windowPos = picg_window_getPosition(); 
         picg_vec2I windowSize = picg_window_getSize();
         mouse.x -= (windowPos.x + windowSize.x / 2);
         mouse.y -= (windowPos.y + windowSize.y / 2);
+
+                // Basic lightting
 
         // TODO: uncomment
         /*if(mouse.x < -windowSize.x / 2) {
@@ -181,7 +182,7 @@ int main(int argc, char** argv)
 
             if(physic[i]) {
                 picg_physics_physicsComponent_debug_render(physic[i]);
-                picg_physics_physicsComponent_update(physic[i], meshes[i]);
+                //picg_physics_physicsComponent_update(physic[i], meshes[i]);
 
                 // Collisions with other cubes
                 for(int j = 0; j < N; ++j) {
