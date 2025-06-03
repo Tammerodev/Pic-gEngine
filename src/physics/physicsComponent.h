@@ -8,6 +8,10 @@
 
 typedef struct {
     picg_vec3F velocity;
+    picg_vertex3F acceleration;
+
+    // This should be a referebce to the visual things position, i know TODO: the memory safety is absolutely terrible
+    picg_vec3F *position;
 
     /*
         0/false = not moved by collision response
@@ -92,7 +96,40 @@ void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, p
     if (comp1->aabb.maxY < comp2->aabb.minY || comp1->aabb.minY > comp2->aabb.maxY) return;
     if (comp1->aabb.maxZ < comp2->aabb.minZ || comp1->aabb.minZ > comp2->aabb.maxZ) return;
 
-    // There is a collision
-    printf("collision\n");
+    float overlapX = fminf(comp1->aabb.maxX, comp2->aabb.maxX) - fmaxf(comp1->aabb.minX, comp2->aabb.minX);
+    float overlapY = fminf(comp1->aabb.maxY, comp2->aabb.maxY) - fmaxf(comp1->aabb.minY, comp2->aabb.minY);
+    float overlapZ = fminf(comp1->aabb.maxZ, comp2->aabb.maxZ) - fmaxf(comp1->aabb.minZ, comp2->aabb.minZ);
+
+    //if(overlapX > 0.f) comp1->velocity.x = 0.f;
+    if(overlapY > 0.f) comp1->velocity.y = 0.f;
+    //if(overlapZ > 0.f) comp1->velocity.z = 0.f;
+
+    comp1->position->y += overlapY;
+}
+
+
+void picg_physics_physicsComponent_update(picg_physics_physicsComponent* comp, picg_mesh* mesh) {
+    comp->position = &mesh->position;
+
+    if(!comp->position) {
+        printf("Error: physicsComponent.h, picg_physics_physicsComponent_update(), physicscomponents reference (comp->position*) was not initialized to the mesh\n");
+        return;
+    }
+
+    // Gravity
+    comp->acceleration.y = -0.01f;
+    
+    // Calculations
+    comp->velocity.x += comp->acceleration.x;
+    comp->velocity.y += comp->acceleration.y;
+    comp->velocity.z += comp->acceleration.z;
+
+    // Update position
+    comp->position->x += comp->velocity.x;
+    comp->position->y += comp->velocity.y;
+    comp->position->z += comp->velocity.z;
+
+    // Recalc AABB
+    picg_physics_physicsComponent_calculateAABB(&comp->aabb, mesh);
 }
 

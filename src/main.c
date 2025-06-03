@@ -57,8 +57,7 @@ int main(int argc, char** argv)
         }
 
         meshes[i]->position.z = z;
-        meshes[i]->position.y += sin(i / (float)1000.f * 1.f) * 1.f;
-        meshes[i]->position.y += 100.f + sin(x / 1.f) * 0.5f;
+        meshes[i]->position.y += 100.f + sin(x / 12.f) * 22.5f;
 
         // physics
         physic[i] = picg_physics_physicsComponent_create();
@@ -169,18 +168,13 @@ int main(int argc, char** argv)
         for(int i = 0; i < N; ++i) {
             if(meshes[i]) {
                 picg_mesh_render(meshes[i]);
-
-                if(picg_keyboard_keydown("y")) {
-                    meshes[i]->position.y -= 0.5f;
-                }
-
-
             }
 
             
 
             if(physic[i]) {
                 picg_physics_physicsComponent_debug_render(physic[i]);
+                picg_physics_physicsComponent_update(physic[i], meshes[i]);
 
                 // Collisions with other cubes
                 for(int j = 0; j < N; ++j) {
@@ -200,9 +194,16 @@ int main(int argc, char** argv)
             }
         }
 
-        obj->rotation.x += 0.1;
+        obj->rotation.z += 0.1;
+        
+
         picg_mesh_render(obj);
         picg_mesh_render(plane);
+
+        // Plane demo
+        plane->position.z -= 0.2f;
+
+        picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
 
         picg_window_display();
 
