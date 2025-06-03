@@ -21,50 +21,58 @@ int main(int argc, char** argv)
     const int sizeX = 1500;
     const int sizeY = 900;
 
-
+    // Create & init graphics 
     picg_window_create(sizeX, sizeY, "Pic-g 3D engine", 0);
     picg_gl_init3D(sizeX, sizeY);
-    picg_gl_setClearColor(0.5, 0.5, 1.0, 1.0);
+    picg_gl_setClearColor(0.01, 0.01, 0.02, 1.0);
 
-    const int N = 6200;
-    picg_mesh* meshes[N];
+    // Teapot
     picg_mesh* obj = picg_modelObj_create("dev/Models/teapot.obj"); 
 
     picg_vec3F rotation = {0.f, 0.f, 0.f};
 
     float x = 0.f;
     float z = 0.f;
+    // Make a grid of cubes (size=N)
+
+    const int N = 6200;
+    picg_mesh* meshes[N];
 
     for(int i = 0; i < N; i++) {
         meshes[i] = picg_modelObj_create("dev/Models/cube.obj");
-        meshes[i]->position.x = x * 10.f;
+        meshes[i]->position.x = x * 5.f;
 
         x += 1.f;
         if(x > (int)sqrt(N)) {
             x = 0.f;
-            z += 10.f;
+            z += 5.f;
         }
 
         meshes[i]->position.z = z;
-        meshes[i]->position.y += sin(i / (float)1000.f * 1.f) * 10.f;
-        meshes[i]->position.y += sin(x / 1.f) * 2.f;
-
+        meshes[i]->position.y += sin(i / (float)1000.f * 1.f) * 1.f;
+        meshes[i]->position.y += sin(x / 1.f) * 0.5f;
     } 
 
+    // Create the camera
     picg_camera* camera = picg_camera_create();
-
     camera->position.y = -30.f;
     camera->position.z = -400.f;
 
+    // Delta time
     picg_ha_timer timer = {};
-
     double dt = 0.0;
 
     char title[48];
 
+    // Mouse movement stuff
     int persist_pos_x = 0;
     int persist_pos_y = 0;
 
+    GLfloat color[] = {441.f, 0.0f, 0.1f, 20.6f};
+    GLfloat pos[] = {0.f, 0.f, 0.f};
+
+        // Basic lightting
+        // picg_addlight(0, color, pos, GL_DIFFUSE);
 
     for(;;) {
         picg_ha_timer_reset(&timer);
@@ -91,8 +99,8 @@ int main(int argc, char** argv)
 
         if(picg_keyboard_keydown("o")) {
 
-        camera->rotation.y = persist_pos_x + mouse.x / 5.f;
-        camera->rotation.x = persist_pos_y + mouse.y / 5.f;
+            camera->rotation.y = persist_pos_x + mouse.x / 5.f;
+            camera->rotation.x = persist_pos_y + mouse.y / 5.f;
         }
 
         double rotation_speed = 1.7f * (dt + .1f);
@@ -147,15 +155,9 @@ int main(int argc, char** argv)
 
         for(int i = 0; i < N; ++i) {
             if(meshes[i]) {
-                meshes[i]->rotation.x += (i/1000.f)+0.8f;
-                meshes[i]->rotation.y += (i/1000.f)+0.6f;
-                meshes[i]->rotation.z += (i/1000.f)+0.4f;
-
                 picg_mesh_render(meshes[i]);
             }
         }
-
-        printf("Rotation X=%f  Y=%f   Z=%f", camera->rotation.x, camera->rotation.y, camera->rotation.z);
 
         obj->rotation.x += 0.1;
         picg_mesh_render(obj);

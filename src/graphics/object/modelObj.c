@@ -106,9 +106,9 @@ int loadObj(const char* filepath)
                 &modelVertices[vertexCount].y,
                 &modelVertices[vertexCount].z);
 
-            modelVertices[vertexCount].r = 0.1f;
-            modelVertices[vertexCount].g = 0.1f;
-            modelVertices[vertexCount].b = 0.1f;
+            modelVertices[vertexCount].r = 0.5f;
+            modelVertices[vertexCount].g = 0.5f;
+            modelVertices[vertexCount].b = 0.5f;
             modelVertices[vertexCount].a = 1.0f;
 
             ++vertexCount;
