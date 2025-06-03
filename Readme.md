@@ -1,6 +1,6 @@
 # Pic-g 3D Engine (Legacy OpenGL engine)
 An simple 3D engine using OpenGL 1.1 and OS-native window management libraries.
-Dependencies: X11, GLU, OpenGL. Currently only supports linux running X11.
+Dependencies: X11, GLU, OpenGL. Currently only supports linux running X11. Windows compilation is possible, but all X11 things are not yet implemented. 
 
 ### Some graphics demos I made with this:
 
