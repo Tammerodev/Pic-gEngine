@@ -9,6 +9,9 @@
 #include "graphics/lighting/lightSource.h"
 #include "graphics/camera/camera.h"
 
+#include "physics/physicsComponent.h"
+
+
 #include "math/timer.h"
 #include "math/transforms.h"
 
@@ -37,6 +40,7 @@ int main(int argc, char** argv)
 
     const int N = 6200;
     picg_mesh* meshes[N];
+    picg_physics_physicsComponent* physic[N];
 
     for(int i = 0; i < N; i++) {
         meshes[i] = picg_modelObj_create("dev/Models/cube.obj");
@@ -51,6 +55,11 @@ int main(int argc, char** argv)
         meshes[i]->position.z = z;
         meshes[i]->position.y += sin(i / (float)1000.f * 1.f) * 1.f;
         meshes[i]->position.y += sin(x / 1.f) * 0.5f;
+
+        // physics
+        physic[i] = picg_physics_physicsComponent_create();
+        picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
+
     } 
 
     // Create the camera
@@ -157,6 +166,10 @@ int main(int argc, char** argv)
             if(meshes[i]) {
                 picg_mesh_render(meshes[i]);
             }
+
+            if(physic[i]) {
+                picg_physics_physicsComponent_debug_render(physic[i]);
+            }
         }
 
         obj->rotation.x += 0.1;
@@ -169,5 +182,11 @@ int main(int argc, char** argv)
         sprintf(title, "Pic-g 3d engine, FPS: %f", 1.f / (float)picg_ha_timer_gettime(&timer));
         picg_window_setTitle(title);
     }
+
+
+    /*
+    Todo: all things like meshes should be freed
+    */
+
     return 0;
 }
