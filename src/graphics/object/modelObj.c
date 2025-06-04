@@ -28,6 +28,21 @@ void picg_modelObj_readFace_0(const char buffer[], const int faceIndex) {
     obj_renderType = GL_TRIANGLES;
 }
 
+
+void picg_modelObj_readFace_6(const char buffer[], const int faceIndex) {
+    // Get formatted output of face data
+    //             vertex//normal x3
+    sscanf(buffer, "f %d//%d %d//%d %d//%d",
+        &faces[faceIndex].verticeIndexes[0], &faces[faceIndex].normalIndexes[0],
+        &faces[faceIndex].verticeIndexes[1], &faces[faceIndex].normalIndexes[1],
+        &faces[faceIndex].verticeIndexes[2], &faces[faceIndex].normalIndexes[2]
+    );
+
+    faces[faceIndex].verticesPerFace = 3;
+
+    obj_renderType = GL_TRIANGLES;
+}
+
 void picg_modelObj_readFace_8(const char buffer[], const int faceIndex) {
     // Store values we dont want
     int N = 0;
@@ -40,12 +55,6 @@ void picg_modelObj_readFace_8(const char buffer[], const int faceIndex) {
         &faces[faceIndex].verticeIndexes[2], &N, &faces[faceIndex].normalIndexes[2],
         &faces[faceIndex].verticeIndexes[3], &N, &faces[faceIndex].normalIndexes[3]
     );
-
-    /*printf("LN44-.-.-.-normal index: XN=%i,  YN=%i,  ZN=%i \n",
-                    faces[faceIndex].normalIndexes[0],
-                    faces[faceIndex].normalIndexes[1],
-                    faces[faceIndex].normalIndexes[2],
-                    faces[faceIndex].normalIndexes[3]);*/
 
     faces[faceIndex].verticesPerFace = 4;
 
@@ -163,6 +172,7 @@ int loadObj(const char* filepath)
             int slashesFound = picg_string_countContainsCharacter(buffer, '/');
             
                  if(slashesFound == 0) picg_modelObj_readFace_0(buffer, faceIndex);
+            else if(slashesFound == 6) picg_modelObj_readFace_6(buffer, faceIndex);
             else if(slashesFound == 8) picg_modelObj_readFace_8(buffer, faceIndex);
 
             ++faceIndex;
@@ -217,16 +227,6 @@ picg_mesh* picg_modelObj_create(const char* model_path)
     mesh->rotation.z = 0;
 
     printf("Successfully loaded model with %d", mesh->vertexCount);
-
-
-    /* Vertice normals reset for some reason!! */
-
-    for(int vIndex = 0; vIndex < mesh->vertexCount; ++vIndex) {
-        printf("Loaded normal: XN=%f,  YN=%f,  ZN=%f \n",
-                mesh->vertices[vIndex].xn,
-                mesh->vertices[vIndex].yn,
-                mesh->vertices[vIndex].zn );
-    }
-
+    
     return mesh;
 }

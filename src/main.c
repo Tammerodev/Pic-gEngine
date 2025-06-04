@@ -29,29 +29,18 @@ int main(int argc, char** argv)
     picg_gl_init3D(sizeX, sizeY);
     picg_gl_setClearColor(0.01, 0.01, 0.1, 1.0);
 
-    // Teapot
-    picg_mesh* obj = picg_modelObj_create("dev/Models/teapot.obj"); 
-
-        picg_mesh* plane = picg_modelObj_create("dev/Models/plane.obj"); 
-        picg_physics_physicsComponent* plane_physics = picg_physics_physicsComponent_create();
-        picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
-
-        picg_mesh* sideways = picg_modelObj_create("dev/Models/sideways.obj"); 
-        picg_physics_physicsComponent* sideways_physics = picg_physics_physicsComponent_create();
-        picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
-
     picg_vec3F rotation = {0.f, 0.f, 0.f};
 
     float x = 0.f;
     float z = 0.f;
     // Make a grid of cubes (size=N)
 
-    const int N = 222;
+    const int N = 22;
     picg_mesh* meshes[N];
     picg_physics_physicsComponent* physic[N];
 
     for(int i = 0; i < N; i++) {
-        meshes[i] = picg_modelObj_create("dev/Models/cube.obj");
+        meshes[i] = picg_modelObj_create("dev/Models/teapot.obj");
         meshes[i]->position.x = x * 5.f;
 
         x += 1.f;
@@ -71,6 +60,19 @@ int main(int argc, char** argv)
         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
 
     } 
+
+
+    // Teapot
+        picg_mesh* obj = picg_modelObj_create("dev/Models/teapot.obj"); 
+
+        picg_mesh* plane = picg_modelObj_create("dev/Models/plane.obj"); 
+        picg_physics_physicsComponent* plane_physics = picg_physics_physicsComponent_create();
+        picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
+
+        picg_mesh* sideways = picg_modelObj_create("dev/Models/sideways.obj"); 
+        picg_physics_physicsComponent* sideways_physics = picg_physics_physicsComponent_create();
+        picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
+
 
     // Create the camera
     picg_camera* camera = picg_camera_create();
@@ -204,7 +206,7 @@ int main(int argc, char** argv)
 
             if(physic[i]) {
                 picg_physics_physicsComponent_debug_render(physic[i]);
-                //picg_physics_physicsComponent_update(physic[i], meshes[i]);
+                picg_physics_physicsComponent_update(physic[i], meshes[i]);
 
                 // Collisions with other cubes
                 for(int j = 0; j < N; ++j) {
