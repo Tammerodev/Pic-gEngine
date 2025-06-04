@@ -141,8 +141,6 @@ int main(int argc, char** argv)
         }
         printf("mouse x %i y %i\n", mouse.x, mouse.y);*/
 
-        PICG_ERROR("oops :(");
-
         if(picg_keyboard_keydown("o")) {
 
             camera->rotation.y = persist_pos_x + mouse.x / 5.f;
@@ -164,8 +162,6 @@ int main(int argc, char** argv)
         g_runtime_debug = 0;
         if(picg_keyboard_keydown("p"))
             g_runtime_debug = 1;
-
-        printf("TRUE?: %d\n", g_runtime_debug);
 
         rotation.x /= dampening;
         rotation.y /= dampening;

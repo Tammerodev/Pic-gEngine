@@ -3,7 +3,7 @@
 void picg_addlight_diffuse(unsigned int lightNumber, GLfloat color[], GLfloat pos[]) 
 {
     if(lightNumber>7) {
-        printf("Error: lighsource.c, picg_addlight() failed: light numbers larger than 7 are not supported\n");
+        PICG_ERROR("Light numbers larger than 7 are not supported");
         return;
     }
 

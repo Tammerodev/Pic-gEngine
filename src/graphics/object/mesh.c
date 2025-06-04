@@ -13,7 +13,7 @@ void picg_mesh_render(picg_mesh *mesh)
 
     // Check mesh validity
     if(mesh->vertices == NULL)
-        printf("Error: picg_mesh_render() failed with: Trying to render mesh with vertices set to NULL");
+        PICG_ERROR("Trying to render mesh with vertices set to NULL");
 
 #if PICG_DEBUG
     if(g_runtime_debug) 

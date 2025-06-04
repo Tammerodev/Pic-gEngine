@@ -26,7 +26,7 @@ picg_physics_physicsComponent* picg_physics_physicsComponent_create() {
     picg_physics_physicsComponent* comp = (picg_physics_physicsComponent*)calloc(1, sizeof(picg_physics_physicsComponent));
 
     if(!comp) {
-        printf("Error: physicsComponent.h, picg_physics_physicsComponent_create(), failed to create physicsComponent\n");
+        PICG_ERROR("Failed to create physicsComponent");
         return NULL;
     }
 
@@ -35,7 +35,7 @@ picg_physics_physicsComponent* picg_physics_physicsComponent_create() {
 
 void picg_physics_physicsComponent_calculateAABB(picg_physics_AABB* aabb, picg_mesh* mesh) {
     if(mesh->vertexCount == 0 || !aabb || !mesh) {
-        printf("Error: physicsComponent.h, picg_physics_physicsComponent_calculateAABB(), a field was null/empty\n");
+        PICG_ERROR("A field was null/empty");
         return;
     }
 
@@ -136,7 +136,7 @@ void picg_physics_physicsComponent_update(picg_physics_physicsComponent* comp, p
     comp->position = &mesh->position;
 
     if(!comp->position) {
-        printf("Error: physicsComponent.h, picg_physics_physicsComponent_update(), physicscomponents reference (comp->position*) was not initialized to the mesh\n");
+        PICG_ERROR("Physicscomponents reference (comp->position*) was not initialized to the mesh");
         return;
     }
 

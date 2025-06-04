@@ -35,7 +35,7 @@ void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitl
 
     if(visualInfo == NULL) 
     {
-        printf("Error: Visual not supported!\n");
+        PICG_ERROR("Visual not supported!");
         return;
     }
 
@@ -66,7 +66,7 @@ void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitl
     glxContext = glXCreateContext(display, visualInfo, NULL, GL_TRUE);
     if(!glxContext) 
     {
-        printf("Error: Failed to create GLX context\n");
+        PICG_ERROR("Failed to create GLX context");
         return;
     }
 

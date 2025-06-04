@@ -72,7 +72,7 @@ int loadObj(const char* filepath)
     // File not found
     if(objFile == NULL) 
     {
-        printf("Error loading OBJ file!\n");
+        PICG_ERROR("Error loading OBJ file!\n");
         return -1;
     }
 
@@ -143,12 +143,6 @@ int loadObj(const char* filepath)
                 &modelVertices[vertexCount].yn,
                 &modelVertices[vertexCount].zn);
 
-
-            printf("Read normal: XN=%f,  YN=%f,  ZN=%f \n",
-                modelVertices[vertexCount].xn,
-                modelVertices[vertexCount].yn,
-                modelVertices[vertexCount].zn );
-
             ++vertexCount;
         }
     }
@@ -197,17 +191,17 @@ picg_mesh* picg_modelObj_create(const char* model_path)
     int result = loadObj(model_path);
 
     if(result == -1) {
-        printf("Error: Could not open model file!\n");
+        PICG_ERROR("Error: Could not open model file!");
         return picg_cube_create();
     }
  
     if(modelVertices == NULL) {
-        printf("Error: Model vertices pointer is null returning a cube!\n");
+        PICG_ERROR("Error: Model vertices pointer is null returning a cube!");
         return picg_cube_create();
     }
 
     if(faces == NULL) {
-        printf("Error: Model faces pointer is null returning a cube!\n");
+        PICG_ERROR("Error: Model faces pointer is null returning a cube!");
         return picg_cube_create();
     }
 
