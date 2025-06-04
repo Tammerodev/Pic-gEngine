@@ -141,6 +141,8 @@ int main(int argc, char** argv)
         }
         printf("mouse x %i y %i\n", mouse.x, mouse.y);*/
 
+        PICG_ERROR("oops :(");
+
         if(picg_keyboard_keydown("o")) {
 
             camera->rotation.y = persist_pos_x + mouse.x / 5.f;
