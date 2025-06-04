@@ -27,7 +27,7 @@ int main(int argc, char** argv)
     // Create & init graphics 
     picg_window_create(sizeX, sizeY, "Pic-g 3D engine", 0);
     picg_gl_init3D(sizeX, sizeY);
-    picg_gl_setClearColor(0.01, 0.01, 0.2, 1.0);
+    picg_gl_setClearColor(0.01, 0.01, 0.1, 1.0);
 
     // Teapot
     picg_mesh* obj = picg_modelObj_create("dev/Models/teapot.obj"); 
@@ -87,6 +87,15 @@ int main(int argc, char** argv)
     int persist_pos_x = 0;
     int persist_pos_y = 0;
 
+    glEnable(GL_DEPTH_TEST);
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING); //Enable lighting
+	glEnable(GL_LIGHT0); //Enable light #0
+	glEnable(GL_LIGHT1); //Enable light #1
+	glEnable(GL_NORMALIZE); 
+
+
+    GLfloat color[] = {0.4f, 0.6f, 0.7f, 1.f};
     for(;;) {
         picg_ha_timer_reset(&timer);
         picg_ha_timer_start(&timer);
@@ -98,9 +107,22 @@ int main(int argc, char** argv)
         glMatrixMode(GL_MODELVIEW);
         picg_camera_apply(camera);
 
-            GLfloat color[] = {0.4f, 0.6f, 0.7f, 1.f};
-    GLfloat pos[] = {0.f, 0.f, 0.f};
-    picg_addlight(0, color, pos, GL_DIFFUSE);
+        // LIGHTING from https://www.videotutorialsrock.com/opengl_tutorial/lighting/home.php
+
+        GLfloat ambientColor[] = {0.2f, 0.2f, 0.2f, 1.0f}; //Color (0.2, 0.2, 0.2)
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+        
+        GLfloat lightColor0[] = {0.5f, 0.5f, 0.5f, 1.0f}; //Color (0.5, 0.5, 0.5)
+        GLfloat lightPos0[] = {4.0f, 0.0f, 8.0f, 1.0f}; //Positioned at (4, 0, 8)
+
+        picg_addlight_diffuse(0, lightColor0, lightPos0);
+        
+        GLfloat lightColor1[] = {0.5f, 0.2f, 0.2f, 1.0f}; //Color (0.5, 0.2, 0.2)
+        GLfloat lightPos1[] = {-1.0f, 0.5f, 0.5f, 0.0f};
+
+        picg_addlight_diffuse(1, lightColor0, lightPos0);
+
+        ////////////////////////////////
 
         picg_vec2I mouse = picg_window_mouse_getPosition();
         picg_vec2I windowPos = picg_window_getPosition(); 
@@ -194,7 +216,7 @@ int main(int argc, char** argv)
                     }
                 }
 
-                         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
+                picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
                 picg_physics_physicsComponent_solve(physic[i], sideways_physics);
 
                 // custom collisions

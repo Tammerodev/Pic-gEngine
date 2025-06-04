@@ -22,8 +22,9 @@ for(int vIndex = 0; vIndex < mesh->faceCount; ++vIndex)
 {
     if(mesh->faces[vIndex].verticesPerFace != 4) continue;
 
-    printf("\n\n");
     for(size_t i = 0; i < mesh->faces[vIndex].verticesPerFace; ++i) {
+
+        glColor3f(1.0f, 0.f, 0.f);
 
         glVertex3f(mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,
                     mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y,
