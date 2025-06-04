@@ -15,29 +15,30 @@ void picg_mesh_render(picg_mesh *mesh)
     if(mesh->vertices == NULL)
         printf("Error: picg_mesh_render() failed with: Trying to render mesh with vertices set to NULL");
 
+#if PICG_DEBUG
+    if(g_runtime_debug) 
+    {
+        glBegin(GL_LINES);
+        for(int vIndex = 0; vIndex < mesh->faceCount; ++vIndex)
+        {
+            if(mesh->faces[vIndex].verticesPerFace == 14) continue;
 
-// TODO: This is debug, make it optional
-glBegin(GL_LINES);
-for(int vIndex = 0; vIndex < mesh->faceCount; ++vIndex)
-{
-    if(mesh->faces[vIndex].verticesPerFace != 4) continue;
+            for(size_t i = 0; i < mesh->faces[vIndex].verticesPerFace; ++i) {
 
-    for(size_t i = 0; i < mesh->faces[vIndex].verticesPerFace; ++i) {
+                glColor3f(1.0f, 0.f, 0.f);
 
-        glColor3f(1.0f, 0.f, 0.f);
+                glVertex3f(mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z);
 
-        glVertex3f(mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,
-                    mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y,
-                    mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z);
-
-        glVertex3f( mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x + mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].xn * 1.1f,
-                    mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y + mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].yn * 1.1f,
-                    mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z + mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].zn * 1.1f);
+                glVertex3f( mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x + mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].xn * 1.1f,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y + mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].yn * 1.1f,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z + mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].zn * 1.1f);
+            }
+        }
+        glEnd();
     }
-}
-glEnd();
-
-
+#endif
 
 glBegin(mesh->renderType);
     if(mesh->faceCount == 0) 
@@ -74,9 +75,9 @@ glBegin(mesh->renderType);
                     mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].a
                 );
 
-                glNormal3f(mesh->vertices[mesh->faces[vIndex].normalIndexes[i]].xn,
-                        mesh->vertices[mesh->faces[vIndex].normalIndexes[i]].yn,
-                        mesh->vertices[mesh->faces[vIndex].normalIndexes[i]].zn);
+                glNormal3f(mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].xn,
+                        mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].yn,
+                        mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].zn);
 
                 glVertex3f(
                     mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,

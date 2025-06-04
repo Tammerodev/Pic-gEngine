@@ -17,6 +17,7 @@
         "glx.h": "c",
         "timer.h": "c",
         "cmath": "cpp",
-        "physicscomponent.h": "c"
+        "physicscomponent.h": "c",
+        "runtime.h": "c"
     }
 }

@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+
+#include "globals/runtime.h"
+
 #include "GL/gl.h"
 #include "GL/glu.h"
 
@@ -11,13 +14,10 @@
 
 #include "physics/physicsComponent.h"
 
-
 #include "math/timer.h"
 #include "math/transforms.h"
 
 #include <math.h>
-
-
 
 int main(int argc, char** argv) 
 {   
@@ -27,7 +27,7 @@ int main(int argc, char** argv)
     // Create & init graphics 
     picg_window_create(sizeX, sizeY, "Pic-g 3D engine", 0);
     picg_gl_init3D(sizeX, sizeY);
-    picg_gl_setClearColor(0.01, 0.01, 0.1, 1.0);
+    picg_gl_setClearColor(0.4f, 0.3f, 0.8f, 1.0);
 
     picg_vec3F rotation = {0.f, 0.f, 0.f};
 
@@ -35,7 +35,7 @@ int main(int argc, char** argv)
     float z = 0.f;
     // Make a grid of cubes (size=N)
 
-    const int N = 22;
+    const int N = 50;
     picg_mesh* meshes[N];
     picg_physics_physicsComponent* physic[N];
 
@@ -158,6 +158,12 @@ int main(int argc, char** argv)
             rotation.x += rotation_speed;
         if(picg_keyboard_keydown("u")) 
             rotation.x -= rotation_speed;
+
+        g_runtime_debug = 0;
+        if(picg_keyboard_keydown("p"))
+            g_runtime_debug = 1;
+
+        printf("TRUE?: %d\n", g_runtime_debug);
 
         rotation.x /= dampening;
         rotation.y /= dampening;

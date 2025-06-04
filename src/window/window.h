@@ -1,7 +1,7 @@
 #pragma once
 #include "../PREPROCESSOR/OS.h"
 #include "../math/vector2D.h"
-#include "../globals/input.h"
+#include "../globals/macro.h"
 #include "../graphics/graphicsGL.h"
 
 

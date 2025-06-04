@@ -1,6 +1,12 @@
 [
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
+  "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/globals/runtime.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/globals/runtime.c",
+  "file": "/home/lauri/Documents/Pic-gEngine-main/src/globals/runtime.c",
+  "output": "CMakeFiles/Pic-g.dir/src/globals/runtime.c.o"
+},
+{
+  "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
   "command": "/usr/bin/gcc -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/camera/camera.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/graphics/camera/camera.c",
   "output": "CMakeFiles/Pic-g.dir/src/graphics/camera/camera.c.o"
