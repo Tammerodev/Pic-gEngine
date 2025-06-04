@@ -11,6 +11,7 @@
 #include "graphics/object/objects.h"
 #include "graphics/lighting/lightSource.h"
 #include "graphics/camera/camera.h"
+#include "graphics/debug.h"
 
 #include "physics/physicsComponent.h"
 
@@ -35,17 +36,17 @@ int main(int argc, char** argv)
     float z = 0.f;
     // Make a grid of cubes (size=N)
 
-    const int N = 40;
+    const int N = 50;
     picg_mesh* meshes[N];
     picg_physics_physicsComponent* physic[N];
 
     for(int i = 0; i < N; i++) {
         picg_mesh* mesh = NULL;
 
-        if(i % 7) { 
+        if(i % 2) { 
             mesh = picg_modelObj_create("dev/Models/teapot.obj");
         } else {
-            mesh = picg_modelObj_create("dev/Models/cow.obj");
+            mesh = picg_modelObj_create("dev/Models/cube.obj");
         }
 
         meshes[i] = mesh;
@@ -68,7 +69,7 @@ int main(int argc, char** argv)
 
 
     // Teapot
-        picg_mesh* obj = picg_modelObj_create("dev/Models/teapot.obj"); 
+        picg_mesh* obj = picg_modelObj_create("dev/Models/cube.obj"); 
 
         picg_mesh* plane = picg_modelObj_create("dev/Models/plane.obj"); 
         picg_physics_physicsComponent* plane_physics = picg_physics_physicsComponent_create();
@@ -236,21 +237,29 @@ int main(int argc, char** argv)
             }
         }
 
-        obj->rotation.z += 0.1;
+        obj->rotation.x += 0.5;
+        obj->rotation.y += 0.41;
+        obj->rotation.z += 0.37;
         
 
         picg_mesh_render(obj);
         picg_mesh_render(plane);
         picg_mesh_render(sideways);
 
+        if(g_runtime_debug)
+        {
+            glColor3f(1.f, 1.f, 1.f);
+            picg_graphics_debug_point_render(0.f, 0.f, 0.f, 100.f);
+        }
+
         picg_physics_physicsComponent_debug_render(sideways_physics);
         picg_physics_physicsComponent_debug_render(plane_physics);
 
 
         // Plane demo
-        //plane->position.z -= 0.1f;
-        //sideways->position.z -= 0.1f;
-        //sideways->position.x -= 0.1f;
+        plane->position.z -= 0.1f;
+        sideways->position.z -= 0.1f;
+        sideways->position.x -= 0.1f;
 
         picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
         picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);

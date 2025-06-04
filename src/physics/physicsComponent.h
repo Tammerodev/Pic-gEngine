@@ -1,6 +1,7 @@
 #pragma once
 #include "../math/vector3D.h"
 #include "../graphics/object/mesh.h"
+#include "../graphics/debug.h"
 
 #include "AABB.h"
 #include <stdlib.h>   
@@ -75,21 +76,23 @@ void picg_physics_physicsComponent_calculateAABB(picg_physics_AABB* aabb, picg_m
 }
 
 void picg_physics_physicsComponent_debug_render(picg_physics_physicsComponent* comp) {
+    if(!g_runtime_debug) return;
+
     glPushMatrix();
 
-    glBegin(GL_POINTS);
+    glColor3f(1.f, 1.f, 1.f);
 
-    glColor3f(1.f, 0.f, 1.f);
+    float d = 0.5f;
 
     // TODO: rendering
-    glVertex3f(comp->aabb.minX, comp->aabb.minY, comp->aabb.minZ);
-    glVertex3f(comp->aabb.minX, comp->aabb.minY, comp->aabb.maxZ);
-    glVertex3f(comp->aabb.minX, comp->aabb.maxY, comp->aabb.minZ);
-    glVertex3f(comp->aabb.minX, comp->aabb.maxY, comp->aabb.maxZ);
-    glVertex3f(comp->aabb.maxX, comp->aabb.minY, comp->aabb.minZ);
-    glVertex3f(comp->aabb.maxX, comp->aabb.minY, comp->aabb.maxZ);
-    glVertex3f(comp->aabb.maxX, comp->aabb.maxY, comp->aabb.minZ);
-    glVertex3f(comp->aabb.maxX, comp->aabb.maxY, comp->aabb.maxZ);
+    picg_graphics_debug_point_render(comp->aabb.minX, comp->aabb.minY, comp->aabb.minZ, d);
+    picg_graphics_debug_point_render(comp->aabb.minX, comp->aabb.minY, comp->aabb.maxZ, d);
+    picg_graphics_debug_point_render(comp->aabb.minX, comp->aabb.maxY, comp->aabb.minZ, d);
+    picg_graphics_debug_point_render(comp->aabb.minX, comp->aabb.maxY, comp->aabb.maxZ, d);
+    picg_graphics_debug_point_render(comp->aabb.maxX, comp->aabb.minY, comp->aabb.minZ, d);
+    picg_graphics_debug_point_render(comp->aabb.maxX, comp->aabb.minY, comp->aabb.maxZ, d);
+    picg_graphics_debug_point_render(comp->aabb.maxX, comp->aabb.maxY, comp->aabb.minZ, d);
+    picg_graphics_debug_point_render(comp->aabb.maxX, comp->aabb.maxY, comp->aabb.maxZ, d);
 
 
     glEnd();

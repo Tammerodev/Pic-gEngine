@@ -18,10 +18,13 @@ void picg_mesh_render(picg_mesh *mesh)
 #if PICG_DEBUG
     if(g_runtime_debug) 
     {
+
         glBegin(GL_LINES);
         for(int vIndex = 0; vIndex < mesh->faceCount; ++vIndex)
         {
-            if(mesh->faces[vIndex].verticesPerFace == 14) continue;
+            if(!mesh->faces) break;
+            if(!mesh->faceCount) break;
+            if(!mesh->faces[0].hasNormals) break;
 
             for(size_t i = 0; i < mesh->faces[vIndex].verticesPerFace; ++i) {
 
