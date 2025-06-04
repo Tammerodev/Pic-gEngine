@@ -11,6 +11,8 @@ typedef struct {
     unsigned int verticeIndexes[4];
     unsigned int normalIndexes[4];
     unsigned char verticeCount;
+
+    picg_bool hasNormals;
 } picg_face;
 
 typedef struct {

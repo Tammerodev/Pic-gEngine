@@ -34,7 +34,13 @@ picg_physics_physicsComponent* picg_physics_physicsComponent_create() {
 }
 
 void picg_physics_physicsComponent_calculateAABB(picg_physics_AABB* aabb, picg_mesh* mesh) {
-    if(mesh->vertexCount == 0 || !aabb || !mesh) {
+    if(mesh->vertexCount == 0) 
+    {
+        PICG_ERROR("No vertices in mesh");
+        return;
+    }
+    if(!aabb || !mesh) 
+    {
         PICG_ERROR("A field was null/empty");
         return;
     }

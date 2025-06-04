@@ -35,12 +35,20 @@ int main(int argc, char** argv)
     float z = 0.f;
     // Make a grid of cubes (size=N)
 
-    const int N = 50;
+    const int N = 40;
     picg_mesh* meshes[N];
     picg_physics_physicsComponent* physic[N];
 
     for(int i = 0; i < N; i++) {
-        meshes[i] = picg_modelObj_create("dev/Models/teapot.obj");
+        picg_mesh* mesh = NULL;
+
+        if(i % 7) { 
+            mesh = picg_modelObj_create("dev/Models/teapot.obj");
+        } else {
+            mesh = picg_modelObj_create("dev/Models/cow.obj");
+        }
+
+        meshes[i] = mesh;
         meshes[i]->position.x = x * 5.f;
 
         x += 1.f;
@@ -53,12 +61,9 @@ int main(int argc, char** argv)
 
         meshes[i]->position.z = z + x;
         meshes[i]->position.y += 100.f + sin(x / 12.f) * 22.5f;
-
-
         // physics
         physic[i] = picg_physics_physicsComponent_create();
         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
-
     } 
 
 
@@ -243,9 +248,9 @@ int main(int argc, char** argv)
 
 
         // Plane demo
-        plane->position.z -= 0.1f;
-        sideways->position.z -= 0.1f;
-        sideways->position.x -= 0.1f;
+        //plane->position.z -= 0.1f;
+        //sideways->position.z -= 0.1f;
+        //sideways->position.x -= 0.1f;
 
         picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
         picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);

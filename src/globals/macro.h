@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 // C
-#define picg_bool unsigned int
+#define picg_bool unsigned char
 #define true 1
 #define false 0
 

@@ -43,7 +43,7 @@ void picg_mesh_render(picg_mesh *mesh)
 glBegin(mesh->renderType);
     if(mesh->faceCount == 0) 
     {
-        // Render by vertices if there are 0 faces
+        // Render by vertices if there are 0 faces (also no normals!!!)
         for(int vIndex = 0; vIndex < mesh->vertexCount; ++vIndex)
         {
             glColor4f(
@@ -52,10 +52,6 @@ glBegin(mesh->renderType);
                 mesh->vertices[vIndex].b,
                 mesh->vertices[vIndex].a
             );
-
-            glNormal3f(mesh->vertices[vIndex].xn,
-                        mesh->vertices[vIndex].yn,
-                        mesh->vertices[vIndex].zn);
 
             glVertex3f(
                 mesh->vertices[vIndex].x,
@@ -75,9 +71,11 @@ glBegin(mesh->renderType);
                     mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].a
                 );
 
-                glNormal3f(mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].xn,
-                        mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].yn,
-                        mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].zn);
+                if(mesh->faces[vIndex].hasNormals) {
+                    glNormal3f(mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].xn,
+                            mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].yn,
+                            mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].zn);
+                }
 
                 glVertex3f(
                     mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,

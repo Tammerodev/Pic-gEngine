@@ -24,6 +24,7 @@ void picg_modelObj_readFace_0(const char buffer[], const int faceIndex) {
 
     // Todo: We cant really assume this
     faces[faceIndex].verticesPerFace = 3;
+    faces[faceIndex].hasNormals = false;
 
     obj_renderType = GL_TRIANGLES;
 }
@@ -39,6 +40,7 @@ void picg_modelObj_readFace_6(const char buffer[], const int faceIndex) {
     );
 
     faces[faceIndex].verticesPerFace = 3;
+    faces[faceIndex].hasNormals = true;
 
     obj_renderType = GL_TRIANGLES;
 }
@@ -57,6 +59,7 @@ void picg_modelObj_readFace_8(const char buffer[], const int faceIndex) {
     );
 
     faces[faceIndex].verticesPerFace = 4;
+    faces[faceIndex].hasNormals = true;
 
     obj_renderType = GL_QUADS;
 }
@@ -104,7 +107,7 @@ int loadObj(const char* filepath)
     printf("Vertex count: %d\n", (int)vertexCount);
     printf("Face count: %d\n", (int)faceCount);
 
-    modelVertices = malloc(100 + (sizeof(picg_vertex3F) * originalVertexCount));
+    modelVertices = calloc(1, 100 + (sizeof(picg_vertex3F) * originalVertexCount));
 
     vertexCount = 0;
 
@@ -134,16 +137,16 @@ int loadObj(const char* filepath)
     // Rewind, read normal data
     rewind(objFile);
 
-    vertexCount = 0;
+    int normalCount = 0;
 
     while(fgets(buffer, bufferLength, objFile)) {
         if(buffer[0] == 'v' && buffer[1] == 'n'){
             sscanf(buffer, "vn %f %f %f \n", 
-                &modelVertices[vertexCount].xn,
-                &modelVertices[vertexCount].yn,
-                &modelVertices[vertexCount].zn);
+                &modelVertices[normalCount].xn,
+                &modelVertices[normalCount].yn,
+                &modelVertices[normalCount].zn);
 
-            ++vertexCount;
+            ++normalCount;
         }
     }
 
@@ -154,8 +157,8 @@ int loadObj(const char* filepath)
 
     // TODO: This is so funny terrible! Fix this, QUICK!
     // Allocate memory for faceCount x faces with 6x unsigned integers 
-    faces = (picg_face*)malloc(
-        faceCount * 10 * sizeof(unsigned int));
+    faces = (picg_face*)calloc(1, 
+        faceCount * 12 * sizeof(unsigned int));
 
     int faceIndex = 0;
 
@@ -172,20 +175,17 @@ int loadObj(const char* filepath)
             ++faceIndex;
         }
     }
-
-    printf("Done now saving counts\n");
-
     modelVertexCount = vertexCount;
     modelFaceCount = faceIndex;
     fclose(objFile);
-
-    printf("Done reading .obj data!\n");
 
     return 0;
 }
 
 picg_mesh* picg_modelObj_create(const char* model_path) 
 {
+    printf("\n");
+
     picg_mesh* mesh = malloc(sizeof(modelVertices) + sizeof(faces) + sizeof(picg_mesh));
 
     int result = loadObj(model_path);
@@ -205,6 +205,11 @@ picg_mesh* picg_modelObj_create(const char* model_path)
         return picg_cube_create();
     }
 
+    if(modelVertexCount == 0) {
+        PICG_ERROR("Error: Model does not contain vertices!");
+        return picg_cube_create();
+    }
+
     mesh->renderType = obj_renderType;
     mesh->vertices = modelVertices;
     mesh->vertexCount = modelVertexCount;   
@@ -214,13 +219,13 @@ picg_mesh* picg_modelObj_create(const char* model_path)
 
     mesh->position.x = 0;
     mesh->position.y = 0;
-    mesh->position.z = -5;
+    mesh->position.z = 0;
 
     mesh->rotation.x = 0;
     mesh->rotation.y = 0;
     mesh->rotation.z = 0;
 
-    printf("Successfully loaded model with %d", mesh->vertexCount);
+    printf("Successfully loaded model with %d vertices\n", mesh->vertexCount);
     
     return mesh;
 }
