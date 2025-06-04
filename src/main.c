@@ -1,16 +1,35 @@
 #include "program.h"
+#include "globals/runtime.h"
+#include <stdlib.h>
+
+void error() {
+    exit(-1);
+}
 
 int main() {
 
-    program_init();
+    if(program_init() != 0) {
+        PICG_ERROR("program_init() returned with an error!");
+        error();
+    }
 
     for(;;) 
     {
-        program_update();
-        program_render();
+        if(program_update() != 0) {
+            PICG_ERROR("program_update() returned with an error!");
+            error();
+        }
+        
+        if(program_render() != 0) {
+            PICG_ERROR("program_render() returned with an error!");
+            error();
+        }
     }
 
-    program_close();
+    if(program_close() != 0) {
+        PICG_ERROR("program_close() returned with an error!");
+        error();
+    }
 
     return 0;
 }
