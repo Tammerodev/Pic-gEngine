@@ -7,7 +7,7 @@ file(GLOB_RECURSE SOURCES "src/**")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 set(CMAKE_C_FLAGS "-Wall")
-set(CMAKE_C_FLAGS "-O3")
+# set(CMAKE_C_FLAGS "-O3")
 
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_DEBUG "-ggdb")
@@ -17,6 +17,8 @@ add_custom_target(clean_build_dir
     COMMAND ${CMAKE_COMMAND} -E rm -rf ${CMAKE_BINARY_DIR}/build
     COMMENT "Removing build files"
 )
+
+target_include_directories(Pic-g PRIVATE ${CMAKE_BINARY_DIR}/../src)
 
 
 # Link libraries to the executable

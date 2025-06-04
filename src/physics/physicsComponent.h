@@ -101,6 +101,12 @@ void picg_physics_physicsComponent_debug_render(picg_physics_physicsComponent* c
 }
 
 void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, picg_physics_physicsComponent* comp2) {
+    if(!comp1 || !comp2) 
+    {
+        PICG_ERROR("Physicscomponent does not exist!");
+        return;
+    }
+
     if (comp1->aabb.maxX < comp2->aabb.minX || comp1->aabb.minX > comp2->aabb.maxX) return;
     if (comp1->aabb.maxY < comp2->aabb.minY || comp1->aabb.minY > comp2->aabb.maxY) return;
     if (comp1->aabb.maxZ < comp2->aabb.minZ || comp1->aabb.minZ > comp2->aabb.maxZ) return;
