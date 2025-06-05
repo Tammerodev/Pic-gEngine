@@ -39,12 +39,20 @@ picg_physics_physicsComponent* physic[N];
 picg_mesh* sideways = NULL;
 picg_mesh* plane = NULL;
 picg_mesh* obj = NULL;
+picg_mesh* ground = NULL;
+
+picg_mesh* player_hitbox = NULL;
 
 picg_physics_physicsComponent* plane_physics = NULL;
 picg_physics_physicsComponent* sideways_physics = NULL;
+picg_physics_physicsComponent* ground_physics = NULL;
+
+picg_physics_physicsComponent* player_physics = NULL;
 
 
 picg_image img;
+picg_image floor_wood_img;
+picg_image grass_img;
 
 
 //
@@ -72,7 +80,7 @@ int program_init()
         picg_mesh* mesh = NULL;
 
         if(i % 2) { 
-            mesh = picg_modelObj_create("dev/Models/teapot.obj");
+            mesh = picg_modelObj_create("dev/Models/cube.obj");
         } else {
             mesh = picg_modelObj_create("dev/Models/cube.obj");
         }
@@ -95,6 +103,11 @@ int program_init()
         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
     } 
 
+    ground = picg_modelObj_create("dev/Models/ground.obj"); 
+    ground_physics = picg_physics_physicsComponent_create();
+    picg_physics_physicsComponent_calculateAABB(&ground_physics->aabb, ground);
+    ground->position.y -= 100.f;
+
     plane = picg_modelObj_create("dev/Models/plane.obj"); 
     plane_physics = picg_physics_physicsComponent_create();
     picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
@@ -103,12 +116,21 @@ int program_init()
     sideways_physics = picg_physics_physicsComponent_create();
     picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
 
+    {
+            // PLAYER
+        player_hitbox = picg_modelObj_create("dev/Models/cube.obj"); 
+        player_hitbox->scaling.y = 10.f;
+
+        player_physics = picg_physics_physicsComponent_create();
+        picg_physics_physicsComponent_calculateAABB(&player_physics->aabb, player_hitbox);
+    }
+
     // Teapot
     obj = picg_modelObj_create("/home/lauri/Downloads/leopard-2-mbt-revolution/source/chassis.obj"); 
     obj->scaling.x = 10.f;
     obj->scaling.y = 10.f;
     obj->scaling.z = 10.f;
-
+    obj->position.x -= 100.f;
 
     // Create the camera
     camera = picg_camera_create();
@@ -126,6 +148,12 @@ int program_init()
 
     img = picg_image_load("/home/lauri/Downloads/leopard-2-mbt-revolution/textures/mbt_03_ext01_blufor_co.png");
     picg_texture_load(&img);
+
+    floor_wood_img = picg_image_load("dev/Models/tex/floor_wood.jpg");
+    picg_texture_load(&floor_wood_img);
+
+    grass_img = picg_image_load("dev/Models/tex/grass.jpg");
+    picg_texture_load(&grass_img);
 
     ///////////////////////////
 
@@ -167,7 +195,7 @@ int program_update()
         camera->rotation.x = persist_pos_y + mouse.y / 5.f;
     }
 
-    double rotation_speed = 1.7f * (dt + .1f);
+    double rotation_speed = 2.5f * (dt + .1f);
     float dampening = 1.1f;
 
     if(picg_keyboard_keydown("h")) 
@@ -193,33 +221,32 @@ int program_update()
     camera->rotation.z += rotation.z;
 
 
-    double speed = 17.0 * (dt + .1f);
+    double speed = 7.0 * (dt + .1f);
 
     picg_vec3F movement = {0.f, 0.f, 0.f};
 
     if(picg_keyboard_keydown("W"))
-        movement.z += speed;
-
-    if(picg_keyboard_keydown("A"))
-        movement.x += speed;
-
-    if(picg_keyboard_keydown("S"))
         movement.z -= speed;
 
-    if(picg_keyboard_keydown("D"))
+    if(picg_keyboard_keydown("A"))
         movement.x -= speed;
 
-    if(picg_keyboard_keydown("space"))
-        movement.y -= speed;
+    if(picg_keyboard_keydown("S"))
+        movement.z += speed;
+
+    if(picg_keyboard_keydown("D"))
+        movement.x += speed;
+
+    if(picg_keyboard_keydown("space") && player_physics->isColliding)
+        player_physics->velocity.y = 0.5f;
 
     if(picg_keyboard_keydown("x"))
-        movement.y += speed;
+            movement.y -= speed;
 
     picg_vec3F rotated = picg_transform_rotate(movement, camera->rotation);
 
-    camera->position.x += rotated.x;
-    camera->position.y += rotated.y;
-    camera->position.z += rotated.z;
+    player_hitbox->position.x += rotated.x;
+    player_hitbox->position.z += rotated.z;
 
     for(int i = 0; i < N; ++i) {
         if(physic[i]) {
@@ -241,12 +268,11 @@ int program_update()
             // custom collisions
             picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
             picg_physics_physicsComponent_solve(physic[i], plane_physics);
+
+            picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
+            picg_physics_physicsComponent_solve(physic[i], ground_physics);
         }
     }
-
-    //obj->rotation.x += 0.5;
-    //obj->rotation.y += 0.41;
-    //obj->rotation.z += 0.37;
 
     // Plane demo
     plane->position.z -= 0.1f;
@@ -255,9 +281,40 @@ int program_update()
 
     picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
     picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
+    picg_physics_physicsComponent_calculateAABB(&ground_physics->aabb, ground);
+
+    {
+
+        picg_physics_physicsComponent_update(player_physics, player_hitbox);
+
+        picg_physics_physicsComponent_solve(player_physics, ground_physics);
+
+        picg_physics_physicsComponent_calculateAABB(&player_physics->aabb, player_hitbox);
+        picg_physics_physicsComponent_solve(player_physics, plane_physics);
+
+        picg_physics_physicsComponent_calculateAABB(&player_physics->aabb, player_hitbox);
+        picg_physics_physicsComponent_solve(player_physics, sideways_physics);
+
+    }
+
 
     sprintf(title, "Pic-g 3d engine, FPS: %f", 1.f / (float)picg_ha_timer_gettime(&timer));
     picg_window_setTitle(title);
+
+
+
+
+
+
+    
+    camera->position.x = -player_hitbox->position.x;
+    camera->position.y = -player_hitbox->position.y;
+    camera->position.z = -player_hitbox->position.z;
+
+
+
+
+
     return 0;
 }
 
@@ -277,21 +334,31 @@ int program_render()
     picg_addlight_diffuse(0, lightColor0, lightPos0);
     picg_addlight_diffuse(1, lightColor0, lightPos0);
 
-    /*for(int i = 0; i < N; ++i) {
+    for(int i = 0; i < N; ++i) {
         if(physic[i])
             picg_physics_physicsComponent_debug_render(physic[i]);
 
         if(meshes[i]) {
             picg_mesh_render(meshes[i]);
         }
-    }*/
+    }
 
-    picg_texture_bind(&img);
-    picg_mesh_render(obj);
+    picg_texture_bind(&grass_img);
+    picg_mesh_render(ground);
     picg_texture_unbind();
 
-    //picg_mesh_render(plane);
-    //picg_mesh_render(sideways);
+    // TANK
+    /*picg_texture_bind(&img);
+    picg_mesh_render(obj);
+    picg_texture_unbind();*/
+
+    picg_texture_bind(&floor_wood_img);
+    picg_mesh_render(plane);
+    picg_mesh_render(sideways);
+    picg_texture_unbind();
+
+
+    //picg_mesh_render(player_hitbox);
 
     if(g_runtime_debug)
     {
@@ -301,6 +368,7 @@ int program_render()
 
     picg_physics_physicsComponent_debug_render(sideways_physics);
     picg_physics_physicsComponent_debug_render(plane_physics);
+    picg_physics_physicsComponent_debug_render(player_physics);
 
 
     picg_window_display();

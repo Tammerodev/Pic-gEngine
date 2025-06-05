@@ -7,7 +7,7 @@ file(GLOB_RECURSE SOURCES "src/**")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 set(CMAKE_C_FLAGS "-Wall")
-# set(CMAKE_C_FLAGS "-O3")
+set(CMAKE_C_FLAGS "-O3")
 
 set(CMAKE_C_FLAGS_DEBUG "-g")
 set(CMAKE_C_FLAGS_DEBUG "-ggdb")

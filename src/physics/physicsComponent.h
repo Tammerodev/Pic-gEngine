@@ -19,6 +19,7 @@ typedef struct {
         1/true = affected
     */
     int isDynamic;
+    picg_bool isColliding;
 
     picg_physics_AABB aabb;
 } picg_physics_physicsComponent;
@@ -53,9 +54,9 @@ void picg_physics_physicsComponent_calculateAABB(picg_physics_AABB* aabb, picg_m
     for(int i = 0; i < mesh->vertexCount; ++i) {
         // now calculate min and max coordinates of all of these
         picg_vertex3F vertex = {
-            mesh->position.x + mesh->vertices[i].x,
-            mesh->position.y + mesh->vertices[i].y,
-            mesh->position.z + mesh->vertices[i].z
+            mesh->position.x + mesh->scaling.x * mesh->vertices[i].x,
+            mesh->position.y + mesh->scaling.y * mesh->vertices[i].y,
+            mesh->position.z + mesh->scaling.z * mesh->vertices[i].z
         };
 
         if(vertex.x < aabb->minX)
@@ -110,6 +111,9 @@ void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, p
     if (comp1->aabb.maxX < comp2->aabb.minX || comp1->aabb.minX > comp2->aabb.maxX) return;
     if (comp1->aabb.maxY < comp2->aabb.minY || comp1->aabb.minY > comp2->aabb.maxY) return;
     if (comp1->aabb.maxZ < comp2->aabb.minZ || comp1->aabb.minZ > comp2->aabb.maxZ) return;
+
+    comp1->isColliding = true;
+    comp2->isColliding = true;
 
     float overlapX = fminf(comp1->aabb.maxX, comp2->aabb.maxX) - fmaxf(comp1->aabb.minX, comp2->aabb.minX);
     float overlapY = fminf(comp1->aabb.maxY, comp2->aabb.maxY) - fmaxf(comp1->aabb.minY, comp2->aabb.minY);
@@ -167,6 +171,8 @@ void picg_physics_physicsComponent_update(picg_physics_physicsComponent* comp, p
     comp->position->x += comp->velocity.x;
     comp->position->y += comp->velocity.y;
     comp->position->z += comp->velocity.z;
+
+    comp->isColliding = false;
 
     // Recalc AABB
     picg_physics_physicsComponent_calculateAABB(&comp->aabb, mesh);
