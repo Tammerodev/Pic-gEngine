@@ -8,6 +8,8 @@ int modelVertexCount = 0;
 picg_face* faces = NULL;
 int modelFaceCount = 0;
 
+picg_bool hasTexture = false;
+
 int obj_renderType = GL_TRIANGLES;
 
 void picg_modelObj_readFace_0(const char buffer[], const int faceIndex) {
@@ -50,14 +52,17 @@ void picg_modelObj_readFace_6(const char buffer[], const int faceIndex) {
     } else {
         sscanf(buffer, "f %d/%d/%d %d/%d/%d %d/%d/%d",
             &v[0], &vt[0], &vn[0],
-            &v[1], &vt[1],&vn[1],
-            &v[2], &vt[2],&vn[2]
+            &v[1], &vt[1], &vn[1],
+            &v[2], &vt[2], &vn[2]
         );  
 
         for(int i = 0; i < 3; ++i) {
             faces[faceIndex].verticeIndexes[i] = v[i];
             faces[faceIndex].normalIndexes[i] = vn[i];
+            faces[faceIndex].textureIndexes[i] = vt[i];
         }
+
+        faces[faceIndex].hasTexture = true; 
     }
 
     faces[faceIndex].verticesPerFace = 3;
@@ -73,14 +78,15 @@ void picg_modelObj_readFace_8(const char buffer[], const int faceIndex) {
     // Get formatted output of face data
     //             vertex/texture/normal x4
     sscanf(buffer, "f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
-        &faces[faceIndex].verticeIndexes[0], &N, &faces[faceIndex].normalIndexes[0],
-        &faces[faceIndex].verticeIndexes[1], &N, &faces[faceIndex].normalIndexes[1],
-        &faces[faceIndex].verticeIndexes[2], &N, &faces[faceIndex].normalIndexes[2],
-        &faces[faceIndex].verticeIndexes[3], &N, &faces[faceIndex].normalIndexes[3]
+        &faces[faceIndex].verticeIndexes[0], &faces[faceIndex].textureIndexes[0], &faces[faceIndex].normalIndexes[0],
+        &faces[faceIndex].verticeIndexes[1], &faces[faceIndex].textureIndexes[1], &faces[faceIndex].normalIndexes[1],
+        &faces[faceIndex].verticeIndexes[2], &faces[faceIndex].textureIndexes[2], &faces[faceIndex].normalIndexes[2],
+        &faces[faceIndex].verticeIndexes[3], &faces[faceIndex].textureIndexes[3], &faces[faceIndex].normalIndexes[3]
     );
 
     faces[faceIndex].verticesPerFace = 4;
     faces[faceIndex].hasNormals = true;
+    faces[faceIndex].hasTexture = true;
 
     obj_renderType = GL_QUADS;
 }
@@ -108,18 +114,16 @@ int loadObj(const char* filepath)
 
     while(fgets(buffer, bufferLength, objFile)) 
     {
-        if(buffer[1] == ' ') 
-        {   // It is a vertex or a face
-            if(buffer[0] == 'v') 
-            {   // Vertex
-                ++vertexCount;
-            } 
+        // It is a vertex or a face
+        if(buffer[0] == 'v') 
+        {   // Vertex
+            ++vertexCount;
+        } 
 
-            if(buffer[0] == 'f') 
-            {   // Vertex
-                faceCount++;
-            } 
-        }
+        if(buffer[0] == 'f') 
+        {   // Vertex
+            faceCount++;
+        } 
     }
 
     rewind(objFile);
@@ -128,7 +132,7 @@ int loadObj(const char* filepath)
     printf("Vertex count: %d\n", (int)vertexCount);
     printf("Face count: %d\n", (int)faceCount);
 
-    modelVertices = calloc(1, 100 + (sizeof(picg_vertex3F) * originalVertexCount));
+    modelVertices = calloc(1, (sizeof(picg_vertex3F) * originalVertexCount));
 
     vertexCount = 0;
 
@@ -144,12 +148,6 @@ int loadObj(const char* filepath)
                 &modelVertices[vertexCount].x,
                 &modelVertices[vertexCount].y,
                 &modelVertices[vertexCount].z);
-
-            modelVertices[vertexCount].r = 1.f;
-            modelVertices[vertexCount].g = 1.f;
-            modelVertices[vertexCount].b = 1.f;
-
-            modelVertices[vertexCount].a = 1.0f;
 
             ++vertexCount;
         }
@@ -171,6 +169,30 @@ int loadObj(const char* filepath)
         }
     }
 
+    // Rewind, read vertex texture data
+    rewind(objFile);
+
+    int textureCount = 0;
+
+    while(fgets(buffer, bufferLength, objFile)) {
+        if(buffer[0] == 'v' && buffer[1] == 't'){
+            sscanf(buffer, "vt %f %f \n", 
+                &modelVertices[textureCount].xt,
+                &modelVertices[textureCount].yt);
+
+            ++textureCount;
+        }
+    }
+
+    if(textureCount) {
+        hasTexture = true;
+        if((textureCount != normalCount) != vertexCount) {
+            PICG_ERROR("Mistmatch with texture-normal-vertex count!");
+
+            printf("Vertices=%i \nNormals=%i \nTexture=%i \n", vertexCount, textureCount, normalCount);
+        }
+    }
+
     /*
         Rewinds the file and reads the face data 
     */
@@ -179,7 +201,7 @@ int loadObj(const char* filepath)
     // TODO: This is so funny terrible! Fix this, QUICK!
     // Allocate memory for faceCount x faces with 6x unsigned integers 
     faces = (picg_face*)calloc(1, 
-        faceCount * 12 * sizeof(unsigned int));
+        faceCount * sizeof(picg_face));
 
     int faceIndex = 0;
 
