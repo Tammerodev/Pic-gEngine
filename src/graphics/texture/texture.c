@@ -20,36 +20,21 @@ void picg_texture_load(picg_image* image)
     glDisable(GL_TEXTURE_2D);
 }
 
-void picg_texture_unbind()
-{
-}
-
 void picg_texture_bind(const picg_image* image)
 {   
-    glDisable(GL_LIGHTING);
     glPushMatrix();
-    glScalef(image->width / 10.f, image->height / 10.f, 1.0f);
-    glTranslatef(0.f, 0.f, 100.f);
-    glRotatef(0.2f, 0.1f, 0.f, 0.f);
 
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, image->textureID);
+}
 
-    glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 0.0f); // Bottom-left
-        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, 0.0f); // Bottom-right
-        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, 0.0f); // Top-right
-        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, 0.0f); // Top-left
-    glEnd();
-
+void picg_texture_unbind()
+{
 
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
 
-
     glPopMatrix();
-
-    glEnable(GL_LIGHTING);
 }
 
 void picg_texture_texCoord(int i)

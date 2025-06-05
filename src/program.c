@@ -124,7 +124,7 @@ int program_init()
 
     // IMAGE/TEXTURE LOADING
 
-    img = picg_image_load("dev/screenshots/debug.png");
+    img = picg_image_load("/home/lauri/Downloads/leopard-2-mbt-revolution/textures/mbt_03_ext01_blufor_co.png");
     picg_texture_load(&img);
 
     ///////////////////////////
@@ -277,9 +277,6 @@ int program_render()
     picg_addlight_diffuse(0, lightColor0, lightPos0);
     picg_addlight_diffuse(1, lightColor0, lightPos0);
 
-
-    picg_texture_bind(&img);
-
     /*for(int i = 0; i < N; ++i) {
         if(physic[i])
             picg_physics_physicsComponent_debug_render(physic[i]);
@@ -289,8 +286,10 @@ int program_render()
         }
     }*/
 
-
+    picg_texture_bind(&img);
     picg_mesh_render(obj);
+    picg_texture_unbind();
+
     //picg_mesh_render(plane);
     //picg_mesh_render(sideways);
 

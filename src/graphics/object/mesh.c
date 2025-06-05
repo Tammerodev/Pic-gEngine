@@ -72,7 +72,11 @@ glBegin(mesh->renderType);
                             mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].zn);
                 }
 
-                
+                const picg_vertex3F* vertexTex = &mesh->vertices[mesh->faces[vIndex].textureIndexes[i] - 1];
+
+                if(mesh->faces[vIndex].hasTexture) {
+                    glTexCoord2f(vertexTex->xt, vertexTex->yt);
+                }
 
                 glVertex3f(
                     mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,
