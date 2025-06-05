@@ -48,6 +48,9 @@ picg_bool initialized = false;
 
 int program_init()
 {
+
+    
+
     const int sizeX = 1500;
     const int sizeY = 900;
 

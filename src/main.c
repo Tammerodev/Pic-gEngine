@@ -12,7 +12,7 @@ int main() {
         PICG_ERROR("program_init() returned with an error!");
         error();
     }
-
+    
     for(;;) 
     {
         if(program_update() != 0) {
