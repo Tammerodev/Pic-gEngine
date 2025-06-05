@@ -11,6 +11,8 @@ void picg_mesh_render(picg_mesh *mesh)
     glRotatef(mesh->rotation.y, 0.f, 1.f, 0.f);
     glRotatef(mesh->rotation.z, 0.f, 0.f, 1.f);
 
+    glScalef(mesh->scaling.x, mesh->scaling.y, mesh->scaling.z);
+
     // Check mesh validity
     if(mesh->vertices == NULL)
         PICG_ERROR("Trying to render mesh with vertices set to NULL");

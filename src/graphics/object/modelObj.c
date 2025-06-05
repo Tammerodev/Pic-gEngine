@@ -31,13 +31,34 @@ void picg_modelObj_readFace_0(const char buffer[], const int faceIndex) {
 
 
 void picg_modelObj_readFace_6(const char buffer[], const int faceIndex) {
-    // Get formatted output of face data
-    //             vertex//normal x3
-    sscanf(buffer, "f %d//%d %d//%d %d//%d",
-        &faces[faceIndex].verticeIndexes[0], &faces[faceIndex].normalIndexes[0],
-        &faces[faceIndex].verticeIndexes[1], &faces[faceIndex].normalIndexes[1],
-        &faces[faceIndex].verticeIndexes[2], &faces[faceIndex].normalIndexes[2]
-    );
+    int v[3];
+    int vt[3];
+    int vn[3];
+
+    int values = sscanf(buffer, "f %d//%d %d//%d %d//%d",
+        &v[0], &vn[0],
+        &v[1], &vn[1],
+        &v[2], &vn[2]
+    );  
+
+
+    if(values == 6) {
+        for(int i = 0; i < 3; ++i) {
+            faces[faceIndex].verticeIndexes[i] = v[i];
+            faces[faceIndex].normalIndexes[i] = vn[i];
+        }
+    } else {
+        sscanf(buffer, "f %d/%d/%d %d/%d/%d %d/%d/%d",
+            &v[0], &vt[0], &vn[0],
+            &v[1], &vt[1],&vn[1],
+            &v[2], &vt[2],&vn[2]
+        );  
+
+        for(int i = 0; i < 3; ++i) {
+            faces[faceIndex].verticeIndexes[i] = v[i];
+            faces[faceIndex].normalIndexes[i] = vn[i];
+        }
+    }
 
     faces[faceIndex].verticesPerFace = 3;
     faces[faceIndex].hasNormals = true;
@@ -124,9 +145,9 @@ int loadObj(const char* filepath)
                 &modelVertices[vertexCount].y,
                 &modelVertices[vertexCount].z);
 
-            modelVertices[vertexCount].r = 0.5f;
-            modelVertices[vertexCount].g = 0.5f;
-            modelVertices[vertexCount].b = 0.5f;
+            modelVertices[vertexCount].r = 1.f;
+            modelVertices[vertexCount].g = 1.f;
+            modelVertices[vertexCount].b = 1.f;
 
             modelVertices[vertexCount].a = 1.0f;
 
@@ -186,7 +207,7 @@ picg_mesh* picg_modelObj_create(const char* model_path)
 {
     printf("\n");
 
-    picg_mesh* mesh = malloc(sizeof(modelVertices) + sizeof(faces) + sizeof(picg_mesh));
+    picg_mesh* mesh = calloc(1, sizeof(modelVertices) + sizeof(faces) + sizeof(picg_mesh));
 
     int result = loadObj(model_path);
 
@@ -217,13 +238,10 @@ picg_mesh* picg_modelObj_create(const char* model_path)
     mesh->faces = faces;
     mesh->faceCount = modelFaceCount;
 
-    mesh->position.x = 0;
-    mesh->position.y = 0;
-    mesh->position.z = 0;
+    mesh->scaling.x = 1.f;
+    mesh->scaling.y = 1.f;
+    mesh->scaling.z = 1.f;
 
-    mesh->rotation.x = 0;
-    mesh->rotation.y = 0;
-    mesh->rotation.z = 0;
 
     printf("Successfully loaded model with %d vertices\n", mesh->vertexCount);
     

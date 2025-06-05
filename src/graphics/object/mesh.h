@@ -26,6 +26,8 @@ typedef struct {
 
     picg_vec3F position;
     picg_vec3F rotation;
+    picg_vec3F scaling;
+
 } picg_mesh;
 
 void picg_mesh_render(picg_mesh *mesh);

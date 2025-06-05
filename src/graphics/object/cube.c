@@ -14,22 +14,16 @@ picg_vertex3F vertices[8] = {
 
 
 picg_mesh* picg_cube_create() {
-    picg_mesh* mesh = malloc(sizeof(picg_vertex3F) * 8);
+    picg_mesh* mesh = calloc(1, sizeof(picg_vertex3F) * 8);
 
     mesh->vertexCount = 8;    
     mesh->renderType = GL_QUADS;
     mesh->vertices = vertices;
 
-    // Specify to render vertices
-    mesh->faceCount = 0;
+    mesh->scaling.x = 1.f;
+    mesh->scaling.y = 1.f;
+    mesh->scaling.z = 1.f;
 
-    mesh->position.x = 0;
-    mesh->position.y = 0;
-    mesh->position.z = 0;
-
-    mesh->rotation.x = 0;
-    mesh->rotation.y = 10;
-    mesh->rotation.z = 0;
 
     return mesh;
 }

@@ -95,10 +95,6 @@ int program_init()
         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
     } 
 
-
-    // Teapot
-    obj = picg_modelObj_create("dev/Models/cube.obj"); 
-
     plane = picg_modelObj_create("dev/Models/plane.obj"); 
     plane_physics = picg_physics_physicsComponent_create();
     picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
@@ -106,6 +102,12 @@ int program_init()
     sideways = picg_modelObj_create("dev/Models/sideways.obj"); 
     sideways_physics = picg_physics_physicsComponent_create();
     picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
+
+    // Teapot
+    obj = picg_modelObj_create("/home/lauri/Downloads/leopard-2-mbt-revolution/source/chassis.obj"); 
+    obj->scaling.x = 10.f;
+    obj->scaling.y = 10.f;
+    obj->scaling.z = 10.f;
 
 
     // Create the camera
@@ -242,9 +244,9 @@ int program_update()
         }
     }
 
-    obj->rotation.x += 0.5;
-    obj->rotation.y += 0.41;
-    obj->rotation.z += 0.37;
+    //obj->rotation.x += 0.5;
+    //obj->rotation.y += 0.41;
+    //obj->rotation.z += 0.37;
 
     // Plane demo
     plane->position.z -= 0.1f;
@@ -266,11 +268,11 @@ int program_render()
     glMatrixMode(GL_MODELVIEW);
     picg_camera_apply(camera);
     
-    GLfloat ambientColor[] = {0.2f, 0.2f, 0.2f, 1.0f}; //Color (0.2, 0.2, 0.2)
+    GLfloat ambientColor[] = {0.1f, 0.1f, 0.1f, 1.0f}; //Color (0.2, 0.2, 0.2)
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
     
-    GLfloat lightColor0[] = {0.5f, 0.5f, 0.5f, 1.0f}; //Color (0.5, 0.5, 0.5)
-    GLfloat lightPos0[] = {4.0f, 0.0f, 8.0f, 1.0f}; //Positioned at (4, 0, 8)
+    GLfloat lightColor0[] = {1.0f, 1.0f, 1.0f, 1.0f}; //Color (0.5, 0.5, 0.5)
+    GLfloat lightPos0[] = {0.0f, 50.0f, 0.0f, 1.0f}; //Positioned at (4, 0, 8)
 
     picg_addlight_diffuse(0, lightColor0, lightPos0);
     picg_addlight_diffuse(1, lightColor0, lightPos0);
@@ -278,19 +280,19 @@ int program_render()
 
     picg_texture_bind(&img);
 
-    for(int i = 0; i < N; ++i) {
+    /*for(int i = 0; i < N; ++i) {
         if(physic[i])
             picg_physics_physicsComponent_debug_render(physic[i]);
 
         if(meshes[i]) {
             picg_mesh_render(meshes[i]);
         }
-    }
+    }*/
 
 
     picg_mesh_render(obj);
-    picg_mesh_render(plane);
-    picg_mesh_render(sideways);
+    //picg_mesh_render(plane);
+    //picg_mesh_render(sideways);
 
     if(g_runtime_debug)
     {
