@@ -16,6 +16,8 @@
 #include <math/timer.h>
 #include <math/transforms.h>
 #include <math.h>
+#include <graphics/texture/image.h>
+#include <graphics/texture/texture.h>
 
 #define N 50
 
@@ -40,6 +42,9 @@ picg_mesh* obj = NULL;
 
 picg_physics_physicsComponent* plane_physics = NULL;
 picg_physics_physicsComponent* sideways_physics = NULL;
+
+
+picg_image img;
 
 
 //
@@ -114,6 +119,13 @@ int program_init()
 	glEnable(GL_LIGHT0); //Enable light #0
 	glEnable(GL_LIGHT1); //Enable light #1
 	glEnable(GL_NORMALIZE); 
+
+    // IMAGE/TEXTURE LOADING
+
+    img = picg_image_load("dev/screenshots/debug.png");
+    picg_texture_load(&img);
+
+    ///////////////////////////
 
     initialized = true;
 
@@ -262,6 +274,9 @@ int program_render()
 
     picg_addlight_diffuse(0, lightColor0, lightPos0);
     picg_addlight_diffuse(1, lightColor0, lightPos0);
+
+
+    picg_texture_bind(&img);
 
     for(int i = 0; i < N; ++i) {
         if(physic[i])

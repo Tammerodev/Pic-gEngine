@@ -19,6 +19,7 @@ add_custom_target(clean_build_dir
 )
 
 target_include_directories(Pic-g PRIVATE ${CMAKE_BINARY_DIR}/../src)
+target_include_directories(Pic-g PRIVATE ${CMAKE_BINARY_DIR}/../dep/stb)
 
 
 # Link libraries to the executable
