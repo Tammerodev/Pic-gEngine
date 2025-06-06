@@ -24,13 +24,15 @@ typedef struct {
     picg_physics_AABB aabb;
 } picg_physics_physicsComponent;
 
-picg_physics_physicsComponent* picg_physics_physicsComponent_create() {
+picg_physics_physicsComponent* picg_physics_physicsComponent_create(picg_bool isDynamic) {
     picg_physics_physicsComponent* comp = (picg_physics_physicsComponent*)calloc(1, sizeof(picg_physics_physicsComponent));
 
     if(!comp) {
         PICG_ERROR("Failed to create physicsComponent");
         return NULL;
     }
+
+    comp->isDynamic = isDynamic;
 
     return comp;
 }
@@ -119,34 +121,66 @@ void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, p
     float overlapY = fminf(comp1->aabb.maxY, comp2->aabb.maxY) - fmaxf(comp1->aabb.minY, comp2->aabb.minY);
     float overlapZ = fminf(comp1->aabb.maxZ, comp2->aabb.maxZ) - fmaxf(comp1->aabb.minZ, comp2->aabb.minZ);
 
-    
-    // Find the axis of least penetration
-    if (overlapX < overlapY && overlapX < overlapZ) {
-        // Resolve along X
-        if (comp1->aabb.minX < comp2->aabb.minX) {
-            comp1->position->x -= overlapX;
+    if(comp1->isDynamic && !comp2->isDynamic) {
+        // Find the axis of least penetration
+        if (overlapX < overlapY && overlapX < overlapZ) {
+            // Resolve along X
+            if (comp1->aabb.minX < comp2->aabb.minX)
+                comp1->position->x -= overlapX;
+            else
+                comp1->position->x += overlapX;
+            comp1->velocity.x = 0.f;
+        } else if (overlapY < overlapZ) {
+            // Resolve along Y
+            if (comp1->aabb.minY < comp2->aabb.minY)
+                comp1->position->y -= overlapY;
+            else
+                comp1->position->y += overlapY;
+            comp1->velocity.y = 0.f;
         } else {
-            comp1->position->x += overlapX;
+            // Resolve along Z
+            if (comp1->aabb.minZ < comp2->aabb.minZ)
+                comp1->position->z -= overlapZ;
+            else
+                comp1->position->z += overlapZ;
+            comp1->velocity.z = 0.f;
         }
-        
-        comp1->velocity.x = 0.f;
-    } else if (overlapY < overlapZ) {
-        // Resolve along Y
-        if (comp1->aabb.minY < comp2->aabb.minY) {
-            comp1->position->y -= overlapY;
+    } else if(comp1->isDynamic && comp2->isDynamic) {
+        if (overlapX < overlapY && overlapX < overlapZ) {
+            // Resolve along X
+            if (comp1->aabb.minX < comp2->aabb.minX) {
+                comp1->position->x -= overlapX / 2.f;
+                comp2->position->x += overlapX / 2.f;
+            } else {
+                comp1->position->x += overlapX / 2.f;
+                comp2->position->x -= overlapX / 2.f;
+            }
+            comp1->velocity.x = 0.f;
+            comp2->velocity.x = 0.f;
+        } else if (overlapY < overlapZ) {
+            // Resolve along Y
+            if (comp1->aabb.minY < comp2->aabb.minY) {
+                comp1->position->y -= overlapY / 2.f;
+                comp2->position->y += overlapY / 2.f;
+            } else {
+                comp1->position->y += overlapY;
+                comp2->position->y -= overlapY / 2.f;
+            }
+            comp1->velocity.y = 0.f;
+            comp2->velocity.y = 0.f;
         } else {
-           comp1->position->y += overlapY;
-        }
-        comp1->velocity.y = 0.f;
-    } else {
-        // Resolve along Z
-        if (comp1->aabb.minZ < comp2->aabb.minZ) {
-            comp1->position->z -= overlapZ;
-        } else {
-            comp1->position->z += overlapZ;
+            // Resolve along Z
+            if (comp1->aabb.minZ < comp2->aabb.minZ) {
+                comp1->position->z -= overlapZ / 2.f;
+                comp2->position->z += overlapZ / 2.f;
+            } else {
+                comp1->position->z += overlapZ / 2.f;
+                comp2->position->z -= overlapZ / 2.f;
+            }
+            comp1->velocity.z = 0.f;
+            comp2->velocity.z = 0.f;
         }
 
-        comp1->velocity.z = 0.f;
     }
 }
 

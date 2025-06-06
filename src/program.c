@@ -99,29 +99,31 @@ int program_init()
         meshes[i]->position.z = z + x;
         meshes[i]->position.y += 100.f + sin(x / 12.f) * 22.5f;
         // physics
-        physic[i] = picg_physics_physicsComponent_create();
+        physic[i] = picg_physics_physicsComponent_create(true);
         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
     } 
 
     ground = picg_modelObj_create("dev/Models/ground.obj"); 
-    ground_physics = picg_physics_physicsComponent_create();
+    ground_physics = picg_physics_physicsComponent_create(false);
     picg_physics_physicsComponent_calculateAABB(&ground_physics->aabb, ground);
     ground->position.y -= 100.f;
 
     plane = picg_modelObj_create("dev/Models/plane.obj"); 
-    plane_physics = picg_physics_physicsComponent_create();
+    plane_physics = picg_physics_physicsComponent_create(false);
     picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
 
     sideways = picg_modelObj_create("dev/Models/sideways.obj"); 
-    sideways_physics = picg_physics_physicsComponent_create();
+    sideways_physics = picg_physics_physicsComponent_create(false);
     picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
 
     {
             // PLAYER
         player_hitbox = picg_modelObj_create("dev/Models/cube.obj"); 
         player_hitbox->scaling.y = 10.f;
+        player_hitbox->scaling.x = 3.f;
+        player_hitbox->scaling.z = 3.f;
 
-        player_physics = picg_physics_physicsComponent_create();
+        player_physics = picg_physics_physicsComponent_create(true);
         picg_physics_physicsComponent_calculateAABB(&player_physics->aabb, player_hitbox);
     }
 
@@ -221,7 +223,7 @@ int program_update()
     camera->rotation.z += rotation.z;
 
 
-    double speed = 7.0 * (dt + .1f);
+    double speed = 3.0 * (dt + .1f);
 
     picg_vec3F movement = {0.f, 0.f, 0.f};
 
@@ -271,6 +273,9 @@ int program_update()
 
             picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
             picg_physics_physicsComponent_solve(physic[i], ground_physics);
+
+            picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
+            picg_physics_physicsComponent_solve(physic[i], player_physics);
         }
     }
 
