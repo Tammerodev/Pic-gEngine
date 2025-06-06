@@ -61,17 +61,13 @@ picg_bool initialized = false;
 
 int program_init()
 {
-
-    
-
     const int sizeX = 1500;
     const int sizeY = 900;
 
     // Create & init graphics 
     picg_window_create(sizeX, sizeY, "Pic-g 3D engine", 0);
     picg_gl_init3D(sizeX, sizeY);
-    picg_gl_setClearColor(0.4f, 0.3f, 0.8f, 1.0);
-    picg_window_mouse_cursor_hide();
+    picg_gl_setClearColor(0.0f, 0.0f, 0.0f, 1.f);
 
     // Make a grid of cubes (size=N)
     float x = 0.f;
@@ -80,14 +76,10 @@ int program_init()
     for(int i = 0; i < N; i++) {
         picg_mesh* mesh = NULL;
 
-        if(i % 2) { 
-            mesh = picg_modelObj_create("dev/Models/cube.obj");
-        } else {
-            mesh = picg_modelObj_create("dev/Models/cube.obj");
-        }
+        mesh = picg_modelObj_create("dev/Models/cube.obj");
 
         meshes[i] = mesh;
-        meshes[i]->position.x = x * 5.f;
+        meshes[i]->position.x = x*10.f;
 
         x += 1.f;
         if(x > (int)sqrt(N)) {
@@ -99,6 +91,7 @@ int program_init()
 
         meshes[i]->position.z = z + x;
         meshes[i]->position.y += 100.f + sin(x / 12.f) * 22.5f;
+        
         // physics
         physic[i] = picg_physics_physicsComponent_create(true);
         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
@@ -343,9 +336,6 @@ int program_render()
     picg_mesh_render(plane);
     picg_mesh_render(sideways);
     picg_texture_unbind();
-
-
-    //picg_mesh_render(player_hitbox);
 
     if(g_runtime_debug)
     {
