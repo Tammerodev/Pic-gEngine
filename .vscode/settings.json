@@ -21,6 +21,7 @@
         "runtime.h": "c",
         "program.h": "c",
         "transforms.h": "c",
-        "image.h": "c"
+        "image.h": "c",
+        "xfixes.h": "c"
     }
 }

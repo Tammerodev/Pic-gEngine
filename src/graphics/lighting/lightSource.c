@@ -7,8 +7,15 @@ void picg_addlight_diffuse(unsigned int lightNumber, GLfloat color[], GLfloat po
         return;
     }
 
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, color);
-    glLightfv(GL_LIGHT0, GL_POSITION, pos);
+    glEnable(GL_LIGHT0 + lightNumber);
+
+    glLightfv(GL_LIGHT0 + lightNumber, GL_DIFFUSE, color);
+    glLightfv(GL_LIGHT0 + lightNumber, GL_POSITION, pos);
+}
+
+void picg_disablelight(unsigned int lightNumber)
+{
+    glDisable(GL_LIGHT0 + lightNumber);
 }
 
 void picg_addlight_ambient(GLfloat color[])

@@ -6,6 +6,7 @@
 #if LINUX
 #include "X11/Xlib.h"
 #include "X11/Xatom.h"
+#include <X11/extensions/Xfixes.h>
 
 static Window window;
 static Display *display = NULL;
@@ -118,6 +119,11 @@ picg_vec2I picg_window_getSize()
 void picg_window_mouse_setPosition(const picg_vec2I position)
 {
     XWarpPointer(display, None, window, 0, 0, 0, 50, position.x, position.y);
+}
+
+void picg_window_mouse_cursor_hide()
+{
+    
 }
 
 int picg_keyboard_keydown(char *targetString)

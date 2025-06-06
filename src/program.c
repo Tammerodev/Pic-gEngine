@@ -71,6 +71,7 @@ int program_init()
     picg_window_create(sizeX, sizeY, "Pic-g 3D engine", 0);
     picg_gl_init3D(sizeX, sizeY);
     picg_gl_setClearColor(0.4f, 0.3f, 0.8f, 1.0);
+    picg_window_mouse_cursor_hide();
 
     // Make a grid of cubes (size=N)
     float x = 0.f;
@@ -132,6 +133,7 @@ int program_init()
     obj->scaling.x = 10.f;
     obj->scaling.y = 10.f;
     obj->scaling.z = 10.f;
+    obj->position.y -= 90.f;
     obj->position.x -= 100.f;
 
     // Create the camera
@@ -164,6 +166,8 @@ int program_init()
     return 0;
 }
 
+picg_vec2I mouse;
+
 int program_update()
 {
     if(!initialized) 
@@ -179,49 +183,26 @@ int program_update()
     picg_vec2I mouse = picg_window_mouse_getPosition();
     picg_vec2I windowPos = picg_window_getPosition(); 
     picg_vec2I windowSize = picg_window_getSize();
-    mouse.x -= (windowPos.x + windowSize.x / 2);
-    mouse.y -= (windowPos.y + windowSize.y / 2);
 
-            // Basic lightting
+    picg_vec2I center = {
+        windowPos.x + windowSize.x / 2,
+        windowPos.y + windowSize.y / 2
+    };
 
-    // TODO: uncomment
-    /*if(mouse.x < -windowSize.x / 2) {
-        picg_vec2I setPos = {windowPos.x + picg_window_mouse_getPosition().x + windowSize.x, picg_window_mouse_getPosition().y};
-        picg_window_mouse_setPosition(setPos);
+    picg_vec2I mouse_change = {
+        mouse.x - center.x,
+        mouse.y - center.y
+    };
+
+    if (mouse_change.x != 0 || mouse_change.y != 0) {
+        camera->rotation.y += mouse_change.x / 5.f;
+        camera->rotation.x += mouse_change.y / 5.f;
+        picg_window_mouse_setPosition((picg_vec2I){windowSize.x / 2, windowSize.y / 2});
     }
-    printf("mouse x %i y %i\n", mouse.x, mouse.y);*/
-
-    if(picg_keyboard_keydown("o")) {
-
-        camera->rotation.y = persist_pos_x + mouse.x / 5.f;
-        camera->rotation.x = persist_pos_y + mouse.y / 5.f;
-    }
-
-    double rotation_speed = 2.5f * (dt + .1f);
-    float dampening = 1.1f;
-
-    if(picg_keyboard_keydown("h")) 
-        rotation.y -= rotation_speed;
-    if(picg_keyboard_keydown("k")) 
-        rotation.y += rotation_speed;
-    if(picg_keyboard_keydown("j")) 
-        rotation.x += rotation_speed;
-    if(picg_keyboard_keydown("u")) 
-        rotation.x -= rotation_speed;
 
     g_runtime_debug = 0;
     if(picg_keyboard_keydown("p"))
         g_runtime_debug = 1;
-
-    rotation.x /= dampening;
-    rotation.y /= dampening;
-    rotation.z /= dampening;
-
-
-    camera->rotation.x += rotation.x;
-    camera->rotation.y += rotation.y;
-    camera->rotation.z += rotation.z;
-
 
     double speed = 3.0 * (dt + .1f);
 
@@ -302,23 +283,12 @@ int program_update()
 
     }
 
-
     sprintf(title, "Pic-g 3d engine, FPS: %f", 1.f / (float)picg_ha_timer_gettime(&timer));
     picg_window_setTitle(title);
-
-
-
-
-
-
     
     camera->position.x = -player_hitbox->position.x;
     camera->position.y = -player_hitbox->position.y;
     camera->position.z = -player_hitbox->position.z;
-
-
-
-
 
     return 0;
 }
@@ -333,11 +303,23 @@ int program_render()
     GLfloat ambientColor[] = {0.1f, 0.1f, 0.1f, 1.0f}; //Color (0.2, 0.2, 0.2)
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
     
-    GLfloat lightColor0[] = {1.0f, 1.0f, 1.0f, 1.0f}; //Color (0.5, 0.5, 0.5)
+    GLfloat lightColor0[] = {0.4f, 0.4f, 0.4f, 0.7f}; //Color (0.5, 0.5, 0.5)
     GLfloat lightPos0[] = {0.0f, 50.0f, 0.0f, 1.0f}; //Positioned at (4, 0, 8)
 
     picg_addlight_diffuse(0, lightColor0, lightPos0);
     picg_addlight_diffuse(1, lightColor0, lightPos0);
+
+
+    if(picg_keyboard_keydown("L")) {
+        GLfloat lightColor2[] = {1.0f, 1.0f, 1.0f, 1.0f}; //Color (0.5, 0.5, 0.5)
+        GLfloat lightPos2[] = {player_hitbox->position.x, player_hitbox->position.y, player_hitbox->position.z, 1.f}; //Positioned at (4, 0, 8)
+
+        picg_addlight_diffuse(2, lightColor2, lightPos2);
+    } else {
+        picg_disablelight(2);
+    }
+
+
 
     for(int i = 0; i < N; ++i) {
         if(physic[i])
@@ -353,9 +335,9 @@ int program_render()
     picg_texture_unbind();
 
     // TANK
-    /*picg_texture_bind(&img);
+    picg_texture_bind(&img);
     picg_mesh_render(obj);
-    picg_texture_unbind();*/
+    picg_texture_unbind();
 
     picg_texture_bind(&floor_wood_img);
     picg_mesh_render(plane);

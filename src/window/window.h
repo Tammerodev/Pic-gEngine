@@ -22,6 +22,7 @@ picg_vec2I picg_window_getPosition();
 picg_vec2I picg_window_getSize();
 
 void picg_window_mouse_setPosition(const picg_vec2I);
+void picg_window_mouse_cursor_hide();
 
 int picg_keyboard_keydown(char *targetString);
 
