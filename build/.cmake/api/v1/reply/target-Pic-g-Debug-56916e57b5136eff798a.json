@@ -85,8 +85,8 @@
 				21,
 				22,
 				24,
-				32,
-				34
+				33,
+				35
 			]
 		}
 	],
@@ -158,8 +158,9 @@
 				29,
 				30,
 				31,
-				33,
-				35
+				32,
+				34,
+				36
 			]
 		},
 		{
@@ -179,8 +180,8 @@
 				21,
 				22,
 				24,
-				32,
-				34
+				33,
+				35
 			]
 		}
 	],
@@ -357,6 +358,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "src/physics/physicsComponent.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/physics/raycast.h",
 			"sourceGroupIndex" : 0
 		},
 		{

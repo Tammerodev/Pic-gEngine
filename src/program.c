@@ -131,8 +131,6 @@ int program_init()
 
     // Create the camera
     camera = picg_camera_create();
-    camera->position.y = -30.f;
-    camera->position.z = -400.f;
 
     glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
@@ -197,7 +195,7 @@ int program_update()
     if(picg_keyboard_keydown("p"))
         g_runtime_debug = 1;
 
-    double speed = 3.0 * (dt + .1f);
+    double speed = 6.0 * (dt + .1f);
 
     picg_vec3F movement = {0.f, 0.f, 0.f};
 
@@ -303,7 +301,7 @@ int program_render()
     picg_addlight_diffuse(1, lightColor0, lightPos0);
 
 
-    if(picg_keyboard_keydown("L")) {
+    if(picg_keyboard_keydown("F")) {
         GLfloat lightColor2[] = {1.0f, 1.0f, 1.0f, 1.0f}; //Color (0.5, 0.5, 0.5)
         GLfloat lightPos2[] = {player_hitbox->position.x, player_hitbox->position.y, player_hitbox->position.z, 1.f}; //Positioned at (4, 0, 8)
 
