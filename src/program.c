@@ -93,7 +93,7 @@ int program_init()
         meshes[i]->position.z = z + x;
         meshes[i]->position.y += 100.f + sin(x / 12.f) * 22.5f;
 
-        meshes[i]->scaling = (picg_vec3F){1.0f, 2.f, 1.f};
+        meshes[i]->scaling = (picg_vec3F){5.0f, 5.f, 5.f};
         
         // physics
         physic[i] = picg_physics_physicsComponent_create(true);
@@ -228,6 +228,8 @@ int program_update()
     player_hitbox->position.x += rotated.x;
     player_hitbox->position.z += rotated.z;
 
+    picg_physics_physicsComponent_update(player_physics, player_hitbox);
+
     for(int i = 0; i < N; ++i) {
         if(physic[i]) {
             picg_physics_physicsComponent_update(physic[i], meshes[i]);
@@ -243,17 +245,16 @@ int program_update()
             }
 
             picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
+            picg_physics_physicsComponent_solve(physic[i], player_physics);
+
+            picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
             picg_physics_physicsComponent_solve(physic[i], sideways_physics);
 
-            // custom collisions
             picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
             picg_physics_physicsComponent_solve(physic[i], plane_physics);
 
             picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
             picg_physics_physicsComponent_solve(physic[i], ground_physics);
-
-            picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
-            picg_physics_physicsComponent_solve(physic[i], player_physics);
         }
     }
 
@@ -267,8 +268,6 @@ int program_update()
     picg_physics_physicsComponent_calculateAABB(&ground_physics->aabb, ground);
 
     {
-
-        picg_physics_physicsComponent_update(player_physics, player_hitbox);
 
         picg_physics_physicsComponent_solve(player_physics, ground_physics);
 

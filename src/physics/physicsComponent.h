@@ -26,6 +26,7 @@ typedef struct {
 
 picg_physics_physicsComponent* picg_physics_physicsComponent_create(picg_bool isDynamic) {
     picg_physics_physicsComponent* comp = (picg_physics_physicsComponent*)calloc(1, sizeof(picg_physics_physicsComponent));
+    comp->position = calloc(1, sizeof(picg_vec3F));
 
     if(!comp) {
         PICG_ERROR("Failed to create physicsComponent");
@@ -108,6 +109,10 @@ void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, p
     {
         PICG_ERROR("Physicscomponent does not exist!");
         return;
+    }
+
+    if(!comp1->position || !comp2->position) {
+        PICG_ERROR("Physicscomponents reference (comp->position*) was not initialized to the mesh");
     }
 
     if (comp1->aabb.maxX < comp2->aabb.minX || comp1->aabb.minX > comp2->aabb.maxX) return;
@@ -217,6 +222,7 @@ picg_bool picg_physics_physicsComponent_isPointWithinAABB(picg_vec3F *point, pic
 
     if(point->x > comp->aabb.maxX) return false;
     if(point->x < comp->aabb.minX) return false;
+
 
     if(point->y > comp->aabb.maxY) return false;
     if(point->y < comp->aabb.minY) return false;
