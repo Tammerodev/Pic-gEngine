@@ -18,6 +18,7 @@
 #include <math.h>
 #include <graphics/texture/image.h>
 #include <graphics/texture/texture.h>
+#include <physics/raycast.h>
 
 #define N 50
 
@@ -188,8 +189,8 @@ int program_update()
     };
 
     if (mouse_change.x != 0 || mouse_change.y != 0) {
-        camera->rotation.y += mouse_change.x / 2.f;
-        camera->rotation.x += mouse_change.y / 2.f;
+        camera->rotation.y += mouse_change.x / 10.f;
+        camera->rotation.x += mouse_change.y / 10.f;
 
         picg_window_mouse_setPosition((picg_vec2I){windowSize.x / 2, windowSize.y / 2});
     }
@@ -312,6 +313,26 @@ int program_render()
     } else {
         picg_disablelight(2);
     }
+
+    if (picg_keyboard_keydown("J")) {
+        float pitch = camera->rotation.x * (3.14159265f / 180.0f);
+        float yaw   = camera->rotation.y * (3.14159265f / 180.0f);
+
+        // Calculate forward direction vector from pitch and yaw
+        picg_vec3F dir;
+        dir.x = cosf(pitch) * sinf(yaw);
+        dir.y = -sinf(pitch);
+        dir.z = -cosf(pitch) * cosf(yaw);
+
+        const picg_vec3F start = {
+            player_hitbox->position.x,
+            player_hitbox->position.y - 1.f,
+            player_hitbox->position.z
+        };
+        
+        picg_physics_raycast_cast(start, dir, 100, physic, N);
+    }
+
 
 
 

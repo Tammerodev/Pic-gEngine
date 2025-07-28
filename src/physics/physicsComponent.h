@@ -212,3 +212,17 @@ void picg_physics_physicsComponent_update(picg_physics_physicsComponent* comp, p
     picg_physics_physicsComponent_calculateAABB(&comp->aabb, mesh);
 }
 
+picg_bool picg_physics_physicsComponent_isPointWithinAABB(picg_vec3F *point, picg_physics_physicsComponent* comp) {
+    if(!point || !comp) PICG_ERROR("Null vector or physicscomponent!");
+
+    if(point->x > comp->aabb.maxX) return false;
+    if(point->x < comp->aabb.minX) return false;
+
+    if(point->y > comp->aabb.maxY) return false;
+    if(point->y < comp->aabb.minY) return false;
+
+    if(point->z > comp->aabb.maxZ) return false;
+    if(point->z < comp->aabb.minZ) return false;
+
+    return true;
+}

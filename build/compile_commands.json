@@ -79,6 +79,12 @@
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
+  "command": "/usr/bin/gcc -I/home/lauri/Documents/Pic-gEngine-main/build/../src -I/home/lauri/Documents/Pic-gEngine-main/build/../dep/stb -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/math/vector3D.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/math/vector3D.c",
+  "file": "/home/lauri/Documents/Pic-gEngine-main/src/math/vector3D.c",
+  "output": "CMakeFiles/Pic-g.dir/src/math/vector3D.c.o"
+},
+{
+  "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
   "command": "/usr/bin/gcc -I/home/lauri/Documents/Pic-gEngine-main/build/../src -I/home/lauri/Documents/Pic-gEngine-main/build/../dep/stb -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/program.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/program.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/program.c",
   "output": "CMakeFiles/Pic-g.dir/src/program.c.o"
