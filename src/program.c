@@ -92,6 +92,8 @@ int program_init()
 
         meshes[i]->position.z = z + x;
         meshes[i]->position.y += 100.f + sin(x / 12.f) * 22.5f;
+
+        meshes[i]->scaling = (picg_vec3F){1.0f, 2.f, 1.f};
         
         // physics
         physic[i] = picg_physics_physicsComponent_create(true);
@@ -329,8 +331,23 @@ int program_render()
             player_hitbox->position.y - 1.f,
             player_hitbox->position.z
         };
+
+        picg_physics_raycast_return ret_ = picg_physics_raycast_cast(start, dir, 100, physic, N, 1.f);
         
-        picg_physics_raycast_cast(start, dir, 100, physic, N);
+        if (ret_.NComponent >= 0 && ret_.NComponent < N) {
+            // valid hit
+            float halfX = (physic[ret_.NComponent]->aabb.maxX - physic[ret_.NComponent]->aabb.minX) / 3.f;
+            float halfY = (physic[ret_.NComponent]->aabb.maxY - physic[ret_.NComponent]->aabb.minY) / 3.f;
+            float halfZ = (physic[ret_.NComponent]->aabb.maxZ - physic[ret_.NComponent]->aabb.minZ) / 3.f;
+
+            meshes[ret_.NComponent]->position = (picg_vec3F) {
+                ret_.collision_position.x + dir.x * halfX,
+                ret_.collision_position.y + dir.y * halfY,
+                ret_.collision_position.z + dir.z * halfZ
+            };
+        }
+
+
     }
 
 
