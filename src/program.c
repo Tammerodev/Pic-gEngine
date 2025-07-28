@@ -131,6 +131,8 @@ int program_init()
 
     // Create the camera
     camera = picg_camera_create();
+    camera->position.y = -30.f;
+    camera->position.z = -400.f;
 
     glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
@@ -186,8 +188,9 @@ int program_update()
     };
 
     if (mouse_change.x != 0 || mouse_change.y != 0) {
-        camera->rotation.y += mouse_change.x / 5.f;
-        camera->rotation.x += mouse_change.y / 5.f;
+        camera->rotation.y += mouse_change.x / 2.f;
+        camera->rotation.x += mouse_change.y / 2.f;
+
         picg_window_mouse_setPosition((picg_vec2I){windowSize.x / 2, windowSize.y / 2});
     }
 
