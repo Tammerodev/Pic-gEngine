@@ -48,14 +48,16 @@ picg_physics_physicsComponent* plane_physics = NULL;
 picg_physics_physicsComponent* sideways_physics = NULL;
 picg_physics_physicsComponent* ground_physics = NULL;
 
-
 picg_image img;
 picg_image floor_wood_img;
 picg_image grass_img;
 
-
-//
 picg_bool initialized = false;
+
+
+// sky
+#define COUNT_STARS 500
+picg_mesh* stars_meshes[COUNT_STARS];
 
 
 int program_init()
@@ -66,7 +68,7 @@ int program_init()
     // Create & init graphics 
     picg_window_create(sizeX, sizeY, "Pic-g 3D engine", 0);
     picg_gl_init3D(sizeX, sizeY);
-    picg_gl_setClearColor(.6f, 0.6f, 0.9f, 1.f);
+    picg_gl_setClearColor(.07f, 0.07f, 0.15f, 1.f);
 
     // Make a grid of cubes (size=N)
     float x = 0.f;
@@ -98,6 +100,41 @@ int program_init()
         physic[i]->grabbable = true;
         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
     } 
+
+
+    for(int i = 0; i < COUNT_STARS; i++) {
+        picg_mesh *star = NULL;
+        star = picg_modelObj_create("dev/Models/plane_small.obj");
+
+        stars_meshes[i] = star;
+
+
+        stars_meshes[i]->scaling.x = 1.7f;
+        stars_meshes[i]->scaling.y = 1.7f;
+        stars_meshes[i]->scaling.z = 1.7f;
+
+        const float radius = 1000.f;
+
+        float u = (float)rand() / RAND_MAX;
+        float v = (float)rand() / RAND_MAX;
+
+        float theta = 2.0f * 3.1415927f * u;
+        float z = v;                        // z = cos(phi), constrained to [0, 1]
+        float r = sqrtf(1.0f - z * z);      // radius at given height
+
+        float x = r * cosf(theta);
+        float y = z;
+        float z_pos = r * sinf(theta);
+
+        stars_meshes[i]->position.x = radius * x;
+        stars_meshes[i]->position.y = radius * y - 100.f;
+        stars_meshes[i]->position.z = radius * z_pos;
+
+        stars_meshes[i]->rotation.x = (float)rand() / RAND_MAX * 100.f;
+        stars_meshes[i]->rotation.y = (float)rand() / RAND_MAX * 100.f;
+        stars_meshes[i]->rotation.z = (float)rand() / RAND_MAX * 100.f;
+
+    }
 
     ground = picg_modelObj_create("dev/Models/ground.obj"); 
     ground_physics = picg_physics_physicsComponent_create(false);
@@ -225,12 +262,12 @@ int program_update()
     if(picg_keyboard_keydown("D"))
         movement.x += speed;
 
+    if(picg_keyboard_keydown("Y"))
+        physic[NCubes]->velocity.y = 3.f;
+
     if(picg_keyboard_keydown("space") && physic[NCubes]->isColliding)
         physic[NCubes]->velocity.y = 0.5f;
-
-    if(picg_keyboard_keydown("x"))
-            movement.y -= speed;
-
+        
     picg_vec3F rotated = picg_transform_rotate(movement, camera->rotation);
 
     meshes[NCubes]->position.x += rotated.x;
@@ -363,6 +400,15 @@ int program_render()
             picg_mesh_render(meshes[i]);
         }
     }
+
+    glDisable(GL_LIGHTING);
+    for(int i = 0; i < COUNT_STARS; ++i) {
+        if(stars_meshes[i]) {
+            picg_mesh_render(stars_meshes[i]);
+        }
+    }
+    glEnable(GL_LIGHTING);
+
 
     picg_texture_bind(&grass_img);
     picg_mesh_render(ground);
