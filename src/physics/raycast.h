@@ -34,7 +34,7 @@ picg_physics_raycast_return picg_physics_raycast_cast(picg_vec3F start, picg_vec
         // collision check
         if(worldcomponents && NComponents) {
             for(int n = 0; n < NComponents; n++) {
-                if(picg_physics_physicsComponent_isPointWithinAABB(&position_now, worldcomponents[n])) {
+                if(worldcomponents[n]->grabbable && picg_physics_physicsComponent_isPointWithinAABB(&position_now, worldcomponents[n])) {
                     picg_physics_raycast_return ret_;
 
                     ret_.collision_position = position_now;

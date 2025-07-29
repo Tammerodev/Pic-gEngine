@@ -23,7 +23,8 @@ picg_mesh* picg_cube_create() {
     mesh->scaling.x = 1.f;
     mesh->scaling.y = 1.f;
     mesh->scaling.z = 1.f;
-
+    
+    mesh->render = true;
 
     return mesh;
 }

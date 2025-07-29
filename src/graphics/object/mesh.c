@@ -4,6 +4,8 @@
 
 void picg_mesh_render(picg_mesh *mesh)
 {  
+    if(!mesh->render) return;
+
     glPushMatrix();
 
     glTranslatef(mesh->position.x, mesh->position.y, mesh->position.z);

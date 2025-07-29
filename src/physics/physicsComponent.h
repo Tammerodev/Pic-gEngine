@@ -20,6 +20,7 @@ typedef struct {
     */
     int isDynamic;
     picg_bool isColliding;
+    picg_bool grabbable;
 
     picg_physics_AABB aabb;
 } picg_physics_physicsComponent;
@@ -39,14 +40,15 @@ picg_physics_physicsComponent* picg_physics_physicsComponent_create(picg_bool is
 }
 
 void picg_physics_physicsComponent_calculateAABB(picg_physics_AABB* aabb, picg_mesh* mesh) {
-    if(mesh->vertexCount == 0) 
-    {
-        PICG_ERROR("No vertices in mesh");
-        return;
-    }
     if(!aabb || !mesh) 
     {
         PICG_ERROR("A field was null/empty");
+        return;
+    }
+
+    if(mesh->vertexCount == 0) 
+    {
+        PICG_ERROR("No vertices in mesh");
         return;
     }
 
@@ -104,6 +106,8 @@ void picg_physics_physicsComponent_debug_render(picg_physics_physicsComponent* c
     glPopMatrix();
 }
 
+const float friction = 1.5f;
+
 void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, picg_physics_physicsComponent* comp2) {
     if(!comp1 || !comp2) 
     {
@@ -141,7 +145,11 @@ void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, p
                 comp1->position->y -= overlapY;
             else
                 comp1->position->y += overlapY;
+
             comp1->velocity.y = 0.f;
+            comp1->velocity.x /= friction;
+            comp1->velocity.z /= friction;
+
         } else {
             // Resolve along Z
             if (comp1->aabb.minZ < comp2->aabb.minZ)
@@ -150,6 +158,8 @@ void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, p
                 comp1->position->z += overlapZ;
             comp1->velocity.z = 0.f;
         }
+
+        
     } else if(comp1->isDynamic && comp2->isDynamic) {
         if (overlapX < overlapY && overlapX < overlapZ) {
             // Resolve along X
@@ -173,6 +183,12 @@ void picg_physics_physicsComponent_solve(picg_physics_physicsComponent* comp1, p
             }
             comp1->velocity.y = 0.f;
             comp2->velocity.y = 0.f;
+
+            comp1->velocity.x /= friction;
+            comp1->velocity.z /= friction;
+
+            comp2->velocity.x /= friction;
+            comp2->velocity.z /= friction;
         } else {
             // Resolve along Z
             if (comp1->aabb.minZ < comp2->aabb.minZ) {

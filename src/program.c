@@ -20,7 +20,9 @@
 #include <graphics/texture/texture.h>
 #include <physics/raycast.h>
 
-#define N 50
+#define NCubes 100
+#define NPlayer 1
+#define N (NCubes+NPlayer)
 
 // Delta time
 picg_ha_timer timer = {};
@@ -42,13 +44,9 @@ picg_mesh* plane = NULL;
 picg_mesh* obj = NULL;
 picg_mesh* ground = NULL;
 
-picg_mesh* player_hitbox = NULL;
-
 picg_physics_physicsComponent* plane_physics = NULL;
 picg_physics_physicsComponent* sideways_physics = NULL;
 picg_physics_physicsComponent* ground_physics = NULL;
-
-picg_physics_physicsComponent* player_physics = NULL;
 
 
 picg_image img;
@@ -68,13 +66,13 @@ int program_init()
     // Create & init graphics 
     picg_window_create(sizeX, sizeY, "Pic-g 3D engine", 0);
     picg_gl_init3D(sizeX, sizeY);
-    picg_gl_setClearColor(0.0f, 0.0f, 0.0f, 1.f);
+    picg_gl_setClearColor(.6f, 0.6f, 0.9f, 1.f);
 
     // Make a grid of cubes (size=N)
     float x = 0.f;
     float z = 0.f;
 
-    for(int i = 0; i < N; i++) {
+    for(int i = 0; i < NCubes; i++) {
         picg_mesh* mesh = NULL;
 
         mesh = picg_modelObj_create("dev/Models/cube.obj");
@@ -93,10 +91,11 @@ int program_init()
         meshes[i]->position.z = z + x;
         meshes[i]->position.y += 100.f + sin(x / 12.f) * 22.5f;
 
-        meshes[i]->scaling = (picg_vec3F){5.0f, 5.f, 5.f};
+        meshes[i]->scaling = (picg_vec3F){2.0f, 3.f, 2.f};
         
         // physics
         physic[i] = picg_physics_physicsComponent_create(true);
+        physic[i]->grabbable = true;
         picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
     } 
 
@@ -115,13 +114,22 @@ int program_init()
 
     {
             // PLAYER
-        player_hitbox = picg_modelObj_create("dev/Models/cube.obj"); 
-        player_hitbox->scaling.y = 10.f;
-        player_hitbox->scaling.x = 3.f;
-        player_hitbox->scaling.z = 3.f;
+        meshes[NCubes] = picg_modelObj_create("dev/Models/cube.obj"); 
+        meshes[NCubes]->scaling.y = 10.f;
+        meshes[NCubes]->scaling.x = 3.f;
+        meshes[NCubes]->scaling.z = 3.f;
+        meshes[NCubes]->render = false;
 
-        player_physics = picg_physics_physicsComponent_create(true);
-        picg_physics_physicsComponent_calculateAABB(&player_physics->aabb, player_hitbox);
+        /*player_physics = picg_physics_physicsComponent_create(true);
+        picg_physics_physicsComponent_calculateAABB(&player_physics->aabb, player_hitbox);*/
+
+        physic[NCubes] = picg_physics_physicsComponent_create(true);
+        picg_physics_physicsComponent_calculateAABB(&physic[NCubes]->aabb, meshes[NCubes]);
+
+        if(!physic[NCubes] || !meshes[NCubes]) {
+            PICG_ERROR("Couldnt create player physics!");
+            abort();
+        }
     }
 
     // Teapot
@@ -201,7 +209,7 @@ int program_update()
     if(picg_keyboard_keydown("p"))
         g_runtime_debug = 1;
 
-    double speed = 6.0 * (dt + .1f);
+    double speed = 5.0 * (dt + .1f);
 
     picg_vec3F movement = {0.f, 0.f, 0.f};
 
@@ -217,21 +225,21 @@ int program_update()
     if(picg_keyboard_keydown("D"))
         movement.x += speed;
 
-    if(picg_keyboard_keydown("space") && player_physics->isColliding)
-        player_physics->velocity.y = 0.5f;
+    if(picg_keyboard_keydown("space") && physic[NCubes]->isColliding)
+        physic[NCubes]->velocity.y = 0.5f;
 
     if(picg_keyboard_keydown("x"))
             movement.y -= speed;
 
     picg_vec3F rotated = picg_transform_rotate(movement, camera->rotation);
 
-    player_hitbox->position.x += rotated.x;
-    player_hitbox->position.z += rotated.z;
+    meshes[NCubes]->position.x += rotated.x;
+    meshes[NCubes]->position.z += rotated.z;
 
-    picg_physics_physicsComponent_update(player_physics, player_hitbox);
+    picg_physics_physicsComponent_update(physic[NCubes], meshes[NCubes]);
 
     for(int i = 0; i < N; ++i) {
-        if(physic[i]) {
+        if(physic[i] && meshes[i]) {
             picg_physics_physicsComponent_update(physic[i], meshes[i]);
 
             // Collisions with other cubes
@@ -245,9 +253,6 @@ int program_update()
             }
 
             picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
-            picg_physics_physicsComponent_solve(physic[i], player_physics);
-
-            picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
             picg_physics_physicsComponent_solve(physic[i], sideways_physics);
 
             picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
@@ -255,6 +260,8 @@ int program_update()
 
             picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
             picg_physics_physicsComponent_solve(physic[i], ground_physics);
+        } else {
+            PICG_ERROR("Null physicsComponent/mesh");
         }
     }
 
@@ -267,24 +274,12 @@ int program_update()
     picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
     picg_physics_physicsComponent_calculateAABB(&ground_physics->aabb, ground);
 
-    {
-
-        picg_physics_physicsComponent_solve(player_physics, ground_physics);
-
-        picg_physics_physicsComponent_calculateAABB(&player_physics->aabb, player_hitbox);
-        picg_physics_physicsComponent_solve(player_physics, plane_physics);
-
-        picg_physics_physicsComponent_calculateAABB(&player_physics->aabb, player_hitbox);
-        picg_physics_physicsComponent_solve(player_physics, sideways_physics);
-
-    }
-
     sprintf(title, "Pic-g 3d engine, FPS: %f", 1.f / (float)picg_ha_timer_gettime(&timer));
     picg_window_setTitle(title);
     
-    camera->position.x = -player_hitbox->position.x;
-    camera->position.y = -player_hitbox->position.y;
-    camera->position.z = -player_hitbox->position.z;
+    camera->position.x = -meshes[NCubes]->position.x;
+    camera->position.y = -meshes[NCubes]->position.y;
+    camera->position.z = -meshes[NCubes]->position.z;
 
     return 0;
 }
@@ -308,7 +303,7 @@ int program_render()
 
     if(picg_keyboard_keydown("F")) {
         GLfloat lightColor2[] = {1.0f, 1.0f, 1.0f, 1.0f}; //Color (0.5, 0.5, 0.5)
-        GLfloat lightPos2[] = {player_hitbox->position.x, player_hitbox->position.y, player_hitbox->position.z, 1.f}; //Positioned at (4, 0, 8)
+        GLfloat lightPos2[] = {meshes[NCubes]->position.x, meshes[NCubes]->position.y, meshes[NCubes]->position.z, 1.f}; //Positioned at (4, 0, 8)
 
         picg_addlight_diffuse(2, lightColor2, lightPos2);
     } else {
@@ -326,24 +321,32 @@ int program_render()
         dir.z = -cosf(pitch) * cosf(yaw);
 
         const picg_vec3F start = {
-            player_hitbox->position.x,
-            player_hitbox->position.y - 1.f,
-            player_hitbox->position.z
+            meshes[NCubes]->position.x,
+            meshes[NCubes]->position.y - 1.f,
+            meshes[NCubes]->position.z
         };
 
-        picg_physics_raycast_return ret_ = picg_physics_raycast_cast(start, dir, 100, physic, N, 1.f);
+        picg_physics_raycast_return ret_ = picg_physics_raycast_cast(start, dir, 1000, physic, N, 1.f);
         
         if (ret_.NComponent >= 0 && ret_.NComponent < N) {
             // valid hit
-            float halfX = (physic[ret_.NComponent]->aabb.maxX - physic[ret_.NComponent]->aabb.minX) / 3.f;
-            float halfY = (physic[ret_.NComponent]->aabb.maxY - physic[ret_.NComponent]->aabb.minY) / 3.f;
-            float halfZ = (physic[ret_.NComponent]->aabb.maxZ - physic[ret_.NComponent]->aabb.minZ) / 3.f;
+            float halfX = (physic[ret_.NComponent]->aabb.maxX - physic[ret_.NComponent]->aabb.minX) / 2.f;
+            float halfY = (physic[ret_.NComponent]->aabb.maxY - physic[ret_.NComponent]->aabb.minY) / 2.f;
+            float halfZ = (physic[ret_.NComponent]->aabb.maxZ - physic[ret_.NComponent]->aabb.minZ) / 2.f;
 
             meshes[ret_.NComponent]->position = (picg_vec3F) {
                 ret_.collision_position.x + dir.x * halfX,
                 ret_.collision_position.y + dir.y * halfY,
                 ret_.collision_position.z + dir.z * halfZ
             };
+
+            if (picg_keyboard_keydown("K")) {
+                physic[ret_.NComponent]->velocity.x = dir.x * 2.f;
+                physic[ret_.NComponent]->velocity.y = dir.y * 2.f;
+                physic[ret_.NComponent]->velocity.z = dir.z * 2.f;
+
+            }
+
         }
 
 
@@ -383,7 +386,7 @@ int program_render()
 
     picg_physics_physicsComponent_debug_render(sideways_physics);
     picg_physics_physicsComponent_debug_render(plane_physics);
-    picg_physics_physicsComponent_debug_render(player_physics);
+    picg_physics_physicsComponent_debug_render(physic[NCubes]);
 
 
     picg_window_display();
