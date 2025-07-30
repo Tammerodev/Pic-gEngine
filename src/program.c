@@ -59,11 +59,11 @@ picg_bool initialized = false;
 #define COUNT_STARS 500
 picg_mesh* stars_meshes[COUNT_STARS];
 
+const int sizeX = 1500;
+const int sizeY = 900;
 
 int program_init()
 {
-    const int sizeX = 1500;
-    const int sizeY = 900;
 
     // Create & init graphics 
     picg_window_create(sizeX, sizeY, "Pic-g 3D engine", 0);
@@ -93,7 +93,7 @@ int program_init()
         meshes[i]->position.z = z + x;
         meshes[i]->position.y += 100.f + sin(x / 12.f) * 22.5f;
 
-        meshes[i]->scaling = (picg_vec3F){2.0f, 3.f, 2.f};
+        meshes[i]->scaling = (picg_vec3F){5.0f, 5.f, 5.f};
         
         // physics
         physic[i] = picg_physics_physicsComponent_create(true);
@@ -150,15 +150,12 @@ int program_init()
     picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
 
     {
-            // PLAYER
+        // PLAYER
         meshes[NCubes] = picg_modelObj_create("dev/Models/cube.obj"); 
         meshes[NCubes]->scaling.y = 10.f;
         meshes[NCubes]->scaling.x = 3.f;
         meshes[NCubes]->scaling.z = 3.f;
         meshes[NCubes]->render = false;
-
-        /*player_physics = picg_physics_physicsComponent_create(true);
-        picg_physics_physicsComponent_calculateAABB(&player_physics->aabb, player_hitbox);*/
 
         physic[NCubes] = picg_physics_physicsComponent_create(true);
         picg_physics_physicsComponent_calculateAABB(&physic[NCubes]->aabb, meshes[NCubes]);
@@ -181,13 +178,6 @@ int program_init()
     camera = picg_camera_create();
     camera->position.y = -30.f;
     camera->position.z = -400.f;
-
-    glEnable(GL_DEPTH_TEST);
-	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_LIGHTING); //Enable lighting
-	glEnable(GL_LIGHT0); //Enable light #0
-	glEnable(GL_LIGHT1); //Enable light #1
-	glEnable(GL_NORMALIZE); 
 
     // IMAGE/TEXTURE LOADING
 
@@ -338,7 +328,7 @@ int program_render()
     picg_addlight_diffuse(1, lightColor0, lightPos0);
 
 
-    if(picg_keyboard_keydown("F")) {
+    if(!picg_keyboard_keydown("F")) {
         GLfloat lightColor2[] = {1.0f, 1.0f, 1.0f, 1.0f}; //Color (0.5, 0.5, 0.5)
         GLfloat lightPos2[] = {meshes[NCubes]->position.x, meshes[NCubes]->position.y, meshes[NCubes]->position.z, 1.f}; //Positioned at (4, 0, 8)
 
@@ -371,6 +361,8 @@ int program_render()
             float halfY = (physic[ret_.NComponent]->aabb.maxY - physic[ret_.NComponent]->aabb.minY) / 2.f;
             float halfZ = (physic[ret_.NComponent]->aabb.maxZ - physic[ret_.NComponent]->aabb.minZ) / 2.f;
 
+            picg_physics_physicsComponent_debug_render(physic[ret_.NComponent], true);
+
             meshes[ret_.NComponent]->position = (picg_vec3F) {
                 ret_.collision_position.x + dir.x * halfX,
                 ret_.collision_position.y + dir.y * halfY,
@@ -394,7 +386,7 @@ int program_render()
 
     for(int i = 0; i < N; ++i) {
         if(physic[i])
-            picg_physics_physicsComponent_debug_render(physic[i]);
+            picg_physics_physicsComponent_debug_render(physic[i], false);
 
         if(meshes[i]) {
             picg_mesh_render(meshes[i]);
@@ -430,9 +422,9 @@ int program_render()
         picg_graphics_debug_point_render(0.f, 0.f, 0.f, 100.f);
     }
 
-    picg_physics_physicsComponent_debug_render(sideways_physics);
-    picg_physics_physicsComponent_debug_render(plane_physics);
-    picg_physics_physicsComponent_debug_render(physic[NCubes]);
+    picg_physics_physicsComponent_debug_render(sideways_physics, false);
+    picg_physics_physicsComponent_debug_render(plane_physics, false);
+    picg_physics_physicsComponent_debug_render(physic[NCubes], false);
 
 
     picg_window_display();

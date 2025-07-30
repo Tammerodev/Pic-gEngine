@@ -265,7 +265,7 @@ picg_mesh* picg_modelObj_create(const char* model_path)
     mesh->scaling.z = 1.f;
 
     mesh->render = true;
-
+    
     printf("Successfully loaded model with %d vertices\n", mesh->vertexCount);
     
     return mesh;

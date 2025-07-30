@@ -14,11 +14,12 @@ void picg_gl_init3D(int winX, int winY)
     glMatrixMode(GL_PROJECTION);
     gluPerspective(80.f, (float) winX / (float)winY, 0.1f, 10000.f);
 
-    // Positions
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
     // Enable GL propeties
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_NORMALIZE);
+}
+
+void picg_gl_setPerspective(int winX, int winY, float FOV, float zNear, float zFar) {
+    glMatrixMode(GL_PROJECTION);
+    gluPerspective(FOV, (float) winX / (float)winY, zNear, zFar);
 }
