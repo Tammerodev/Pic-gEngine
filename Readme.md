@@ -4,7 +4,7 @@ Dependencies: X11, GLU, OpenGL. Currently only supports linux running X11. Windo
 
 ### Some graphics demos I made with this:
 
-<img src="dev/screenshots/demo_18_11_24.png" alt="drawing" width="200"/>
+<img src="dev/screenshots/flightsim.png" alt="drawing" width="700"/>
 <img src="dev/screenshots/demo_4_6_25.png" alt="drawing" width="240"/>
 <img src="dev/screenshots/demo_3_6_25.png" alt="drawing" width="200"/>
 <img src="dev/screenshots/teapot.png" alt="drawing" width="200"/>
