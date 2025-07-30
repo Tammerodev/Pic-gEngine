@@ -12,7 +12,7 @@ void picg_gl_init3D(int winX, int winY)
 {
     // View projection
     glMatrixMode(GL_PROJECTION);
-    gluPerspective(80.f, (float) winX / (float)winY, 0.1f, 10000.f);
+    gluPerspective(100.f, (float) winX / (float)winY, 0.1f, 10000000.f);
 
     // Enable GL propeties
     glEnable(GL_DEPTH_TEST);

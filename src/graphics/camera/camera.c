@@ -18,8 +18,10 @@ picg_camera* picg_camera_create()
 
 void picg_camera_apply(picg_camera *cam)
 {
-    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
     
+    glLoadIdentity();
+
     glRotatef(cam->rotation.x, 1.f, 0.f, 0.f);
     glRotatef(cam->rotation.y, 0.f, 1.f, 0.f);
     glRotatef(cam->rotation.z, 0.f, 0.f, 1.f);
