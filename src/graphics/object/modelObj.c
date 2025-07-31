@@ -244,7 +244,10 @@ picg_mesh* picg_modelObj_create(const char* model_path)
 
     mesh->renderType = obj_renderType;
     mesh->vertices = modelVertices;
-    mesh->vertexCount = modelVertexCount;   
+    mesh->vertexCount = modelVertexCount; 
+
+    // Special case
+    if(mesh->vertexCount == 1) mesh->renderType = GL_POINTS; 
 
     mesh->faces = faces;
     mesh->faceCount = modelFaceCount;
