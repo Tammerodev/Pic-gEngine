@@ -83,6 +83,7 @@ void picg_physics_physicsComponent_calculateAABB(picg_physics_AABB* aabb, picg_m
 
 void picg_physics_physicsComponent_debug_render(picg_physics_physicsComponent* comp, picg_bool force) {
     if(!g_runtime_debug && !force) return;
+    if(!comp) PICG_ERROR("Physicscomponent is null!");
 
     glPushMatrix();
 

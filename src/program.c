@@ -154,11 +154,13 @@ int program_init()
 
     // tank
     obj = picg_modelObj_create("/home/lauri/Downloads/leopard-2-mbt-revolution/source/chassis.obj"); 
-    obj->scaling.x = 10.f;
-    obj->scaling.y = 10.f;
-    obj->scaling.z = 10.f;
-    obj->position.y -= 90.f;
-    obj->position.x -= 100.f;
+    if(obj) {
+        obj->scaling.x = 10.f;
+        obj->scaling.y = 10.f;
+        obj->scaling.z = 10.f;
+        obj->position.y -= 90.f;
+        obj->position.x -= 100.f;
+    }
 
     // Create the camera
     camera = picg_camera_create();
@@ -216,7 +218,7 @@ int program_update()
     // Show debug info
 
     g_runtime_debug = 0;
-    if(picg_keyboard_keydown("p"))
+    if(picg_keyboard_keydown("F3"))
         g_runtime_debug = 1;
 
     // Flight physics
@@ -224,12 +226,7 @@ int program_update()
     const double terminal_v = 3.;
     const double speed = terminal_v + 5.5f;
 
-    picg_vec3F movement = {0.f, 0.f, 0.f};
-
-    movement.z = -speed;
-
-    if(picg_keyboard_keydown("Y"))
-        physic[NCubes]->velocity.y = 2.f;
+    picg_vec3F movement = {0.f, 0.f, -speed};
         
     picg_vec3F rotated = picg_transform_rotate(movement, camera->rotation);
 
@@ -244,11 +241,11 @@ int program_update()
     meshes[NCubes]->position.y += rotated.y * lift;
     meshes[NCubes]->position.z += rotated.z;
 
-    printf("Airspeed %f, lift %f, y velocity %f \n", air_v, lift, physic[NCubes]->velocity.y);
-    physic[NCubes]->velocity.y += 0.04f * rotated.y * lift;
+    PICG_LOG("Airspeed %f, lift %f, y velocity %f", air_v, lift, physic[NCubes]->velocity.y);
+    physic[NCubes]->velocity.y += 0.01f * rotated.y * lift;
 
-    if (physic[NCubes]->velocity.y < -terminal_v * 1.f)
-        physic[NCubes]->velocity.y = -terminal_v * 1.f;
+    if (physic[NCubes]->velocity.y < -terminal_v)
+        physic[NCubes]->velocity.y = -terminal_v;
 
     if (physic[NCubes]->velocity.y > terminal_v)
         physic[NCubes]->velocity.y = terminal_v;

@@ -18,7 +18,7 @@ static XEvent xevent;
 
 void picg_test_support()
 {   
-    printf("TODO: Implement compability test!");
+    PICG_ERROR("TODO: Implement compability test!");
 }
 
 void picg_window_create(int windowSizeX, int windowSizeY, const char *windowTitle, int fullscreen)

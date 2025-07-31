@@ -4,6 +4,10 @@
 
 void picg_mesh_render(picg_mesh *mesh)
 {  
+    if(!mesh) {
+        PICG_ERROR("Mesh is null!");
+        return;
+    }
     if(!mesh->render) return;
 
     glPushMatrix();

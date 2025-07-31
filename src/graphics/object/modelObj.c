@@ -129,8 +129,8 @@ int loadObj(const char* filepath)
     rewind(objFile);
 
     const int originalVertexCount = vertexCount;
-    printf("Vertex count: %d\n", (int)vertexCount);
-    printf("Face count: %d\n", (int)faceCount);
+    PICG_LOG("Vertex count: %d", (int)vertexCount);
+    PICG_LOG("Face count: %d", (int)faceCount);
 
     modelVertices = calloc(1, (sizeof(picg_vertex3F) * originalVertexCount));
 
@@ -184,15 +184,6 @@ int loadObj(const char* filepath)
         }
     }
 
-    if(textureCount) {
-        hasTexture = true;
-        if((textureCount != normalCount) != vertexCount) {
-            PICG_ERROR("Mistmatch with texture-normal-vertex count!");
-
-            printf("Vertices=%i \nNormals=%i \nTexture=%i \n", vertexCount, textureCount, normalCount);
-        }
-    }
-
     /*
         Rewinds the file and reads the face data 
     */
@@ -227,8 +218,6 @@ int loadObj(const char* filepath)
 
 picg_mesh* picg_modelObj_create(const char* model_path) 
 {
-    printf("\n");
-
     picg_mesh* mesh = calloc(1, sizeof(modelVertices) + sizeof(faces) + sizeof(picg_mesh));
 
     int result = loadObj(model_path);
@@ -266,7 +255,7 @@ picg_mesh* picg_modelObj_create(const char* model_path)
 
     mesh->render = true;
     
-    printf("Successfully loaded model with %d vertices\n", mesh->vertexCount);
+    PICG_SUCC("Successfully loaded model with %d vertices\n", mesh->vertexCount);
     
     return mesh;
 }
