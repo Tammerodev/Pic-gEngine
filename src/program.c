@@ -226,7 +226,9 @@ int program_update()
     const double terminal_v = 3.;
     const double speed = terminal_v + 5.5f;
 
-    picg_vec3F movement = {0.f, 0.f, -speed};
+    picg_vec3F movement = {0.f, 0.f, 0.f};
+    if(picg_keyboard_keydown("W"))
+        movement.z = -speed;
         
     picg_vec3F rotated = picg_transform_rotate(movement, camera->rotation);
 
@@ -372,7 +374,22 @@ int program_render()
     glDisable(GL_LIGHTING);
     for(int i = 0; i < COUNT_STARS; ++i) {
         if(stars_meshes[i]) {
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+            glEnable(GL_POLYGON_SMOOTH);
+            glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+
             picg_mesh_render(stars_meshes[i]);
+
+            glDisable(GL_POLYGON_SMOOTH);
+            glDisable(GL_BLEND);
+
+
+            if(stars_meshes[i]->rotation.x > 26.f && stars_meshes[i]->rotation.x < 30.f) {
+                stars_meshes[i]->position.x += (stars_meshes[i]->rotation.y - 45.f) / 40.f;
+                stars_meshes[i]->position.y += (stars_meshes[i]->rotation.z - 45.f) / 40.f;
+            }
         }
     }
     glEnable(GL_LIGHTING);
