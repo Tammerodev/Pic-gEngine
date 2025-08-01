@@ -210,43 +210,7 @@ int program_update()
 
         picg_window_mouse_setPosition((picg_vec2I){windowSize.x / 2, windowSize.y / 2});
     }
-    
-    // Show debug info
-
-    g_runtime_debug = 0;
-    if(picg_keyboard_keydown("F3"))
-        g_runtime_debug = 1;
-
-    // Flight physics
- 
-    const double terminal_v = 3.;
-    const double speed = terminal_v + 3.5f;
-
-    picg_vec3F movement = {0.f, 0.f, -speed};
-        
-    picg_vec3F rotated = picg_transform_rotate(movement, camera->rotation);
-
-    const float airspeed = picg_vec3F_magnitude(&(picg_vec3F){rotated.x, 0.f, rotated.z});
-
-    float air_v = airspeed; 
-
-    // Lift calculation
-    const float lift = .1f * airspeed;
-
-    meshes[NCubes]->position.x += rotated.x;
-    meshes[NCubes]->position.y += rotated.y * lift;
-    meshes[NCubes]->position.z += rotated.z;
-
-    PICG_LOG("Airspeed %f, lift %f, y velocity %f", air_v, lift, physic[NCubes]->velocity.y);
-    physic[NCubes]->velocity.y += 0.01f * rotated.y * lift;
-
-    if (physic[NCubes]->velocity.y < -terminal_v)
-        physic[NCubes]->velocity.y = -terminal_v;
-
-    if (physic[NCubes]->velocity.y > terminal_v)
-        physic[NCubes]->velocity.y = terminal_v;
-
-    // Physics
+     // Physics
 
     for(int i = 0; i < N; ++i) {
         if(physic[i] && meshes[i]) {
@@ -272,6 +236,40 @@ int program_update()
 
     picg_physics_physicsComponent_calculateAABB(&ground_physics->aabb, ground);
 
+    
+    // Show debug info
+
+    g_runtime_debug = 0;
+    if(picg_keyboard_keydown("F3"))
+        g_runtime_debug = 1;
+
+    double speed = 5.0 * (dt + .1f);
+
+    picg_vec3F movement = {0.f, 0.f, 0.f};
+
+    if(picg_keyboard_keydown("W"))
+        movement.z -= speed;
+
+    if(picg_keyboard_keydown("A"))
+        movement.x -= speed;
+
+    if(picg_keyboard_keydown("S"))
+        movement.z += speed;
+
+    if(picg_keyboard_keydown("D"))
+        movement.x += speed;
+
+    if(picg_keyboard_keydown("Y"))
+        physic[NCubes]->velocity.y = 3.f;
+
+    if(picg_keyboard_keydown("space") && physic[NCubes]->isColliding)
+        physic[NCubes]->velocity.y = 1.5f;
+        
+    picg_vec3F rotated = picg_transform_rotate(movement, camera->rotation);
+
+    meshes[NCubes]->position.x += rotated.x;
+    meshes[NCubes]->position.z += rotated.z;
+   
     // FPS calculation
     sprintf(title, "Pic-g 3d engine, FPS: %f", 1.f / (float)picg_ha_timer_gettime(&timer));
     picg_window_setTitle(title);

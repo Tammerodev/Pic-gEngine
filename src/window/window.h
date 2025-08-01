@@ -1,9 +1,9 @@
 #pragma once
-#include "../PREPROCESSOR/OS.h"
+#include "../globals/OS.h"
 #include "../math/vector2D.h"
 #include "../globals/macro.h"
 #include "../graphics/graphicsGL.h"
-
+#include <stdio.h>
 
 #if LINUX
 #include <X11/Xlib.h>

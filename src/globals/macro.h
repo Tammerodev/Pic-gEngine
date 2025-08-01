@@ -7,6 +7,7 @@
 #define false 0
 
 // error
+
 #define PICG_ERROR(msg) {printf("\e[1;31m Error in file \e[0;34m%s, function %s(), line %i. \e[0;37m Message: \e[1;31m", __FILE__, __func__, __LINE__); printf(msg); printf("\e[0;37m\n");}
 #define PICG_SUCC(msg, ...) {printf("\e[1;32m"); printf(msg, ##__VA_ARGS__); printf("\e[0;37m\n");}
 #define PICG_LOG(msg, ...) {printf("\e[0;37m"); printf(msg, ##__VA_ARGS__); printf("\e[0;37m\n");}

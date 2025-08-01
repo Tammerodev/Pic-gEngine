@@ -1,7 +1,4 @@
 #include "window.h"
-#include "../PREPROCESSOR/OS.h"
-#include "../math/vector2D.h"
-#include <stdio.h>
 
 #if LINUX
 #include "X11/Xlib.h"

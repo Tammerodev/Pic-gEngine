@@ -91,7 +91,6 @@ void picg_physics_physicsComponent_debug_render(picg_physics_physicsComponent* c
 
     float d = 0.5f;
 
-    // TODO: rendering
     picg_graphics_debug_point_render(comp->aabb.minX, comp->aabb.minY, comp->aabb.minZ, d);
     picg_graphics_debug_point_render(comp->aabb.minX, comp->aabb.minY, comp->aabb.maxZ, d);
     picg_graphics_debug_point_render(comp->aabb.minX, comp->aabb.maxY, comp->aabb.minZ, d);
@@ -216,7 +215,7 @@ void picg_physics_physicsComponent_update(picg_physics_physicsComponent* comp, p
     }
 
     // Gravity
-    comp->acceleration.y = -0.01f;
+    comp->acceleration.y = -0.05f;
     
     // Calculations
     comp->velocity.x += comp->acceleration.x;
