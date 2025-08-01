@@ -34,3 +34,6 @@
 6	302	1754034895435874817	CMakeFiles/Pic-g.dir/src/window/window.c.o	cbbcfe24c6e9c02b
 5	500	1754034895434874940	CMakeFiles/Pic-g.dir/src/program.c.o	a2db413cfcecc78f
 500	587	1754034895929814365	Pic-g	3d42fa1fde6c4d11
+5	141	1754034974460635037	CMakeFiles/Pic-g.dir/src/main.c.o	d800073383c2061
+6	302	1754034974462181489	CMakeFiles/Pic-g.dir/src/window/window.c.o	cbbcfe24c6e9c02b
+302	385	1754034974756638224	Pic-g	3d42fa1fde6c4d11

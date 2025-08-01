@@ -158,7 +158,8 @@ int picg_window_created()
 HDC hdc;
 HWND hwnd;
 
-void Win32Opengl_init() {
+void Win32Opengl_init() 
+{
     hdc = GetDC(hwnd);
 
     // Set pixel format descriptor
@@ -189,12 +190,15 @@ void Win32Opengl_init() {
     wglMakeCurrent(hdc, hglrc);
 }
 
-void picg_test_support() {
+void picg_test_support() 
+{
 
 }
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-    switch (uMsg) {
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
+{
+    switch (uMsg) 
+    {
         case WM_CLOSE:
             PostQuitMessage(0);
             return 0;
@@ -205,7 +209,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
-void picg_window_create(int windowSizeX, int windowSizeY, const char* windowTitle, int fullscreen) {
+void picg_window_create(int windowSizeX, int windowSizeY, const char* windowTitle, int fullscreen) 
+{
     const char* CLASS_NAME  = "Sample Window Class";
     
     // Get the instance handle
@@ -246,16 +251,19 @@ void picg_window_create(int windowSizeX, int windowSizeY, const char* windowTitl
     ShowWindow(hwnd, SW_SHOWNORMAL);
 }
 
-void picg_window_setTitle(const char* windowTitle) {
+void picg_window_setTitle(const char* windowTitle) 
+{
     // TODO 
 }
 
-picg_vec2I picg_window_mouse_getPosition() {
+picg_vec2I picg_window_mouse_getPosition() 
+{
     picg_vec2I pos;
     return pos;
 }
 
-picg_vec2I picg_window_getPosition() {
+picg_vec2I picg_window_getPosition() 
+{
     picg_vec2I pos;
     return pos;
 }
@@ -265,15 +273,18 @@ picg_vec2I picg_window_getSize() {
     return pos;
 }
 
-void picg_window_mouse_setPosition(const picg_vec2I) {
+void picg_window_mouse_setPosition(const picg_vec2I) 
+{
 
 }
 
-int picg_keyboard_keydown(char *targetString) {
+int picg_keyboard_keydown(char *targetString) 
+{
     return 0;
 }
 
-void picg_window_display() {
+void picg_window_display() 
+{
     SwapBuffers(hdc);
 }
 
