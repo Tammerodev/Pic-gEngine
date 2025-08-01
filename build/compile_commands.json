@@ -13,6 +13,12 @@
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
+  "command": "/usr/bin/gcc -I/home/lauri/Documents/Pic-gEngine-main/build/../src -I/home/lauri/Documents/Pic-gEngine-main/build/../dep/stb -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/debug.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/debug.c",
+  "file": "/home/lauri/Documents/Pic-gEngine-main/src/graphics/debug.c",
+  "output": "CMakeFiles/Pic-g.dir/src/graphics/debug.c.o"
+},
+{
+  "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
   "command": "/usr/bin/gcc -I/home/lauri/Documents/Pic-gEngine-main/build/../src -I/home/lauri/Documents/Pic-gEngine-main/build/../dep/stb -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/graphics/graphicsGL.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/graphics/graphicsGL.c",
   "output": "CMakeFiles/Pic-g.dir/src/graphics/graphicsGL.c.o"
@@ -82,6 +88,12 @@
   "command": "/usr/bin/gcc -I/home/lauri/Documents/Pic-gEngine-main/build/../src -I/home/lauri/Documents/Pic-gEngine-main/build/../dep/stb -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/math/vector3D.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/math/vector3D.c",
   "file": "/home/lauri/Documents/Pic-gEngine-main/src/math/vector3D.c",
   "output": "CMakeFiles/Pic-g.dir/src/math/vector3D.c.o"
+},
+{
+  "directory": "/home/lauri/Documents/Pic-gEngine-main/build",
+  "command": "/usr/bin/gcc -I/home/lauri/Documents/Pic-gEngine-main/build/../src -I/home/lauri/Documents/Pic-gEngine-main/build/../dep/stb -O3 -ggdb -o CMakeFiles/Pic-g.dir/src/physics/physicsComponent.c.o -c /home/lauri/Documents/Pic-gEngine-main/src/physics/physicsComponent.c",
+  "file": "/home/lauri/Documents/Pic-gEngine-main/src/physics/physicsComponent.c",
+  "output": "CMakeFiles/Pic-g.dir/src/physics/physicsComponent.c.o"
 },
 {
   "directory": "/home/lauri/Documents/Pic-gEngine-main/build",

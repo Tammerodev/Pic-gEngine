@@ -54,7 +54,7 @@ picg_bool initialized = false;
 #define COUNT_STARS 4000
 picg_mesh* stars_meshes[COUNT_STARS];
 
-const int sizeX = 1920;
+const int sizeX = 920;
 const int sizeY = 900;
 
 int program_init()
