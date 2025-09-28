@@ -194,7 +194,7 @@ void picg_physics_physicsComponent_update(picg_physics_physicsComponent *comp, p
     }
 
     // Gravity
-    comp->acceleration.y = -0.05f;
+    comp->acceleration.y = -0.005f;
     
     // Calculations
     comp->velocity.x += comp->acceleration.x;

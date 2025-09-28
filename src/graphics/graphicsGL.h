@@ -1,6 +1,8 @@
 #pragma once
 #include <GL/gl.h>
-#include <globals/runtime.h>
+#include <GL/glu.h>
+
+#include "../globals/runtime.h"
 
 void picg_gl_setClearColor(float, float, float, float);
 void picg_gl_init3D(int winX, int winY);

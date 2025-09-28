@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#include <globals/runtime.h>
+#include "globals/runtime.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <window/window.h>
