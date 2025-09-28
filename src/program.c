@@ -20,9 +20,8 @@
 #include <graphics/texture/texture.h>
 #include <physics/raycast.h>
 
-#define NCubes 100
-#define NPlayer 1
-#define N (NCubes+NPlayer)
+#define NPlayer 0
+#define N 1
 
 // Delta time
 picg_ha_timer timer = {};
@@ -39,18 +38,18 @@ picg_camera* camera = NULL;
 picg_mesh* meshes[N];
 picg_physics_physicsComponent* physic[N];
 
-picg_mesh* sideways = NULL;
-picg_mesh* plane = NULL;
-picg_mesh* obj = NULL;
+// Ground
 picg_mesh* ground = NULL;
-
-picg_physics_physicsComponent* plane_physics = NULL;
-picg_physics_physicsComponent* sideways_physics = NULL;
 picg_physics_physicsComponent* ground_physics = NULL;
-
-picg_image img;
-picg_image floor_wood_img;
 picg_image grass_img;
+
+// Antenna mast
+picg_mesh* antenna_mast = NULL;
+picg_physics_physicsComponent* antenna_mast_physics = NULL;
+picg_image metal_beam_img;
+
+// Antenna yagi
+picg_mesh* antenna = NULL;
 
 picg_bool initialized = false;
 
@@ -74,56 +73,23 @@ int program_init()
     float x = 0.f;
     float z = 0.f;
 
-    for(int i = 0; i < NCubes; i++) {
-        picg_mesh* mesh = NULL;
-
-        mesh = picg_modelObj_create("dev/Models/cube.obj");
-
-        meshes[i] = mesh;
-        meshes[i]->position.x = x*10.f;
-
-        x += 1.f;
-        if(x > (int)sqrt(N)) {
-            x = 0.f;
-            z += 5.f;
-        }
-
-        float x = (float)rand()/(float)(RAND_MAX/4.5f);
-
-        meshes[i]->position.z = z + x;
-        meshes[i]->position.y += 100.f + sin(x / 12.f) * 22.5f;
-
-        meshes[i]->scaling = (picg_vec3F){5.0f, 5.f, 5.f};
-        
-        // physics
-        physic[i] = picg_physics_physicsComponent_create(true);
-        physic[i]->grabbable = true;
-        picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
-    } 
-
-
     for(int i = 0; i < COUNT_STARS; i++) {
         picg_mesh *star = NULL;
-        star = picg_modelObj_create("dev/Models/plane_small.obj");
+        star = picg_modelObj_create("dev/Models/dot.obj");
 
         stars_meshes[i] = star;
 
-
-        stars_meshes[i]->scaling.x = 1.7f;
-        stars_meshes[i]->scaling.y = 1.7f;
-        stars_meshes[i]->scaling.z = 1.7f;
-
-        const float radius = 1000.f;
+        const float radius = 100000.f;
 
         float u = (float)rand() / RAND_MAX;
         float v = (float)rand() / RAND_MAX;
 
         float theta = 2.0f * 3.1415927f * u;
-        float z = v;                        // z = cos(phi), constrained to [0, 1]
-        float r = sqrtf(1.0f - z * z);      // radius at given height
+        float phi = acosf(2.0f * v - 1.0f);
+        float r = sinf(phi);
 
         float x = r * cosf(theta);
-        float y = z;
+        float y = cosf(phi);
         float z_pos = r * sinf(theta);
 
         stars_meshes[i]->position.x = radius * x;
@@ -133,46 +99,37 @@ int program_init()
         stars_meshes[i]->rotation.x = (float)rand() / RAND_MAX * 100.f;
         stars_meshes[i]->rotation.y = (float)rand() / RAND_MAX * 100.f;
         stars_meshes[i]->rotation.z = (float)rand() / RAND_MAX * 100.f;
-
     }
 
     ground = picg_modelObj_create("dev/Models/ground.obj"); 
     ground_physics = picg_physics_physicsComponent_create(false);
     picg_physics_physicsComponent_calculateAABB(&ground_physics->aabb, ground);
-    ground->position.y -= 100.f;
 
-    plane = picg_modelObj_create("dev/Models/plane.obj"); 
-    plane_physics = picg_physics_physicsComponent_create(false);
-    picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
+    antenna_mast = picg_modelObj_create("dev/demos/demo_209/mast.obj");
+    antenna_mast_physics = picg_physics_physicsComponent_create(false);
+    picg_physics_physicsComponent_calculateAABB(&antenna_mast_physics->aabb, antenna_mast);
 
-    sideways = picg_modelObj_create("dev/Models/sideways.obj"); 
-    sideways_physics = picg_physics_physicsComponent_create(false);
-    picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
+    antenna = picg_modelObj_create("dev/demos/demo_209/antenna.obj");
+    antenna->position.y = 175.f;
 
     {
         // PLAYER
-        meshes[NCubes] = picg_modelObj_create("dev/Models/cube.obj"); 
-        meshes[NCubes]->scaling.y = 10.f;
-        meshes[NCubes]->scaling.x = 3.f;
-        meshes[NCubes]->scaling.z = 3.f;
-        meshes[NCubes]->render = false;
+        meshes[NPlayer] = picg_modelObj_create("dev/Models/cube.obj"); 
+        meshes[NPlayer]->scaling.y = 3.f;
+        meshes[NPlayer]->scaling.x = 1.f;
+        meshes[NPlayer]->scaling.z = 1.f;
+        meshes[NPlayer]->position.y = 400.f;
 
-        physic[NCubes] = picg_physics_physicsComponent_create(true);
-        picg_physics_physicsComponent_calculateAABB(&physic[NCubes]->aabb, meshes[NCubes]);
+        meshes[NPlayer]->render = false;
 
-        if(!physic[NCubes] || !meshes[NCubes]) {
+        physic[NPlayer] = picg_physics_physicsComponent_create(true);
+        picg_physics_physicsComponent_calculateAABB(&physic[NPlayer]->aabb, meshes[NPlayer]);
+
+        if(!physic[NPlayer] || !meshes[NPlayer]) {
             PICG_ERROR("Couldnt create player physics!");
             abort();
         }
     }
-
-    // Teapot
-    obj = picg_modelObj_create("/home/lauri/Downloads/leopard-2-mbt-revolution/source/chassis.obj"); 
-    obj->scaling.x = 10.f;
-    obj->scaling.y = 10.f;
-    obj->scaling.z = 10.f;
-    obj->position.y -= 90.f;
-    obj->position.x -= 100.f;
 
     // Create the camera
     camera = picg_camera_create();
@@ -180,13 +137,6 @@ int program_init()
     camera->position.z = -400.f;
 
     // IMAGE/TEXTURE LOADING
-
-    img = picg_image_load("/home/lauri/Downloads/leopard-2-mbt-revolution/textures/mbt_03_ext01_blufor_co.png");
-    picg_texture_load(&img);
-
-    floor_wood_img = picg_image_load("dev/Models/tex/floor_wood.jpg");
-    picg_texture_load(&floor_wood_img);
-
     grass_img = picg_image_load("dev/Models/tex/grass.jpg");
     picg_texture_load(&grass_img);
 
@@ -236,7 +186,7 @@ int program_update()
     if(picg_keyboard_keydown("p"))
         g_runtime_debug = 1;
 
-    double speed = 5.0 * (dt + .1f);
+    double speed = 2.0 * (dt + .1f);
 
     picg_vec3F movement = {0.f, 0.f, 0.f};
 
@@ -253,19 +203,19 @@ int program_update()
         movement.x += speed;
 
     if(picg_keyboard_keydown("Y"))
-        physic[NCubes]->velocity.y = 3.f;
+        physic[NPlayer]->velocity.y = 3.f;
 
-    if(picg_keyboard_keydown("space") && physic[NCubes]->isColliding)
-        physic[NCubes]->velocity.y = 0.5f;
+    if(picg_keyboard_keydown("space") && physic[NPlayer]->isColliding)
+        physic[NPlayer]->velocity.y = 0.25f;
         
     // Only yaw is relevant for this
     const picg_vec3F cam_rot_mv = {0.f, camera->rotation.y, 0.f};
     picg_vec3F transformed_movement = picg_transform_rotate(movement, cam_rot_mv);
 
-    meshes[NCubes]->position.x += transformed_movement.x;
-    meshes[NCubes]->position.z += transformed_movement.z;
+    meshes[NPlayer]->position.x += transformed_movement.x;
+    meshes[NPlayer]->position.z += transformed_movement.z;
 
-    picg_physics_physicsComponent_update(physic[NCubes], meshes[NCubes]);
+    picg_physics_physicsComponent_update(physic[NPlayer], meshes[NPlayer]);
 
     for(int i = 0; i < N; ++i) {
         if(physic[i] && meshes[i]) {
@@ -282,33 +232,23 @@ int program_update()
             }
 
             picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
-            picg_physics_physicsComponent_solve(physic[i], sideways_physics);
+                picg_physics_physicsComponent_solve(physic[i], ground_physics);
 
             picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
-            picg_physics_physicsComponent_solve(physic[i], plane_physics);
-
-            picg_physics_physicsComponent_calculateAABB(&physic[i]->aabb, meshes[i]);
-            picg_physics_physicsComponent_solve(physic[i], ground_physics);
+                picg_physics_physicsComponent_solve(physic[i], antenna_mast_physics);
         } else {
             PICG_ERROR("Null physicsComponent/mesh");
         }
     }
 
-    // Plane demo
-    plane->position.z -= 0.1f;
-    sideways->position.z -= 0.1f;
-    sideways->position.x -= 0.1f;
-
-    picg_physics_physicsComponent_calculateAABB(&plane_physics->aabb, plane);
-    picg_physics_physicsComponent_calculateAABB(&sideways_physics->aabb, sideways);
     picg_physics_physicsComponent_calculateAABB(&ground_physics->aabb, ground);
 
     sprintf(title, "Pic-g 3d engine, FPS: %f", 1.f / (float)picg_ha_timer_gettime(&timer));
     picg_window_setTitle(title);
     
-    camera->position.x = -meshes[NCubes]->position.x;
-    camera->position.y = -meshes[NCubes]->position.y;
-    camera->position.z = -meshes[NCubes]->position.z;
+    camera->position.x = -meshes[NPlayer]->position.x;
+    camera->position.y = -meshes[NPlayer]->position.y;
+    camera->position.z = -meshes[NPlayer]->position.z;
 
     return 0;
 }
@@ -332,7 +272,7 @@ int program_render()
 
     if(!picg_keyboard_keydown("F")) {
         GLfloat lightColor2[] = {1.0f, 1.0f, 1.0f, 1.0f}; //Color (0.5, 0.5, 0.5)
-        GLfloat lightPos2[] = {meshes[NCubes]->position.x, meshes[NCubes]->position.y, meshes[NCubes]->position.z, 1.f}; //Positioned at (4, 0, 8)
+        GLfloat lightPos2[] = {meshes[NPlayer]->position.x, meshes[NPlayer]->position.y, meshes[NPlayer]->position.z, 1.f}; //Positioned at (4, 0, 8)
 
         picg_addlight_diffuse(2, lightColor2, lightPos2);
     } else {
@@ -350,9 +290,9 @@ int program_render()
         dir.z = -cosf(pitch) * cosf(yaw);
 
         const picg_vec3F start = {
-            meshes[NCubes]->position.x,
-            meshes[NCubes]->position.y - 1.f,
-            meshes[NCubes]->position.z
+            meshes[NPlayer]->position.x,
+            meshes[NPlayer]->position.y - 1.f,
+            meshes[NPlayer]->position.z
         };
 
         picg_physics_raycast_return ret_ = picg_physics_raycast_cast(start, dir, 1000, physic, N, 1.f);
@@ -394,25 +334,32 @@ int program_render()
     glDisable(GL_LIGHTING);
     for(int i = 0; i < COUNT_STARS; ++i) {
         if(stars_meshes[i]) {
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+            glEnable(GL_POINT_SMOOTH);
+            glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+
             picg_mesh_render(stars_meshes[i]);
+
+            glDisable(GL_POINT_SMOOTH);
+            glDisable(GL_BLEND);
+
+            if(stars_meshes[i]->rotation.x > 26.f && stars_meshes[i]->rotation.x < 30.f) {
+                stars_meshes[i]->position.x += (stars_meshes[i]->rotation.y - 45.f) / 4.f;
+                stars_meshes[i]->position.y += (stars_meshes[i]->rotation.z - 45.f) / 4.f;
+            }
         }
     }
     glEnable(GL_LIGHTING);
-
 
     picg_texture_bind(&grass_img);
     picg_mesh_render(ground);
     picg_texture_unbind();
 
-    // TANK
-    picg_texture_bind(&img);
-    picg_mesh_render(obj);
-    picg_texture_unbind();
+    picg_mesh_render(antenna_mast);
+    picg_mesh_render(antenna);
 
-    picg_texture_bind(&floor_wood_img);
-    picg_mesh_render(plane);
-    picg_mesh_render(sideways);
-    picg_texture_unbind();
 
     if(g_runtime_debug)
     {
@@ -420,9 +367,7 @@ int program_render()
         picg_graphics_debug_point_render(0.f, 0.f, 0.f, 100.f);
     }
 
-    picg_physics_physicsComponent_debug_render(sideways_physics, false);
-    picg_physics_physicsComponent_debug_render(plane_physics, false);
-    picg_physics_physicsComponent_debug_render(physic[NCubes], false);
+    picg_physics_physicsComponent_debug_render(physic[NPlayer], false);
 
 
     picg_window_display();
