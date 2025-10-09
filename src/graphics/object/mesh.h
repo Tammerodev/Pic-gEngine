@@ -32,6 +32,11 @@ typedef struct {
     picg_vec3F scaling;
 
     picg_bool render;
+    
+    // 0.f = fully opaque
+    // 1.f = fully transparent
+    float inv_alpha;
+
 
 } picg_mesh;
 
