@@ -14,7 +14,7 @@ picg_image picg_image_load(const char *filepath)
     image.data 
         = stbi_load(filepath, &image.width, &image.height, &image.channels, 3);
 
-    printf("Loaded image %s, width %i, height %i, channels %i \n \n", filepath, image.width, image.height, image.channels);
+    PICG_LOG("Loaded image %s, width %i, height %i, channels %i \n \n", filepath, image.width, image.height, image.channels);
 
     if(!image.data)
         PICG_ERROR("Could not load image!");
