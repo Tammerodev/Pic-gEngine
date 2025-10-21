@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.22)
 project(Pic-g VERSION 0.1)
 
+configure_file(src/globals/cwd.h.in srcout/globals/cwd.h)
+include_directories(${CMAKE_BINARY_DIR})
+
+include_directories(${CMAKE_BINARY_DIR}/srcout)
+
 set(CMAKE_TOOLCHAIN_FILE windows-toolchain.cmake_host_system_information())
 
 file(GLOB_RECURSE SOURCES "src/**")
