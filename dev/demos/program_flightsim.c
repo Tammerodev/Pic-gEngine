@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+#include "globals/cwd.h"
 #include "globals/runtime.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -71,7 +72,7 @@ int program_init()
     for(int i = 0; i < NCubes; i++) {
         picg_mesh* mesh = NULL;
 
-        mesh = picg_modelObj_create("dev/Models/cube.obj");
+        mesh = picg_modelObj_create(PICG_SOURCE_DIR"/dev/Models/cube.obj");
 
         meshes[i] = mesh;
         meshes[i]->position.x = x*10.f;
@@ -98,7 +99,7 @@ int program_init()
 
     for(int i = 0; i < COUNT_STARS; i++) {
         picg_mesh *star = NULL;
-        star = picg_modelObj_create("dev/Models/dot.obj");
+        star = picg_modelObj_create(PICG_SOURCE_DIR"/dev/Models/dot.obj");
 
         stars_meshes[i] = star;
 
@@ -125,7 +126,7 @@ int program_init()
     }
 
 
-    ground = picg_modelObj_create("dev/Models/ground.obj"); 
+    ground = picg_modelObj_create(PICG_SOURCE_DIR"/dev/Models/ground.obj"); 
     ground->scaling.y = 100.f;
 
     ground_physics = picg_physics_physicsComponent_create(false);
@@ -133,7 +134,7 @@ int program_init()
     ground->position.y -= 200.f;
     {
         // PLAYER
-        meshes[NCubes] = picg_modelObj_create("dev/Models/cube.obj"); 
+        meshes[NCubes] = picg_modelObj_create(PICG_SOURCE_DIR"/dev/Models/cube.obj"); 
         meshes[NCubes]->scaling.y = 10.f;
         meshes[NCubes]->scaling.x = 3.f;
         meshes[NCubes]->scaling.z = 3.f;
@@ -167,7 +168,7 @@ int program_init()
     img = picg_image_load("/home/lauri/Downloads/leopard-2-mbt-revolution/textures/mbt_03_ext01_blufor_co.png");
     picg_texture_load(&img);
 
-    grass_img = picg_image_load("dev/Models/tex/grass.jpg");
+    grass_img = picg_image_load(PICG_SOURCE_DIR"/dev/Models/tex/grass.jpg");
     picg_texture_load(&grass_img);
 
     initialized = true;
