@@ -13,10 +13,37 @@ Dependencies: X11, GLU, OpenGL. Currently only supports linux running X11. Windo
 </p>
 
 # Installation (Linux)
-1. Download the git repository
+1. Download the git repository and cd to it
 ```shell
- git clone  https://github.com/Tammerodev/Pic-gEngine.git
+git clone  https://github.com/Tammerodev/Pic-gEngine.git 
+cd Pic-gEngine
  ```
+2. Create and open build directory (executable will be found here)
+```shell
+mkir build && 
+cd build
+ ```
+
+3. Run CMake
+```shell
+cmake ..
+ ```
+
+### Building the project
+1. Make sure you created the program source file according to section "Scripting".
+
+2. Build
+```shell
+cmake --build . 
+ ```
+3. Run the executable
+```shell
+./Pic-g 
+ ```
+
+
+# Windows cross-compiling
+There is a script located at windows_compile/compile.sh, that compiles this using mingw32. 
 
 # Scripting
 Rename the "program.c-info" file into "program.c". Your code will be written here.
@@ -25,10 +52,7 @@ Rename the "program.c-info" file into "program.c". Your code will be written her
 
 <img src="dev/screenshots/lighting_0v1.png" alt="drawing" width="500"/>
 
-Lighting with vertex normals displayed (loaded from wavefront OBJ file)
-
-## Windows cross-compiling
-There is a script located at windows_compile/compile.sh, that compiles this using mingw32. 
+Lighting with vertex normals displayed (loaded from wavefront OBJ file
 
 ## Collaboration
 Please read the syntax.md document for information on code syntax and collaboration rules.
