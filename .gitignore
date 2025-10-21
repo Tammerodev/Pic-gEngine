@@ -1,5 +1,13 @@
-src/program.c
-dev/demos/demo_209
-dev/Models
-build
 .vscode
+build
+
+releases
+windows_compile_out
+
+dev/Models
+dev/demos
+
+dev/demos
+
+src/program.c
+./releases.zip
