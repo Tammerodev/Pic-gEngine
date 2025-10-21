@@ -17,7 +17,8 @@ Dependencies: X11, GLU, OpenGL. Currently only supports linux running X11. Windo
 
 Lighting with vertex normals displayed (loaded from wavefront OBJ file)
 
-
+### Scripting
+Rename the "program.c-info" file into "program.c". Your code will be written here.
 
 ## Windows cross-compiling
 There is a script located at windows_compile/compile.sh, that compiles this using mingw32. 

@@ -1,3 +1,5 @@
 src/program.c
 dev/demos/demo_209
 dev/Models
+build
+.vscode

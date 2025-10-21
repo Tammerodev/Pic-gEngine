@@ -1,4 +1,0 @@
-/home/lauri/Documents/Pic-gEngine-main/build/CMakeFiles/Pic-g.dir
-/home/lauri/Documents/Pic-gEngine-main/build/CMakeFiles/clean_build_dir.dir
-/home/lauri/Documents/Pic-gEngine-main/build/CMakeFiles/edit_cache.dir
-/home/lauri/Documents/Pic-gEngine-main/build/CMakeFiles/rebuild_cache.dir
