@@ -1,6 +1,6 @@
 #pragma once
 #include "../math/vector3D.h"
-#include "../graphics/object/mesh.h"
+#include "../graphics/mesh/mesh.h"
 #include "../graphics/debug.h"
 
 #include "AABB.h"

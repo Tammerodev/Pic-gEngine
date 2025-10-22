@@ -1,7 +1,11 @@
-#include "objects.h"
+#pragma once
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
-#include "../material/material.h"
+#include <math.h>
+#include "mesh.h"
+#include "cubemesh.h"
 
 // TODO: Make it smarter
 picg_vertex3F *modelVertices = NULL;
@@ -134,7 +138,7 @@ int loadObj(const char* filepath)
     PICG_LOG("Vertex count: %d", (int)vertexCount);
     PICG_LOG("Face count: %d", (int)faceCount);
 
-    modelVertices = calloc(1, (sizeof(picg_vertex3F) * originalVertexCount));
+    modelVertices = (picg_vertex3F*)calloc(1, (sizeof(picg_vertex3F) * originalVertexCount));
 
     vertexCount = 0;
 
@@ -211,6 +215,7 @@ int loadObj(const char* filepath)
             ++faceIndex;
         }
     }
+
     modelVertexCount = vertexCount;
     modelFaceCount = faceIndex;
     fclose(objFile);
@@ -218,30 +223,30 @@ int loadObj(const char* filepath)
     return 0;
 }
 
-picg_mesh* picg_modelObj_create(const char* model_path) 
+picg_mesh* picg_meshObj_create(const char* model_path) 
 {
-    picg_mesh* mesh = calloc(1, sizeof(modelVertices) + sizeof(faces) + sizeof(picg_mesh));
+    picg_mesh* mesh = (picg_mesh*)calloc(1, sizeof(modelVertices) + sizeof(faces) + sizeof(picg_mesh));
 
     int result = loadObj(model_path);
 
     if(result == -1) {
         PICG_ERROR("Error: Could not open model file!");
-        return picg_cube_create();
+        return picg_mesh_cube_create();
     }
  
     if(modelVertices == NULL) {
         PICG_ERROR("Error: Model vertices pointer is null returning a cube!");
-        return picg_cube_create();
+        return picg_mesh_cube_create();
     }
 
     if(faces == NULL) {
         PICG_ERROR("Error: Model faces pointer is null returning a cube!");
-        return picg_cube_create();
+        return picg_mesh_cube_create();
     }
 
     if(modelVertexCount == 0) {
         PICG_ERROR("Error: Model does not contain vertices!");
-        return picg_cube_create();
+        return picg_mesh_cube_create();
     }
 
     mesh->renderType = obj_renderType;

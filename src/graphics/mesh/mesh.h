@@ -1,8 +1,10 @@
 #pragma once
+#include <stdio.h>
+
 #include "../../math/vertex3D.h"
 #include "../../math/vector3D.h"
-#include <stdio.h>
 #include "../../globals/runtime.h"
+#include "../../globals/macro.h"
 
 #include "GL/gl.h"
 

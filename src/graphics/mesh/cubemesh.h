@@ -1,5 +1,6 @@
-#include "objects.h"
+#pragma once
 #include <stdlib.h>
+#include "mesh.h"
 
 picg_vertex3F vertices[8] = {
         { -0.5f, -0.5f, -0.5f,       0.2, 0.4, 0.0, 1.0}, 
@@ -13,8 +14,8 @@ picg_vertex3F vertices[8] = {
     };
 
 
-picg_mesh* picg_cube_create() {
-    picg_mesh* mesh = calloc(1, sizeof(picg_vertex3F) * 8);
+picg_mesh* picg_mesh_cube_create() {
+    picg_mesh* mesh = (picg_mesh*)calloc(1, sizeof(picg_vertex3F) * 8);
 
     mesh->vertexCount = 8;    
     mesh->renderType = GL_QUADS;
@@ -29,6 +30,6 @@ picg_mesh* picg_cube_create() {
     return mesh;
 }
 
-void picg_cube_destroy(picg_mesh* mesh) {
+void picg_mesh_cube_destroy(picg_mesh* mesh) {
     
 }
