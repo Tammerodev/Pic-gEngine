@@ -6,8 +6,7 @@ windows_compile_out
 
 dev/Models
 dev/demos
-
-dev/demos
+dev/notes
 
 src/program.c
 ./releases.zip

@@ -1,6 +1,8 @@
 #include "objects.h"
 #include <stdlib.h>
 
+#include "../material/material.h"
+
 // TODO: Make it smarter
 picg_vertex3F *modelVertices = NULL;
 int modelVertexCount = 0;
