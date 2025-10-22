@@ -1,6 +1,6 @@
 #include "material.h"
 
-picg_material *picg_material_create_loadFromFile(const char *filename)
+picg_material *picg_material_create_loadFromFile(const char *filepath_obj)
 {
     /* Takes in MTL file and reads its values */
 
@@ -16,10 +16,21 @@ picg_material *picg_material_create_loadFromFile(const char *filename)
         map_Kd woodtexture.jpg              // Texture file
     */
 
+    // Copy filepath and replace .obj ending with .mtl in the copy
+    size_t filepath_obj_length = strlen(filepath_obj);
+    char *filepath_mtl = malloc(filepath_obj_length + 1);
+    strcpy(filepath_mtl, filepath_obj);
+
+    if(filepath_mtl) {
+        filepath_mtl[filepath_obj_length - 4] = '.';
+        filepath_mtl[filepath_obj_length - 3] = 'm';
+        filepath_mtl[filepath_obj_length - 2] = 't';
+        filepath_mtl[filepath_obj_length - 1] = 'l';
+    }
+
 
     FILE* mtlFile;
-
-    mtlFile = fopen(filename, "r");
+    mtlFile = fopen(filepath_mtl, "r");
 
     if(mtlFile == NULL) 
     {
@@ -31,7 +42,7 @@ picg_material *picg_material_create_loadFromFile(const char *filename)
     char buffer[bufferLength];
 
     while(fgets(buffer, bufferLength, mtlFile)) {
-        printf("buffer");
+        printf(buffer);
     }
 
     fclose(mtlFile);
