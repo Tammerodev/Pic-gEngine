@@ -21,6 +21,7 @@ picg_model* picg_modelObj_create(const char* filepath) {
     }
 
     model->mesh = modelmesh;
+    model->material = modelmaterial;
 
     return model;
 }

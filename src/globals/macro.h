@@ -8,7 +8,7 @@
 
 // code
 #define PICG_DEBUG 1
-#define PICG_QUIET_LOGGING 1
+#define PICG_QUIET_LOGGING 0
 
 // error
 #if PICG_QUIET_LOGGING 

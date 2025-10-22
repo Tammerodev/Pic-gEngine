@@ -4,5 +4,7 @@
 
 typedef struct {
     picg_mesh* mesh;
-    picg_mesh* material;
+    picg_material* material;
 } picg_model;
+
+void picg_model_render(picg_model*);
