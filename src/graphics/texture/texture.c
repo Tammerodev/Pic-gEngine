@@ -22,19 +22,14 @@ void picg_texture_load(picg_image* image)
 
 void picg_texture_bind(const picg_image* image)
 {   
-    glPushMatrix();
-
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, image->textureID);
 }
 
 void picg_texture_unbind()
 {
-
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
-
-    glPopMatrix();
 }
 
 void picg_texture_texCoord(int i)

@@ -1,7 +1,7 @@
 #include "material.h"
 
 picg_image* texture_image = NULL;
-char material_tex_filename[100];
+char material_tex_filename[300];
 
 
 int loadMTL(const char *filepath_mtl) {
@@ -14,7 +14,7 @@ int loadMTL(const char *filepath_mtl) {
         return 1;
     }
 
-    const int bufferLength = 100;
+    const int bufferLength = 300;
     char buffer[bufferLength];
 
     material_tex_filename[0] = '\0';    // In case texture filepath is not found, this will terminate the array.  
@@ -35,21 +35,15 @@ int loadMTL(const char *filepath_mtl) {
         if(buffer[0] == 'm' && buffer[1] == 'a' && buffer[2] == 'p') {
             // Texture filename. Actual filepath begins at index 6.
             // This code is also to make sure, the newline character (\n) is not included in the material_tex_filename
-            const int starting_index = 7;
-            int char_index = 0;
+            const char* start = buffer + 6;
+            while (*start == ' ' || *start == '\t') start++;
 
-            char curr_char = buffer[char_index + starting_index];
-            material_tex_filename[char_index] = curr_char;
-
-            while(buffer[char_index + starting_index + 1] != '\0' && buffer[char_index + starting_index + 1] != '\n') {
-                char_index++;
-
-                curr_char = buffer[char_index + starting_index];
-
-                material_tex_filename[char_index] = curr_char;
-
-                PICG_LOG("%i\n", curr_char);
+            int i = 0;
+            while (*start && *start != '\n' && *start != '\r' && i < sizeof(material_tex_filename) - 1) {
+                material_tex_filename[i++] = *start++;
             }
+
+            material_tex_filename[i] = '\0';    // Add null termination
         }   
     }
 
@@ -59,7 +53,7 @@ int loadMTL(const char *filepath_mtl) {
 }
 
 int loadMTLtexture() {
-    printf("MATFILENAME (LOADING): %s... \n", material_tex_filename);
+    printf("MATFILENAME (LOADING): %c... \n", material_tex_filename);
 
     picg_image texture_image_stack = picg_image_load(material_tex_filename);
 

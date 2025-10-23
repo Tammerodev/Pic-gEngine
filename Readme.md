@@ -54,5 +54,12 @@ Rename the "program.c-info" file into "program.c". Your code will be written her
 
 Lighting with vertex normals displayed (loaded from wavefront OBJ file
 
+### Models
+Format: wavefront .obj.
+
+If using blender, please make sure export MTL texture path setting is to "absolute". 
+
+![](dev/screenshots/export.png)
+
 ## Collaboration
 Please read the syntax.md document for information on code syntax and collaboration rules.
