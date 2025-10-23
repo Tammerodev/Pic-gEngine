@@ -123,15 +123,15 @@ void picg_mesh_render(picg_mesh *mesh)
                 glColor4f(1.f, 1.f, 1.f, 1.f - mesh->inv_alpha);
 
                 if(mesh->faces[vIndex].hasNormals) {
-                    glNormal3f(mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].x,
-                            mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].y,
-                            mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].z);
+                    glNormal3f( mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].x,
+                                mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].y,
+                                mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].z);
                 }
 
                 const picg_vertex3F* vertexTex = &mesh->texcoords[mesh->faces[vIndex].textureIndexes[i] - 1];
 
                 if(mesh->faces[vIndex].hasTexture) {
-                    glTexCoord2f(vertexTex->x, vertexTex->y);
+                    glTexCoord2f(vertexTex->x, 1.f- vertexTex->y);
                 }
 
                 const picg_vertex3F* vertex = &mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1];

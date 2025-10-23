@@ -48,14 +48,9 @@ void picg_modelObj_readFace_6(const char buffer[], const int faceIndex) {
     int vt[3];
     int vn[3];
 
-    int values = sscanf(buffer, "f %d//%d %d//%d %d//%d",
-        &v[0], &vn[0],
-        &v[1], &vn[1],
-        &v[2], &vn[2]
-    );  
-
-
-    if(values == 6) {
+    picg_bool hasDoubleSlash = strstr(buffer, "//") != NULL;
+    if (hasDoubleSlash) {
+        sscanf(buffer, "f %d//%d %d//%d %d//%d", &v[0], &vn[0], &v[1], &vn[1], &v[2], &vn[2]);
         for(int i = 0; i < 3; ++i) {
             faces[faceIndex].verticeIndexes[i] = v[i];
             faces[faceIndex].normalIndexes[i] = vn[i];
@@ -64,16 +59,14 @@ void picg_modelObj_readFace_6(const char buffer[], const int faceIndex) {
         sscanf(buffer, "f %d/%d/%d %d/%d/%d %d/%d/%d",
             &v[0], &vt[0], &vn[0],
             &v[1], &vt[1], &vn[1],
-            &v[2], &vt[2], &vn[2]
-        );  
+            &v[2], &vt[2], &vn[2]);
 
         for(int i = 0; i < 3; ++i) {
             faces[faceIndex].verticeIndexes[i] = v[i];
             faces[faceIndex].normalIndexes[i] = vn[i];
             faces[faceIndex].textureIndexes[i] = vt[i];
         }
-
-        faces[faceIndex].hasTexture = true; 
+        faces[faceIndex].hasTexture = true;
     }
 
     faces[faceIndex].verticesPerFace = 3;
@@ -174,7 +167,7 @@ int loadObj(const char* filepath)
         if(buffer[0] == 'v' && buffer[1] == ' ') 
         {
             // Read vertex data into the array
-            sscanf(buffer, "v %f %f %f \n", 
+            sscanf(buffer, "v %f %f %f\n", 
                 &modelVertices[vertexCount].x,
                 &modelVertices[vertexCount].y,
                 &modelVertices[vertexCount].z);
@@ -192,7 +185,7 @@ int loadObj(const char* filepath)
 
     while(fgets(buffer, bufferLength, objFile)) {
         if(buffer[0] == 'v' && buffer[1] == 'n'){
-            sscanf(buffer, "vn %f %f %f \n", 
+            sscanf(buffer, "vn %f %f %f\n", 
                 &modelNormals[normalCount].x,
                 &modelNormals[normalCount].y,
                 &modelNormals[normalCount].z);
@@ -208,9 +201,11 @@ int loadObj(const char* filepath)
 
     while(fgets(buffer, bufferLength, objFile)) {
         if(buffer[0] == 'v' && buffer[1] == 't'){
-            sscanf(buffer, "vt %f %f \n", 
+            sscanf(buffer, "vt %f %f\n", 
                 &modelTexcoords[texcoordCount].x,
                 &modelTexcoords[texcoordCount].y);
+
+            modelTexcoords[texcoordCount].z = 0.f;
 
             ++texcoordCount;
         }
