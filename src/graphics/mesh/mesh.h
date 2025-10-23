@@ -7,6 +7,7 @@
 #include "../../globals/macro.h"
 
 #include "GL/gl.h"
+#include "../graphicsGL.h"
 
 typedef struct {
     unsigned char verticesPerFace;
@@ -22,9 +23,15 @@ typedef struct {
 
 typedef struct {
     picg_vertex3F* vertices;
+    picg_vertex3F* texcoords;
+    picg_vertex3F* normals;
+
     picg_face* faces;
 
     unsigned long vertexCount;
+    unsigned long texcoordCount;
+    unsigned long normalsCount;
+
     unsigned long faceCount;
 
     GLenum renderType;

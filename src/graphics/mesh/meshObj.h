@@ -2,14 +2,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
 #include <math.h>
+
 #include "mesh.h"
 #include "cubemesh.h"
 
 // TODO: Make it smarter
-picg_vertex3F *modelVertices = NULL;
-int modelVertexCount = 0;
+picg_vertex3F *modelVertices  = NULL;
+picg_vertex3F *modelTexcoords = NULL;
+picg_vertex3F *modelNormals   = NULL;
+
+int modelVertexCount   = 0;
+int modelTexcoordCount = 0;
+int modelNormalCount   = 0;
 
 picg_face* faces = NULL;
 int modelFaceCount = 0;
@@ -116,6 +121,9 @@ int loadObj(const char* filepath)
     char buffer[bufferLength];
 
     long vertexCount = 0;
+    long texcoordCount = 0;
+    long normalCount = 0;
+
     long faceCount = 0;
 
     while(fgets(buffer, bufferLength, objFile)) 
@@ -124,6 +132,16 @@ int loadObj(const char* filepath)
         if(buffer[0] == 'v') 
         {   // Vertex
             ++vertexCount;
+        } 
+
+        if(buffer[0] == 'v' && buffer[1] == 'n') 
+        {   // Vertex
+            ++normalCount;
+        } 
+
+        if(buffer[0] == 'v' && buffer[1] == 't') 
+        {   // Vertex
+            ++texcoordCount;
         } 
 
         if(buffer[0] == 'f') 
@@ -136,9 +154,15 @@ int loadObj(const char* filepath)
 
     const int originalVertexCount = vertexCount;
     PICG_LOG("Vertex count: %d", (int)vertexCount);
+    PICG_LOG("Texcoord count: %d", (int)texcoordCount);
+    PICG_LOG("Normal count: %d", (int)normalCount);
+
     PICG_LOG("Face count: %d", (int)faceCount);
 
-    modelVertices = (picg_vertex3F*)calloc(1, (sizeof(picg_vertex3F) * originalVertexCount));
+    modelVertices  = (picg_vertex3F*)calloc(1, (sizeof(picg_vertex3F) * vertexCount));
+    modelTexcoords = (picg_vertex3F*)calloc(1, (sizeof(picg_vertex3F) * texcoordCount));
+    modelNormals   = (picg_vertex3F*)calloc(1, (sizeof(picg_vertex3F) * normalCount));
+
 
     vertexCount = 0;
 
@@ -159,17 +183,19 @@ int loadObj(const char* filepath)
         }
     }
 
+
+
     // Rewind, read normal data
     rewind(objFile);
 
-    int normalCount = 0;
+    normalCount = 0;
 
     while(fgets(buffer, bufferLength, objFile)) {
         if(buffer[0] == 'v' && buffer[1] == 'n'){
             sscanf(buffer, "vn %f %f %f \n", 
-                &modelVertices[normalCount].xn,
-                &modelVertices[normalCount].yn,
-                &modelVertices[normalCount].zn);
+                &modelNormals[normalCount].x,
+                &modelNormals[normalCount].y,
+                &modelNormals[normalCount].z);
 
             ++normalCount;
         }
@@ -178,15 +204,15 @@ int loadObj(const char* filepath)
     // Rewind, read vertex texture data
     rewind(objFile);
 
-    int textureCount = 0;
+    texcoordCount = 0;
 
     while(fgets(buffer, bufferLength, objFile)) {
         if(buffer[0] == 'v' && buffer[1] == 't'){
             sscanf(buffer, "vt %f %f \n", 
-                &modelVertices[textureCount].xt,
-                &modelVertices[textureCount].yt);
+                &modelTexcoords[texcoordCount].x,
+                &modelTexcoords[texcoordCount].y);
 
-            ++textureCount;
+            ++texcoordCount;
         }
     }
 
@@ -217,15 +243,24 @@ int loadObj(const char* filepath)
     }
 
     modelVertexCount = vertexCount;
-    modelFaceCount = faceIndex;
-    fclose(objFile);
+    modelTexcoordCount = texcoordCount;
+    modelNormalCount = normalCount;
 
+    modelFaceCount = faceIndex;
+
+    fclose(objFile);
     return 0;
 }
 
 picg_mesh* picg_meshObj_create(const char* model_path) 
 {
-    picg_mesh* mesh = (picg_mesh*)calloc(1, sizeof(modelVertices) + sizeof(faces) + sizeof(picg_mesh));
+    picg_mesh* mesh = (picg_mesh*)calloc(1, 
+        sizeof(modelVertices)  +
+        sizeof(modelTexcoords) +
+        sizeof(modelNormals)   +
+        sizeof(faces)          + 
+        sizeof(picg_mesh)
+    );
 
     int result = loadObj(model_path);
 
@@ -250,10 +285,16 @@ picg_mesh* picg_meshObj_create(const char* model_path)
     }
 
     mesh->renderType = obj_renderType;
-    mesh->vertices = modelVertices;
-    mesh->vertexCount = modelVertexCount; 
 
-    // Special case
+    mesh->vertices = modelVertices;
+    mesh->texcoords = modelTexcoords;
+    mesh->normals = modelNormals;
+
+    mesh->vertexCount = modelVertexCount; 
+    mesh->texcoordCount = modelTexcoordCount; 
+    mesh->normalsCount = modelNormalCount; 
+
+    // TODO? Special case
     if(mesh->vertexCount == 1) mesh->renderType = GL_POINTS; 
 
     mesh->faces = faces;
@@ -265,7 +306,7 @@ picg_mesh* picg_meshObj_create(const char* model_path)
 
     mesh->render = true;
     
-    PICG_SUCC("Successfully loaded model with %d vertices\n", mesh->vertexCount);
+    PICG_SUCC("Successfully loaded model with %d vertices, %d texcoords, %d normals \n", mesh->vertexCount, mesh->texcoordCount, mesh->normals);
     
     return mesh;
 }

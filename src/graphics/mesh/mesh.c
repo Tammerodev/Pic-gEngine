@@ -2,6 +2,63 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void picg_mesh_render_debug(picg_mesh *mesh) {
+    /*
+        We should minimally change opengl state, as this is a debug function
+    */
+    GLboolean wasLightingEnabled = glIsEnabled(GL_LIGHTING);
+    
+    glDisable(GL_LIGHTING);
+
+    glBegin(GL_LINES);
+        for(int vIndex = 0; vIndex < mesh->faceCount; ++vIndex)
+        {
+            if(!mesh->faces) break;
+            if(!mesh->faceCount) break;
+            if(!mesh->faces[0].hasNormals) break;
+
+            for(size_t i = 0; i < mesh->faces[vIndex].verticesPerFace; ++i) {
+
+                glColor3f(1.0f, 0.f, 0.f);
+
+                glVertex3f(mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z);
+
+                glVertex3f( mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x + mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].x * 1.1f,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y + mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].y * 1.1f,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z + mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].z * 1.1f);
+            }
+        }
+    glEnd();
+
+    glBegin(GL_LINES);
+        for(int vIndex = 0; vIndex < mesh->faceCount; ++vIndex)
+        {
+            if(!mesh->faces) break;
+            if(!mesh->faceCount) break;
+            if(!mesh->faces[0].hasNormals) break;
+
+            for(size_t i = 0; i < mesh->faces[vIndex].verticesPerFace; ++i) {
+
+                glColor3f(1.0f, 0.f, 0.f);
+
+                glVertex3f(mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z);
+
+                glVertex3f( mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x + mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].x * 1.1f,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y + mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].y * 1.1f,
+                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z + mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].z * 1.1f);
+            }
+        }
+    glEnd();
+
+    if(wasLightingEnabled == GL_TRUE) {
+        glEnable(GL_LIGHTING);
+    }
+}
+
 void picg_mesh_render(picg_mesh *mesh)
 {  
     if(!mesh) {
@@ -11,6 +68,10 @@ void picg_mesh_render(picg_mesh *mesh)
     if(!mesh->render) return;
 
     glPushMatrix();
+
+    /*
+        Apply rotations to the mesh we are rendering
+    */
 
     glTranslatef(mesh->position.x, mesh->position.y, mesh->position.z);
     glRotatef(mesh->rotation.x, 1.f, 0.f, 0.f);
@@ -26,35 +87,24 @@ void picg_mesh_render(picg_mesh *mesh)
 #if PICG_DEBUG
     if(g_runtime_debug) 
     {
-
-        glBegin(GL_LINES);
-        for(int vIndex = 0; vIndex < mesh->faceCount; ++vIndex)
-        {
-            if(!mesh->faces) break;
-            if(!mesh->faceCount) break;
-            if(!mesh->faces[0].hasNormals) break;
-
-            for(size_t i = 0; i < mesh->faces[vIndex].verticesPerFace; ++i) {
-
-                glColor3f(1.0f, 0.f, 0.f);
-
-                glVertex3f(mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,
-                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y,
-                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z);
-
-                glVertex3f( mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x + mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].xn * 1.1f,
-                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y + mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].yn * 1.1f,
-                            mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z + mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].zn * 1.1f);
-            }
-        }
-        glEnd();
+        /* 
+            Draw some debug info
+        */
+        picg_mesh_render_debug(mesh);
     }
 #endif
 
-glBegin(mesh->renderType);
+    /*
+        Start the actual rendering
+    */
+
+    glBegin(mesh->renderType);
+
     if(mesh->faceCount == 0) 
     {
-        // Render by vertices if there are 0 faces (also no normals!!!)
+        /*
+            Render 0-face object by just points (this will be phased out)
+        */
         for(int vIndex = 0; vIndex < mesh->vertexCount; ++vIndex)
         {
             glColor4f(1.f, 1.f, 1.f, 1.f - mesh->inv_alpha);
@@ -73,27 +123,33 @@ glBegin(mesh->renderType);
                 glColor4f(1.f, 1.f, 1.f, 1.f - mesh->inv_alpha);
 
                 if(mesh->faces[vIndex].hasNormals) {
-                    glNormal3f(mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].xn,
-                            mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].yn,
-                            mesh->vertices[mesh->faces[vIndex].normalIndexes[i] - 1].zn);
+                    glNormal3f(mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].x,
+                            mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].y,
+                            mesh->normals[mesh->faces[vIndex].normalIndexes[i] - 1].z);
                 }
 
-                const picg_vertex3F* vertexTex = &mesh->vertices[mesh->faces[vIndex].textureIndexes[i] - 1];
+                const picg_vertex3F* vertexTex = &mesh->texcoords[mesh->faces[vIndex].textureIndexes[i] - 1];
 
                 if(mesh->faces[vIndex].hasTexture) {
-                    glTexCoord2f(vertexTex->xt, vertexTex->yt);
+                    glTexCoord2f(vertexTex->x, vertexTex->y);
                 }
 
+                const picg_vertex3F* vertex = &mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1];
+
                 glVertex3f(
-                    mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].x,
-                    mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].y,
-                    mesh->vertices[mesh->faces[vIndex].verticeIndexes[i] - 1].z
+                    vertex->x,
+                    vertex->y,
+                    vertex->z
                 );
             }
         }
     }
-glEnd();
     
-    glPopMatrix();
+    glEnd();
 
+#if PICG_DEBUG
+    picg_gl_getError();
+#endif
+
+    glPopMatrix();
 }

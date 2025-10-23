@@ -3,19 +3,19 @@
 #include "mesh.h"
 
 picg_vertex3F vertices[8] = {
-        { -0.5f, -0.5f, -0.5f,       0.2, 0.4, 0.0, 1.0}, 
-        {  0.5f, -0.5f, -0.5f,       0.6, 0.8, 0.8, 1.0 }, 
-        {  0.5f,  0.5f, -0.5f,       0.3, 0.2, 0.3, 1.0 },  
-        { -0.5f,  0.5f, -0.5f,       0.8, 0.4, 0.4, 1.0 }, 
-        { -0.5f, -0.5f,  0.5f,       0.1, 0.8, 0.8, 1.0 },
-        {  0.5f, -0.5f,  0.5f,       0.0, 0.5, 0.5, 1.0 }, 
-        {  0.5f,  0.5f,  0.5f,       0.3, 0.6, 0.9, 1.0 }, 
-        { -0.5f,  0.5f,  0.5f,       0.2, 0.4, 0.2, 1.0 }
+        { -0.5f, -0.5f, -0.5f}, 
+        {  0.5f, -0.5f, -0.5f}, 
+        {  0.5f,  0.5f, -0.5f},  
+        { -0.5f,  0.5f, -0.5f}, 
+        { -0.5f, -0.5f,  0.5f},
+        {  0.5f, -0.5f,  0.5f}, 
+        {  0.5f,  0.5f,  0.5f}, 
+        { -0.5f,  0.5f,  0.5f}
     };
 
 
 picg_mesh* picg_mesh_cube_create() {
-    picg_mesh* mesh = (picg_mesh*)calloc(1, sizeof(picg_vertex3F) * 8);
+    picg_mesh* mesh = (picg_mesh*)calloc(1, sizeof(picg_vertex3F) * 10);
 
     mesh->vertexCount = 8;    
     mesh->renderType = GL_QUADS;
