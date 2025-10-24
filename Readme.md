@@ -50,7 +50,58 @@ cmake --build .
 There is a script located at windows_compile/compile.sh, that compiles this using mingw32. 
 
 # Scripting
-Rename the "program.c-info" file into "program.c". Your code will be written here.
+Follow the instructions in the user-template/user-readme.md file.
+
+### Creating the window 
+At the start of your code, *program_init()*, you need to create the window where all of the graphics will be rendered. You also need to initialize the graphics interface, more on that later.
+
+The window can be created with the function *picg_window_create* whose arguments are (*width, height, title, go fullscreen?*). After the window creation, initalize the graphics interface and optionally set window base color.
+
+```c
+picg_window_create(500, 500, "Pic-g window", false); // 500x500 window
+picg_gl_init3D(500, 500);
+picg_gl_setClearColor(.0f, .5f, .5f, 1.f);  // Window is cleared turuqoise
+```
+
+Now, the window will still be black. You need to clear and also display the window. 
+
+```c
+picg_gl_clear(); // program_update()
+```
+```c
+picg_window_display(); // program_render()
+```
+<img src="dev/screenshots/doc/window.png" alt="drawing" width="300"/> 
+
+This should be what you see when you build and run the project.
+
+### Displaying a 3D model
+For this, you need a .obj model. I chose a random model of a wooden floor I had. For 3D model functionality, you need to include the "<graphics/model/objects.h>" header from Pic-g.
+
+In your program.c or whatever you named it, create a global variable to store the model.
+```c
+picg_model* model = NULL;
+```
+
+In your initialization code, program_init(), load the model like this. 
+```c
+/*  To use a relative path like here, import the CWD with the statement
+    #include <globals/cwd.h> at the top  */
+model = picg_modelObj_create(PICG_SOURCE_DIR"/<Path to your model>.obj");
+model->mesh->position.z -= 20.f;
+model->mesh->position.y -= 10.f;
+model->mesh->rotation.y += 30.f;
+```
+This code also moves the object into a viewable position, as we havent set up the camera yet.
+
+It is important to always perform null-checks when accessing the model raw (for example setting its position via *model->mesh->position*).
+
+Render the model with the *picg_model_render* function, which takes in the pointer to our model. Call it every frame in program_render, before you call *picg_window_display*.
+
+<img src="dev/screenshots/doc/model_floor.png" alt="floor" width="300"/> 
+
+This is the result. We havent set up our lighting or proper camera yet. 
+
 
 ### Lighting
 
@@ -68,7 +119,7 @@ If using blender, please make sure export MTL texture path setting is to "absolu
 ![](dev/screenshots/export.png)
 
 ### Textures
-Format: .jpg
+Texture image file format: .jpg, .png, .bmp, .hdr and .tga
 
 Note: Textures MUST be the same width and height (aka square) and the sides must be powers of 2 (for example 16x16, 32x32... 2048x2048...);
 
