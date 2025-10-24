@@ -29,7 +29,7 @@ project(Pic-g VERSION 0.1)
 configure_file(src/globals/cwd.h.in srcout/globals/cwd.h)
 include_directories(${CMAKE_BINARY_DIR}/srcout)
 
-file(GLOB_RECURSE SOURCES "src/**")
+file(GLOB_RECURSE SOURCES "src/**" "user/**")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Set compiler flags

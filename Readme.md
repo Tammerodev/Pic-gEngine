@@ -1,16 +1,20 @@
-# Pic-g 3D Engine (Legacy OpenGL engine)
-An simple 3D engine using OpenGL 1.1 and OS-native window management libraries.
-Dependencies: X11, GLU, OpenGL. Currently only supports linux running X11. Windows compilation is possible, but all X11 things are not yet implemented. 
+# Pic-g 3D Engine (Legacy OpenGL engine-framework)
+An simple 3D engine-framework using OpenGL 1.1 and OS-native window management libraries.
 
 ### Some graphics demos I made with this:
 
 <p float="left">
-<img src="dev/screenshots/flightsim.png" alt="drawing" width="700"/>
-<img src="dev/screenshots/demo_4_6_25.png" alt="drawing" width="200"/>
-<img src="dev/screenshots/teapot.png" alt="drawing" width="200"/>
-<img src="dev/screenshots/cubespin.png" alt="drawing" width="200"/>
-<img src="dev/screenshots/debug.png" alt="drawing" width="200"/>
-</p>
+<img src="dev/screenshots/house.png" alt="drawing" width="300"/>
+<img src="dev/screenshots/gif/picg-demo-earth-wlighting-mq.gif" alt="drawing" width="300"/>
+
+### Main features
+- Wavefront OBJ loading
+- Texturing
+- Lighting
+- Camera control
+- Keyboard and mouse inputs
+- Automatic bounding box calculation
+- AABB-AABB collisions (dynamic and static)
 
 # Installation (Linux)
 1. Download the git repository and cd to it
@@ -54,6 +58,8 @@ Rename the "program.c-info" file into "program.c". Your code will be written her
 
 Lighting with vertex normals displayed (loaded from wavefront OBJ file
 
+
+
 ### Models
 Format: wavefront .obj.
 
@@ -61,5 +67,20 @@ If using blender, please make sure export MTL texture path setting is to "absolu
 
 ![](dev/screenshots/export.png)
 
+### Textures
+Format: .jpg
+
+Note: Textures MUST be the same width and height (aka square) and the sides must be powers of 2 (for example 16x16, 32x32... 2048x2048...);
+
 ## Collaboration
 Please read the syntax.md document for information on code syntax and collaboration rules.
+
+## Dependencies
+Dependencies: 
+- X11 (Linux), Windows API (Windows)
+- Opengl 1.1 
+- GLU
+- stb_image,
+- stb_truetype. 
+
+Currently only supports linux running X11. Windows compilation is possible, but not implemented.

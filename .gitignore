@@ -8,5 +8,6 @@ dev/Models
 dev/demos
 dev/notes
 
-src/program.c
+user
+
 ./releases.zip
