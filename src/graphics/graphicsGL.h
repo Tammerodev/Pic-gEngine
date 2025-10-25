@@ -11,3 +11,6 @@ void picg_gl_setPerspective(int winX, int winY, float FOV, float zNear, float zF
 void picg_gl_clear();
 void picg_gl_flush();
 void picg_gl_getError();
+
+void picg_gl_beginTransparentRender();
+void picg_gl_endTransparentRender();

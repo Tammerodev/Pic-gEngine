@@ -22,6 +22,16 @@ void picg_disablelight(unsigned int lightNumber)
     glDisable(GL_LIGHT0 + lightNumber);
 }
 
+void picg_enablelighting()
+{
+    glEnable(GL_LIGHTING);
+}
+
+void picg_disablelighting()
+{
+    glDisable(GL_LIGHTING);
+}
+
 void picg_addlight_ambient(GLfloat color[])
 {
     // 4 parameters; r,g,b,brightness

@@ -47,3 +47,16 @@ void picg_gl_getError()
             PICG_ERROR("CODE unknown error");
     }
 }
+
+void picg_gl_beginTransparentRender()
+{
+    glEnable(GL_BLEND); 
+    glBlendFunc(GL_ONE, GL_ONE); 
+    glDepthMask(GL_FALSE); 
+}
+
+void picg_gl_endTransparentRender()
+{
+    glDepthMask(GL_TRUE); 
+    glDisable(GL_BLEND); 
+}

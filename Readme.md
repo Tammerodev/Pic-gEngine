@@ -6,10 +6,11 @@ An simple 3D engine-framework using OpenGL 1.1 and OS-native window management l
 <p float="left">
 <img src="dev/screenshots/house.png" alt="drawing" width="300"/>
 <img src="dev/screenshots/gif/picg-demo-earth-wlighting-mq.gif" alt="drawing" width="300"/>
+<img src="dev/screenshots/interior.png" alt="drawing" width="500"/>
 
 ### Main features
 - Wavefront OBJ loading
-- Texturing
+- Texturing (transparent textures are also supported!)
 - Lighting
 - Camera control
 - Keyboard and mouse inputs
@@ -122,6 +123,21 @@ If using blender, please make sure export MTL texture path setting is to "absolu
 Texture image file format: .jpg, .png, .bmp, .hdr and .tga
 
 Note: Textures MUST be the same width and height (aka square) and the sides must be powers of 2 (for example 16x16, 32x32... 2048x2048...);
+
+#### Transparent and translucent textures
+Transparent textures are fully supported. (Note that only .png, .bmp fully support transparency). 
+
+Example/pseudocode for a transparent/translucent render:
+```c
+    // 1. Render your opaque (non-transparent) objects
+
+    // 2. Render transparent objects
+    picg_gl_beginTransparentRender();
+        picg_model_render(your_transparent_model); 
+    picg_gl_endTransparentRender();
+
+    // 3. Display
+```
 
 ## Collaboration
 Please read the syntax.md document for information on code syntax and collaboration rules.
