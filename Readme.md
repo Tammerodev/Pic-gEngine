@@ -7,6 +7,7 @@ An simple 3D engine-framework using OpenGL 1.1 and OS-native window management l
 <img src="dev/screenshots/house.png" alt="drawing" width="300"/>
 <img src="dev/screenshots/gif/picg-demo-earth-wlighting-mq.gif" alt="drawing" width="300"/>
 <img src="dev/screenshots/interior.png" alt="drawing" width="500"/>
+<img src="dev/screenshots/antenna.png" alt="drawing" width="225"/>
 
 ### Main features
 - Wavefront OBJ loading
